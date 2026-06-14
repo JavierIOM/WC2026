@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.4] — 2026-06-14
+
+### Changed
+- Hero title updated to "Fifa World Cup 2026 Prediction Engine"
+
 ## [0.2.3] — 2026-06-15
 
 ### Added
