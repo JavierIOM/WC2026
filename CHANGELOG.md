@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.3] — 2026-06-15
+
+### Added
+- 19 new match predictions seeded across MD5 (Jun 15), MD6 (Jun 16), MD7 (Jun 17), MD8 (Jun 18), MD9 (Jun 19)
+- Covers Spain, Belgium, Saudi Arabia, Iran, France, Iraq, Argentina, Austria, Portugal, Ghana, Uzbekistan, Switzerland, Canada, Mexico, USA, Scotland, Brazil, Türkiye
+- England vs Croatia updated from MD5 to MD7 to reflect correct tournament scheduling
+
 ## [0.2.2] — 2026-06-15
 
 ### Added
