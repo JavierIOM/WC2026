@@ -307,6 +307,10 @@ export const matches: Match[] = [
     scorerCall: 'Havertz',
     scorerCallType: 'score',
     reasoning: "Curaçao rank 82nd and are making their World Cup debut after losing 4-1 to Scotland. Germany are on a 9-game win streak scoring 28 goals. Biggest mismatch on the slate. One caveat: patience against a low block — Germany may take time to break them down.",
+    actualHome: 7,
+    actualAway: 1,
+    scorers: ['Nmecha', 'Comenencia', 'Schlotterbeck', 'Havertz', 'Musiala', 'Brown', 'Undav'],
+    actualNotes: 'Nmecha 6; Comenencia 21 (Curaçao first-ever WC goal, levelled at 1-1); Schlotterbeck, Havertz pen, Musiala, Brown, Undav piled on. Caveat landed — block held briefly.',
   },
 
   {
@@ -324,6 +328,11 @@ export const matches: Match[] = [
     scorerCall: 'Gakpo',
     scorerCallType: 'score',
     reasoning: "Lowest-confidence call on the slate. Held after a deep recheck — Opta 49/25/26. Backing the narrow Dutch win is backing the single highest-probability outcome; backing the draw means picking the least likely. Worries: Dutch defensive crisis (Timber, Simons, de Ligt all out/doubtful) and Japan's 3-4-2-1 wing-backs targeting the high Dutch full-backs. Still holds because de Jong and Gravenberch control the midfield and Japan miss Mitoma/Minamino/Endo. Gakpo is the only Netherlands forward nailed on to start.",
+    actualHome: 2,
+    actualAway: 2,
+    scorers: ['Van Dijk', 'Summerville', 'Nakamura', 'Kamada'],
+    assisters: ['Gravenberch'],
+    actualNotes: "Van Dijk 51 (Gravenberch cross); Nakamura 57 deflected; Summerville 64; Kamada 89 off a corner. Dutch led twice, pegged back twice. 69% possession, couldn't see it out. Process was defensible (draw was least-likely at 25%) — but gut flagged the draw danger three times and was right. Late set-piece equaliser is exactly the even-opener pattern all tournament.",
   },
 
   {

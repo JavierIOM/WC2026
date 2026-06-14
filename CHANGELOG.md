@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.1] — 2026-06-14
+
+### Added
+- Germany 7–1 Curaçao result logged (CORRECT, Havertz scorer HIT)
+- Netherlands 2–2 Japan result logged (MISS result, Gakpo scorer MISS)
+
 ## [0.2.0] — 2026-06-14
 
 ### Added
