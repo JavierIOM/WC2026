@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.7] — 2026-06-15
+
+### Changed
+- Swapped EXACT/CORRECT badge colours: EXACT is now green, CORRECT is amber
+
 ## [0.2.6] — 2026-06-15
 
 ### Changed
