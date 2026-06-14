@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.8] — 2026-06-15
+
+### Added
+- Footer on all pages: project credit (Javier, Isle of Man), prediction engine (Claude AI — Opus Max Effort), site builder (Claude Code — Sonnet 4.6), and build timestamp
+
 ## [0.2.7] — 2026-06-15
 
 ### Changed
