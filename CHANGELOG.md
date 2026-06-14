@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.2] — 2026-06-15
+
+### Added
+- About page explaining the site, scoring system, prediction types, and AI role
+- About link in nav (highlighted in accent blue)
+- Nav anchor links updated to work from any page (/#section)
+
 ## [0.2.1] — 2026-06-14
 
 ### Added
