@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+*.lock
+pnpm-lock.yaml
+yarn.lock
+bun.lockb
+
+# Build output
+dist/
+.astro/
+.netlify/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Claude
+.claude/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+*.log

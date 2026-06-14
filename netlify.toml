@@ -1,0 +1,13 @@
+[build]
+  command = "npm run build"
+  functions = "netlify/functions"
+  publish = "dist"
+
+[env.production]
+  NODE_VERSION = "22"
+
+[env.deploy-preview]
+  NODE_VERSION = "22"
+
+[env.branch-deploy]
+  NODE_VERSION = "22"
