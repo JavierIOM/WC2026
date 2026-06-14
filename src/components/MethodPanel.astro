@@ -1,0 +1,69 @@
+---
+// No props — static content
+---
+
+<details
+  style="background-color:var(--color-surface);border:1px solid var(--color-border);border-radius:8px;overflow:hidden;"
+>
+  <summary
+    style="padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;cursor:pointer;transition:background 0.15s;"
+  >
+    <div style="display:flex;align-items:center;gap:0.75rem;">
+      <span
+        style="font-family:var(--font-display);font-size:1.15rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:var(--color-text);"
+      >
+        The Method
+      </span>
+      <span class="badge" style="background:rgb(79 142 247/0.12);color:#4f8ef7;border:1px solid rgb(79 142 247/0.25);">
+        Recalibrated
+      </span>
+    </div>
+    <svg width="16" height="16" viewBox="0 0 16 16" class="method-chevron" style="color:var(--color-muted);flex-shrink:0;transition:transform 0.2s;">
+      <path d="M3 6L8 11L13 6" stroke="currentColor" stroke-width="1.75" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </summary>
+
+  <div style="border-top:1px solid var(--color-border);padding:1.25rem;">
+    <!-- The Rule -->
+    <div style="margin-bottom:1.25rem;">
+      <p class="section-label" style="margin-bottom:0.5rem;">The Rule</p>
+      <div
+        style="background-color:var(--color-surface-2);border:1px solid var(--color-border);border-radius:6px;padding:0.875rem 1rem;font-size:0.86rem;line-height:1.65;color:var(--color-text);"
+      >
+        <strong>Mismatch</strong> = multi-goal margin allowed.
+        <strong>Even matchup</strong> = lean draw OR favourite to a tight 1-0.
+        Reserve multi-goal margins for genuine quality gaps.
+        Do not pick draws blindly — choose the highest-probability single outcome.
+        (Netherlands 49% win / draw 25% = back the narrow win, not the draw.)
+      </div>
+    </div>
+
+    <!-- Lessons -->
+    <div>
+      <p class="section-label" style="margin-bottom:0.5rem;">Lessons from the data</p>
+      <ol
+        style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0.5rem;"
+      >
+        {[
+          ['Even openers', 'Even matchups draw without resolving — the clean 2-0 opener is rarer than expected.'],
+          ['Genuine mismatches', 'Still blow out (USA 4-1 Paraguay confirms the mismatch call, not undermines it).'],
+          ['Hosts and underdogs', 'Have real fight — Australia beat Türkiye outright despite having less of the ball.'],
+          ['Meta lesson', 'Right on WHO is better, wrong on BY HOW MUCH. The fix is scoreline discipline: lean 1-0, not 2-0, for even games.'],
+        ].map(([heading, text]) => (
+          <li
+            style="display:flex;gap:0.75rem;background-color:var(--color-surface-2);border:1px solid var(--color-border);border-radius:6px;padding:0.65rem 0.875rem;font-size:0.83rem;line-height:1.6;"
+          >
+            <span style="color:var(--color-accent);font-weight:600;white-space:nowrap;">{heading}:</span>
+            <span style="color:var(--color-text);opacity:0.85;">{text}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</details>
+
+<style>
+  details[open] .method-chevron {
+    transform: rotate(180deg);
+  }
+</style>

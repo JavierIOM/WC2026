@@ -1,0 +1,227 @@
+---
+import type { Match } from '../data/predictions';
+import { computeStats, getResultVerdict, isPlayed } from '../data/predictions';
+
+interface Props {
+  matches: Match[];
+}
+
+const { matches } = Astro.props;
+const stats = computeStats(matches);
+
+// ─── Chart data ─────────────────────────────────────────────────────────────
+// Collect all unique matchdays that have at least one formal played match,
+// sorted ascending. Pending matchdays show as "TBD".
+const allMatchdays = [...new Set(matches.filter(m => !m.informalOnly).map(m => m.matchday))].sort((a, b) => a - b);
+
+interface BarDatum {
+  md: number;
+  total: number;
+  correct: number;
+  exact: number;
+  pct: number | null;
+}
+
+const barData: BarDatum[] = allMatchdays.map(md => {
+  const d = stats.resultsByMatchday[md];
+  if (!d || d.total === 0) return { md, total: 0, correct: 0, exact: 0, pct: null };
+  const exact = matches
+    .filter(m => !m.informalOnly && m.matchday === md && isPlayed(m))
+    .filter(m => getResultVerdict(m) === 'EXACT').length;
+  return { md, total: d.total, correct: d.correct, exact, pct: d.correct / d.total };
+});
+
+// SVG chart constants
+const svgW    = 560;
+const svgH    = 140;
+const padL    = 36;
+const padB    = 36;
+const barW    = 52;
+const barGap  = 18;
+const chartH  = svgH - padB;
+const chartW  = svgW - padL;
+
+function barX(i: number) {
+  const totalW = barData.length * (barW + barGap) - barGap;
+  const startX = padL + (chartW - totalW) / 2;
+  return startX + i * (barW + barGap);
+}
+
+function barColor(pct: number): string {
+  if (pct >= 0.67) return '#22c55e';
+  if (pct >= 0.34) return '#f59e0b';
+  return '#ef4444';
+}
+
+const resultPct = stats.resultTotal > 0
+  ? Math.round((stats.resultCorrect / stats.resultTotal) * 100)
+  : 0;
+const scorerPct = stats.scorerTotal > 0
+  ? Math.round((stats.scorerPositive / stats.scorerTotal) * 100)
+  : 0;
+---
+
+<div style="display:flex;flex-direction:column;gap:1.5rem;">
+
+  <!-- Headline stat cards -->
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;">
+    <!-- Result record -->
+    <div
+      style="background-color:var(--color-surface);border:1px solid var(--color-border);border-radius:8px;padding:1rem 1.25rem;"
+    >
+      <p class="section-label" style="margin-bottom:0.35rem;">Results</p>
+      <div style="display:flex;align-items:baseline;gap:0.4rem;">
+        <span class="stat-number" style="color:var(--color-correct);">{stats.resultCorrect}</span>
+        <span style="font-size:1.2rem;color:var(--color-muted);font-weight:600;">/ {stats.resultTotal}</span>
+      </div>
+      <p style="font-size:0.72rem;color:var(--color-muted);margin-top:0.2rem;">{resultPct}% correct</p>
+    </div>
+
+    <!-- Exact scorelines -->
+    <div
+      style="background-color:var(--color-surface);border:1px solid var(--color-border);border-radius:8px;padding:1rem 1.25rem;"
+    >
+      <p class="section-label" style="margin-bottom:0.35rem;">Exact scorelines</p>
+      <div style="display:flex;align-items:baseline;gap:0.4rem;">
+        <span class="stat-number" style="color:var(--color-exact);">{stats.resultExact}</span>
+        <span style="font-size:1.2rem;color:var(--color-muted);font-weight:600;">/ {stats.resultTotal}</span>
+      </div>
+      <p style="font-size:0.72rem;color:var(--color-muted);margin-top:0.2rem;">Bang on the scoreline</p>
+    </div>
+
+    <!-- Scorer calls -->
+    <div
+      style="background-color:var(--color-surface);border:1px solid var(--color-border);border-radius:8px;padding:1rem 1.25rem;"
+    >
+      <p class="section-label" style="margin-bottom:0.35rem;">Scorer calls</p>
+      <div style="display:flex;align-items:baseline;gap:0.4rem;">
+        <span class="stat-number" style="color:var(--color-accent);">{stats.scorerPositive}</span>
+        <span style="font-size:1.2rem;color:var(--color-muted);font-weight:600;">/ {stats.scorerTotal}</span>
+      </div>
+      <p style="font-size:0.72rem;color:var(--color-muted);margin-top:0.2rem;">{scorerPct}% hit or assist</p>
+    </div>
+  </div>
+
+  <!-- Trend chart -->
+  <div
+    style="background-color:var(--color-surface);border:1px solid var(--color-border);border-radius:8px;padding:1rem 1.25rem;"
+  >
+    <p class="section-label" style="margin-bottom:1rem;">Result accuracy by matchday</p>
+
+    {barData.every(d => d.pct === null) ? (
+      <p style="font-size:0.82rem;color:var(--color-muted);padding:1rem 0;">No played matches yet.</p>
+    ) : (
+      <svg
+        viewBox={`0 0 ${svgW} ${svgH}`}
+        style="width:100%;height:auto;overflow:visible;"
+        aria-label="Result accuracy by matchday bar chart"
+      >
+        <!-- Y-axis gridlines and labels -->
+        {[0, 25, 50, 75, 100].map(pct => {
+          const y = chartH - (pct / 100) * chartH;
+          return (
+            <>
+              <line
+                x1={padL}
+                y1={y}
+                x2={svgW}
+                y2={y}
+                stroke="#1e1e38"
+                stroke-width="1"
+              />
+              <text
+                x={padL - 6}
+                y={y + 4}
+                text-anchor="end"
+                font-size="9"
+                fill="#6868a0"
+              >{pct}%</text>
+            </>
+          );
+        })}
+
+        <!-- Bars -->
+        {barData.map((d, i) => {
+          const x = barX(i);
+          const labelY = svgH - 6;
+
+          if (d.pct === null) {
+            return (
+              <>
+                <rect
+                  x={x}
+                  y={4}
+                  width={barW}
+                  height={chartH - 4}
+                  fill="rgb(30 30 56 / 0.5)"
+                  rx="3"
+                />
+                <text
+                  x={x + barW / 2}
+                  y={chartH / 2 + 4}
+                  text-anchor="middle"
+                  font-size="9"
+                  fill="#4b5563"
+                >TBD</text>
+                <text
+                  x={x + barW / 2}
+                  y={labelY}
+                  text-anchor="middle"
+                  font-size="10"
+                  fill="#6868a0"
+                >MD{d.md}</text>
+              </>
+            );
+          }
+
+          const bH = Math.max(4, d.pct * chartH);
+          const bY = chartH - bH;
+          const color = barColor(d.pct);
+          const pctLabel = Math.round(d.pct * 100);
+
+          return (
+            <>
+              <rect x={x} y={bY} width={barW} height={bH} fill={color} rx="3" fill-opacity="0.85" />
+              <text
+                x={x + barW / 2}
+                y={bY > 16 ? bY - 5 : bY + 14}
+                text-anchor="middle"
+                font-size="11"
+                font-weight="700"
+                fill={color}
+              >{pctLabel}%</text>
+              <text
+                x={x + barW / 2}
+                y={labelY}
+                text-anchor="middle"
+                font-size="10"
+                fill="#6868a0"
+              >MD{d.md}</text>
+              <text
+                x={x + barW / 2}
+                y={labelY - 12}
+                text-anchor="middle"
+                font-size="8"
+                fill="#4a4a6a"
+              >{d.correct}/{d.total}</text>
+            </>
+          );
+        })}
+      </svg>
+    )}
+
+    <!-- Legend -->
+    <div style="display:flex;gap:1.25rem;margin-top:0.5rem;flex-wrap:wrap;">
+      {[
+        { color: '#22c55e', label: '67%+' },
+        { color: '#f59e0b', label: '34-66%' },
+        { color: '#ef4444', label: '0-33%' },
+      ].map(({ color, label }) => (
+        <div style="display:flex;align-items:center;gap:0.35rem;font-size:0.7rem;color:var(--color-muted);">
+          <span style={`display:inline-block;width:10px;height:10px;border-radius:2px;background-color:${color};`}></span>
+          {label}
+        </div>
+      ))}
+    </div>
+  </div>
+</div>

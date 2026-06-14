@@ -1,10 +1,195 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import MatchCard from '../components/MatchCard.astro';
+import MethodPanel from '../components/MethodPanel.astro';
+import AccuracyDashboard from '../components/AccuracyDashboard.astro';
+import { matches, computeStats, isPlayed, formatDate } from '../data/predictions';
+
+const stats = computeStats(matches);
+
+// Group formal matches by matchday
+const formalMatches = matches.filter(m => !m.informalOnly);
+const allMatchdays = [...new Set(formalMatches.map(m => m.matchday))].sort((a, b) => a - b);
+const matchdayGroups = allMatchdays.map(md => ({
+  md,
+  matches: formalMatches.filter(m => m.matchday === md),
+}));
+
+// Upcoming: pending formal matches
+const upcomingMatches = formalMatches.filter(m => !isPlayed(m));
+
+const matchdayLabel = (md: number) => {
+  const mdMatches = formalMatches.filter(m => m.matchday === md);
+  const firstDate = mdMatches[0]?.dateISO;
+  return firstDate ? `Matchday ${md} — ${formatDate(firstDate)}` : `Matchday ${md}`;
+};
 ---
 
-<Layout title="World Cup 2026">
-  <main class="max-w-4xl mx-auto px-6 py-12">
-    <h1 class="text-4xl font-bold mb-4">World Cup 2026</h1>
-    <p class="text-lg text-gray-300">Prediction website coming soon.</p>
-  </main>
+<Layout>
+
+  <!-- ── HERO ─────────────────────────────────────────────────────────────── -->
+  <section id="outright" style="padding-top:2.5rem;margin-bottom:3rem;">
+
+    <p class="section-label" style="margin-bottom:0.75rem;">Outright call</p>
+
+    <div style="display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:2rem;margin-bottom:2rem;">
+      <div>
+        <h1
+          style="font-family:var(--font-display);font-size:clamp(3rem,8vw,5rem);font-weight:800;letter-spacing:0.01em;text-transform:uppercase;line-height:0.95;color:var(--color-text);margin-bottom:0.6rem;"
+        >
+          Spain to Win
+        </h1>
+        <p style="font-size:0.88rem;color:var(--color-muted);margin-bottom:0.35rem;">
+          Final: Spain 1-0 France (or extra time)
+        </p>
+        <p style="font-size:0.82rem;color:var(--color-muted);">
+          MetLife Stadium &nbsp;·&nbsp; 19 July 2026 &nbsp;·&nbsp; Golden Ball: Lamine Yamal
+        </p>
+      </div>
+
+      <!-- Live accuracy block -->
+      {stats.resultTotal > 0 && (
+        <div
+          style="display:flex;gap:1.5rem;flex-wrap:wrap;"
+        >
+          <div style="text-align:center;">
+            <div style="font-family:var(--font-display);font-size:2.75rem;font-weight:800;color:var(--color-correct);line-height:1;">
+              {stats.resultCorrect}<span style="font-size:1.5rem;color:var(--color-muted);">/{stats.resultTotal}</span>
+            </div>
+            <div style="font-size:0.7rem;color:var(--color-muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:2px;">Results</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-family:var(--font-display);font-size:2.75rem;font-weight:800;color:var(--color-exact);line-height:1;">
+              {stats.resultExact}
+            </div>
+            <div style="font-size:0.7rem;color:var(--color-muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:2px;">Exact</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-family:var(--font-display);font-size:2.75rem;font-weight:800;color:var(--color-accent);line-height:1;">
+              {stats.scorerPositive}<span style="font-size:1.5rem;color:var(--color-muted);">/{stats.scorerTotal}</span>
+            </div>
+            <div style="font-size:0.7rem;color:var(--color-muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:2px;">Scorers</div>
+          </div>
+        </div>
+      )}
+    </div>
+
+    <!-- Outright reasoning -->
+    <div
+      style="background-color:var(--color-surface);border:1px solid var(--color-border);border-radius:8px;padding:1.1rem 1.25rem;font-size:0.85rem;line-height:1.7;color:var(--color-text);opacity:0.85;max-width:680px;"
+    >
+      <p style="margin-bottom:0.6rem;">
+        European champions with the best midfield in the tournament. Possession game suits the
+        North American summer heat and the 104-match slog of the expanded format.
+        ~+450 favourite at the outset.
+      </p>
+      <p style="margin-bottom:0.6rem;">
+        <strong style="color:var(--color-text);">Threats:</strong>
+        France, with Mbappe chasing the all-time World Cup scoring record.
+        England for squad depth.
+        Dark horse: Portugal — back them to top Group K and reach the quarter-final,
+        but do not back them further until they win something ugly.
+      </p>
+      <p style="margin:0;color:var(--color-muted);">
+        Final revised from 2-1 to 1-0/ET as the tournament has confirmed that elite knockout matchups
+        tighten at the back.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── METHOD ────────────────────────────────────────────────────────────── -->
+  <section id="method" style="margin-bottom:3rem;">
+    <p class="section-label" style="margin-bottom:0.75rem;">Prediction method</p>
+    <MethodPanel />
+  </section>
+
+  <!-- ── MATCHDAYS ─────────────────────────────────────────────────────────── -->
+  <section id="matchdays" style="margin-bottom:3rem;">
+    <p class="section-label" style="margin-bottom:1.25rem;">Match log</p>
+
+    <div style="display:flex;flex-direction:column;gap:2.5rem;">
+      {matchdayGroups.map(({ md, matches: mdMatches }) => (
+        <div>
+          <h2
+            style="font-family:var(--font-display);font-size:1.05rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-muted);margin-bottom:0.75rem;padding-bottom:0.5rem;border-bottom:1px solid var(--color-border);"
+          >
+            {matchdayLabel(md)}
+          </h2>
+          <div style="display:flex;flex-direction:column;gap:0.75rem;">
+            {mdMatches.map(match => (
+              <MatchCard match={match} />
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Informal match note -->
+    <div
+      style="margin-top:1.25rem;padding:0.75rem 1rem;background-color:rgb(251 191 36/0.06);border:1px solid rgb(251 191 36/0.2);border-radius:6px;font-size:0.78rem;color:#fbbf24;"
+    >
+      Australia 2-0 Türkiye is excluded from headline tallies — it was an informal lean, not a formally logged prediction.
+    </div>
+  </section>
+
+  <!-- ── DASHBOARD ─────────────────────────────────────────────────────────── -->
+  <section id="dashboard" style="margin-bottom:3rem;">
+    <p class="section-label" style="margin-bottom:0.75rem;">Accuracy dashboard</p>
+    <AccuracyDashboard matches={matches} />
+  </section>
+
+  <!-- ── UPCOMING ──────────────────────────────────────────────────────────── -->
+  <section id="upcoming">
+    <p class="section-label" style="margin-bottom:0.75rem;">Upcoming calls</p>
+
+    {upcomingMatches.length === 0 ? (
+      <p style="font-size:0.85rem;color:var(--color-muted);">All tracked matches have results.</p>
+    ) : (
+      <div
+        style="background-color:var(--color-surface);border:1px solid var(--color-border);border-radius:8px;overflow:hidden;"
+      >
+        {upcomingMatches.map((m, i) => (
+          <div
+            style={`display:grid;grid-template-columns:1fr 2fr 1fr;align-items:center;gap:0.75rem;padding:0.75rem 1rem;${i > 0 ? 'border-top:1px solid var(--color-border);' : ''}`}
+          >
+            <div>
+              <div style="font-size:0.7rem;color:var(--color-muted);margin-bottom:2px;">
+                {formatDate(m.dateISO)} · {m.kickoffBST} BST
+              </div>
+              <div style="font-size:0.72rem;color:var(--color-muted);">
+                Group {m.group}
+              </div>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+              <span style="font-weight:600;font-size:0.9rem;color:var(--color-text);">{m.home}</span>
+              <span style="color:var(--color-muted);font-size:0.75rem;">vs</span>
+              <span style="font-weight:600;font-size:0.9rem;color:var(--color-text);">{m.away}</span>
+            </div>
+
+            <div style="text-align:right;">
+              <div
+                style="font-family:var(--font-display);font-size:1.4rem;font-weight:700;color:var(--color-text);"
+              >
+                {m.predHome}–{m.predAway}
+              </div>
+              {m.scorerCall && (
+                <div style="font-size:0.7rem;color:var(--color-muted);">
+                  {m.scorerCall}
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+
+    <!-- Placeholder note for Spain + France -->
+    <div
+      style="margin-top:0.875rem;padding:0.75rem 1rem;background-color:var(--color-surface);border:1px solid var(--color-border);border-radius:6px;font-size:0.78rem;color:var(--color-muted);"
+    >
+      Spain vs Cape Verde (15 June) and France vs Senegal (16 June) to be added once predictions are locked.
+    </div>
+  </section>
+
 </Layout>

@@ -1,0 +1,162 @@
+---
+import type { Match } from '../data/predictions';
+import {
+  isPlayed,
+  getResultVerdict,
+  getScorerVerdict,
+  formatDate,
+  predTypeLabel,
+} from '../data/predictions';
+
+interface Props {
+  match: Match;
+}
+
+const { match: m } = Astro.props;
+
+const played      = isPlayed(m);
+const rv          = getResultVerdict(m);
+const sv          = getScorerVerdict(m);
+
+const verdictBorderClass: Record<string, string> = {
+  EXACT:   'verdict-border-exact',
+  CORRECT: 'verdict-border-correct',
+  MISS:    'verdict-border-miss',
+  PENDING: 'verdict-border-pending',
+};
+const verdictBadgeClass: Record<string, string> = {
+  EXACT:   'badge badge-exact',
+  CORRECT: 'badge badge-correct',
+  MISS:    'badge badge-miss',
+  PENDING: 'badge badge-pending',
+};
+const scorerBadgeClass: Record<string, string> = {
+  HIT:     'badge badge-hit',
+  ASSIST:  'badge badge-assist',
+  MISS:    'badge badge-miss',
+  PENDING: 'badge badge-pending',
+};
+const predTypeBadgeClass: Record<string, string> = {
+  'mismatch':        'badge predtype-mismatch',
+  'favourite-tight': 'badge predtype-favourite-tight',
+  'draw':            'badge predtype-draw',
+  'rule-bend':       'badge predtype-rule-bend',
+};
+
+const borderClass = verdictBorderClass[rv] ?? 'verdict-border-pending';
+---
+
+<article
+  class={`match-card ${borderClass}`}
+  style="padding:0;"
+  id={m.id}
+>
+  <!-- Card header: meta + badges -->
+  <div
+    style="display:flex;align-items:flex-start;justify-content:space-between;gap:0.75rem;padding:0.75rem 1rem 0.5rem;"
+  >
+    <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+      <span class="badge" style="background:rgb(79 142 247/0.12);color:#4f8ef7;border:1px solid rgb(79 142 247/0.25);">
+        GRP {m.group}
+      </span>
+      <span class={predTypeBadgeClass[m.predType] ?? 'badge badge-pending'} style="border-width:1px;">
+        {predTypeLabel(m.predType)}
+      </span>
+      {m.informalOnly && (
+        <span class="badge" style="background:rgb(251 191 36/0.1);color:#fbbf24;border:1px solid rgb(251 191 36/0.25);">
+          Informal
+        </span>
+      )}
+    </div>
+    <span class={verdictBadgeClass[rv] ?? 'badge badge-pending'} style="white-space:nowrap;flex-shrink:0;">
+      {rv}
+    </span>
+  </div>
+
+  <!-- Teams + score -->
+  <div
+    style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:0.5rem;padding:0.25rem 1rem 0.75rem;"
+  >
+    <div>
+      <div class="team-name">{m.home}</div>
+    </div>
+
+    <div style="text-align:center;min-width:80px;">
+      {played ? (
+        <div class="score-display">{m.actualHome}–{m.actualAway}</div>
+      ) : (
+        <div style="font-size:0.85rem;color:var(--color-muted);font-weight:600;letter-spacing:0.06em;">vs</div>
+      )}
+      <div style="font-size:0.7rem;color:var(--color-muted);margin-top:2px;">
+        pred {m.predHome}–{m.predAway}
+      </div>
+    </div>
+
+    <div style="text-align:right;">
+      <div class="team-name" style="text-align:right;">{m.away}</div>
+    </div>
+  </div>
+
+  <!-- Meta row -->
+  <div
+    style="padding:0 1rem 0.65rem;font-size:0.72rem;color:var(--color-muted);display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;"
+  >
+    <span>{m.venue}</span>
+    <span style="color:var(--color-border-2);">·</span>
+    <span>{formatDate(m.dateISO)}</span>
+    <span style="color:var(--color-border-2);">·</span>
+    <span>{m.kickoffBST} BST</span>
+  </div>
+
+  <hr class="divider" style="margin:0;" />
+
+  <!-- Scorer call -->
+  {m.scorerCall && (
+    <div
+      style="display:flex;align-items:center;gap:0.6rem;padding:0.55rem 1rem;flex-wrap:wrap;"
+    >
+      <span class="section-label">Scorer call</span>
+      <span style="font-size:0.85rem;font-weight:600;color:var(--color-text);">{m.scorerCall}</span>
+      <span style="font-size:0.7rem;color:var(--color-muted);">
+        ({m.scorerCallType === 'score-or-assist' ? 'goal or assist' : 'to score'})
+      </span>
+      {sv !== null && (
+        <span class={scorerBadgeClass[sv] ?? 'badge badge-pending'}>{sv}</span>
+      )}
+    </div>
+  )}
+
+  {m.scorerCall && <hr class="divider" style="margin:0;" />}
+
+  <!-- Actual notes (if played) -->
+  {played && m.actualNotes && (
+    <div style="padding:0.5rem 1rem;font-size:0.8rem;color:var(--color-muted);font-style:italic;">
+      {m.actualNotes}
+    </div>
+  )}
+  {played && m.actualNotes && <hr class="divider" style="margin:0;" />}
+
+  <!-- Reasoning (collapsible) -->
+  <details>
+    <summary
+      style="padding:0.55rem 1rem;font-size:0.75rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:var(--color-muted);display:flex;align-items:center;gap:0.5rem;transition:color 0.15s;"
+    >
+      <svg width="10" height="10" viewBox="0 0 10 10" style="transition:transform 0.2s;transform:rotate(0deg);" class="summary-chevron">
+        <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      </svg>
+      Reasoning
+    </summary>
+    <div style="padding:0 1rem 0.85rem;font-size:0.82rem;color:var(--color-text);line-height:1.65;opacity:0.85;">
+      {m.reasoning}
+    </div>
+  </details>
+</article>
+
+<style>
+  details[open] .summary-chevron {
+    transform: rotate(180deg);
+  }
+  details summary:hover {
+    color: var(--color-text);
+  }
+</style>
