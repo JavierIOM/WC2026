@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.3] — 2026-06-15
+
+### Fixed
+- Hero banner: escapes side padding (width: calc(100% + 2.5rem), margin-left: -1.25rem) for a full-bleed look
+- Hero banner: image centering corrected (object-position: center center, was center top)
+- Hero banner: border and border-radius removed so it reads as a banner, not a card
+- Hero banner: height increased to clamp(280px, 50vw, 480px) for more visual impact
+
 ## [0.5.2] — 2026-06-15
 
 ### Added
