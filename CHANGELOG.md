@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.2] — 2026-06-15
+
+### Added
+- `confidence` field (optional 0-100) on Match interface: probability that the result call (H/D/A) is correct
+- Confidence backfilled on all 32 matches (mismatches 80, Mexico/USA 70, Korea/Haiti-Sco 65, even-game misses 55, CIV-ECU draw call 40, pending defaults 60)
+- Calibration section on dashboard: reliability plot SVG (predicted confidence vs actual hit rate, perfect-calibration diagonal) + summary table
+
+### Changed
+- Method panel Rule updated: even game default is now the draw, confidence anchoring noted
+- Method panel Lessons replaced with 4 Day-5 recalibration points: outcome calls, opener draw rate, scorer calls, confidence anchoring
+
 ## [0.5.1] — 2026-06-15
 
 ### Added
