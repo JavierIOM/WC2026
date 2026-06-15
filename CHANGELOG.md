@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.4] — 2026-06-15
+
+### Fixed
+- Upcoming calls section now sorted by date then kickoff time — previously the file order meant MD7 matches (June 17) appeared above tonight's Saudi Arabia vs Uruguay (June 15)
+
 ## [0.5.3] — 2026-06-15
 
 ### Fixed

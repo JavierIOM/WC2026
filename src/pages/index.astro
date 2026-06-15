@@ -26,8 +26,14 @@ const matchdayGroups  = recentMatchdays.map(md => ({
   matches: recentPlayed.filter(m => m.matchday === md),
 }));
 
-// Upcoming: pending formal matches
-const upcomingMatches = formalMatches.filter(m => !isPlayed(m));
+// Upcoming: pending formal matches, sorted by date then kickoff
+const upcomingMatches = formalMatches
+  .filter(m => !isPlayed(m))
+  .sort((a, b) => {
+    const dateCompare = a.dateISO.localeCompare(b.dateISO);
+    if (dateCompare !== 0) return dateCompare;
+    return a.kickoffBST.localeCompare(b.kickoffBST);
+  });
 
 const matchdayLabel = (md: number) => {
   const mdMatches = formalMatches.filter(m => m.matchday === md);
