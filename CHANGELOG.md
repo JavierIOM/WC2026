@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.3] — 2026-06-15
+
+### Fixed
+- Restored hero title to "Fifa World Cup 2026 Prediction Engine" (changed by polish agent)
+
 ## [0.3.2] — 2026-06-15
 
 ### Fixed
