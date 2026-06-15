@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.3] — 2026-06-15
+
+### Added
+- Disclaimer page (/disclaimer) with gambling responsibility notice and no-affiliation statement
+- Disclaimer link added to nav
+
 ## [0.4.2] — 2026-06-15
 
 ### Added
