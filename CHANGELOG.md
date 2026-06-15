@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.1] — 2026-06-15
+
+### Fixed
+- Outright reasoning box now full width, matching the rest of the page
+
+### Changed
+- Hero banner self-hosted in public/hero.png — no longer hotlinked from third-party CloudFront URL
+
 ## [0.3.0] — 2026-06-15
 
 ### Added
