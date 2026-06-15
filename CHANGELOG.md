@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.8] — 2026-06-15
+
+### Changed
+- Belgium vs Egypt scorer call switched from Lukaku (benched) to De Bruyne (score-or-assist)
+
 ## [0.4.7] — 2026-06-15
 
 ### Changed

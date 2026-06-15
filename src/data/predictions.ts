@@ -462,9 +462,9 @@ export const matches: Match[] = [
     predHome: 2,
     predAway: 1,
     predType: 'favourite-tight',
-    scorerCall: 'Lukaku',
-    scorerCallType: 'score',
-    reasoning: "Belgium carry genuine quality in attack and should control this. Egypt keep it tight with Salah as the outlet on the break. They will nick one. 2-1 reflects a real game rather than a rout. Lukaku the obvious focal point.",
+    scorerCall: 'De Bruyne',
+    scorerCallType: 'score-or-assist',
+    reasoning: "Belgium carry genuine quality in attack and should control this. Egypt keep it tight with Salah as the outlet on the break. They will nick one. 2-1 reflects a real game rather than a rout. De Bruyne (Lukaku benched) as the creative hub and most likely to contribute.",
   },
 
   {
