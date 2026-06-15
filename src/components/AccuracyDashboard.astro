@@ -64,7 +64,7 @@ const scorerPct = stats.scorerTotal > 0
 <div style="display:flex;flex-direction:column;gap:1.5rem;">
 
   <!-- Headline stat cards -->
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.75rem;">
     <!-- Result record -->
     <div
       style="background-color:var(--color-surface);border:1px solid var(--color-border);border-radius:8px;padding:1rem 1.25rem;"
@@ -114,7 +114,8 @@ const scorerPct = stats.scorerTotal > 0
       <svg
         viewBox={`0 0 ${svgW} ${svgH}`}
         style="width:100%;height:auto;overflow:visible;"
-        aria-label="Result accuracy by matchday bar chart"
+        role="img"
+        aria-label="Bar chart of result accuracy by matchday"
       >
         <!-- Y-axis gridlines and labels -->
         {[0, 25, 50, 75, 100].map(pct => {

@@ -36,7 +36,11 @@ const matchdayLabel = (md: number) => {
     >
       <img
         src="https://d1jcea4y7xhp7l.cloudfront.net/wp-content/uploads/2026/06/World-Cup.png"
-        alt="FIFA World Cup 2026"
+        alt="World Cup 2026 official branding"
+        width="1600"
+        height="640"
+        fetchpriority="high"
+        decoding="async"
         style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;"
       />
       <!-- Gradient overlay so text below is readable if we ever overlap -->
@@ -50,9 +54,9 @@ const matchdayLabel = (md: number) => {
     <div style="display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:2rem;margin-bottom:2rem;">
       <div>
         <h1
-          style="font-family:var(--font-display);font-size:clamp(3rem,8vw,5rem);font-weight:800;letter-spacing:0.01em;text-transform:uppercase;line-height:0.95;color:var(--color-text);margin-bottom:0.6rem;"
+          style="font-family:var(--font-display);font-size:clamp(3rem,8vw,5rem);font-weight:800;letter-spacing:0.01em;line-height:0.95;color:var(--color-text);margin-bottom:0.6rem;"
         >
-          Fifa World Cup 2026 Prediction Engine
+          World Cup 2026, Called.
         </h1>
         <p style="font-size:0.88rem;color:var(--color-muted);margin-bottom:0.35rem;">
           Final: Spain 1-0 France (or extra time)
@@ -113,23 +117,23 @@ const matchdayLabel = (md: number) => {
   </section>
 
   <!-- ── METHOD ────────────────────────────────────────────────────────────── -->
-  <section id="method" style="margin-bottom:3rem;">
-    <p class="section-label" style="margin-bottom:0.75rem;">Prediction method</p>
+  <section id="method" style="margin-bottom:3rem;" aria-labelledby="method-h">
+    <h2 id="method-h" class="section-label" style="margin:0 0 0.75rem;">Prediction method</h2>
     <MethodPanel />
   </section>
 
   <!-- ── MATCHDAYS ─────────────────────────────────────────────────────────── -->
-  <section id="matchdays" style="margin-bottom:3rem;">
-    <p class="section-label" style="margin-bottom:1.25rem;">Match log</p>
+  <section id="matchdays" style="margin-bottom:3rem;" aria-labelledby="matchdays-h">
+    <h2 id="matchdays-h" class="section-label" style="margin:0 0 1.25rem;">Match log</h2>
 
     <div style="display:flex;flex-direction:column;gap:2.5rem;">
       {matchdayGroups.map(({ md, matches: mdMatches }) => (
         <div>
-          <h2
-            style="font-family:var(--font-display);font-size:1.05rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-muted);margin-bottom:0.75rem;padding-bottom:0.5rem;border-bottom:1px solid var(--color-border);"
+          <h3
+            style="font-family:var(--font-display);font-size:1.05rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-muted);margin:0 0 0.75rem;padding-bottom:0.5rem;border-bottom:1px solid var(--color-border);"
           >
             {matchdayLabel(md)}
-          </h2>
+          </h3>
           <div style="display:flex;flex-direction:column;gap:0.75rem;">
             {mdMatches.map(match => (
               <MatchCard match={match} />
@@ -148,23 +152,23 @@ const matchdayLabel = (md: number) => {
   </section>
 
   <!-- ── DASHBOARD ─────────────────────────────────────────────────────────── -->
-  <section id="dashboard" style="margin-bottom:3rem;">
-    <p class="section-label" style="margin-bottom:0.75rem;">Accuracy dashboard</p>
+  <section id="dashboard" style="margin-bottom:3rem;" aria-labelledby="dashboard-h">
+    <h2 id="dashboard-h" class="section-label" style="margin:0 0 0.75rem;">Accuracy dashboard</h2>
     <AccuracyDashboard matches={matches} />
   </section>
 
   <!-- ── UPCOMING ──────────────────────────────────────────────────────────── -->
-  <section id="upcoming">
-    <p class="section-label" style="margin-bottom:0.75rem;">Upcoming calls</p>
+  <section id="upcoming" aria-labelledby="upcoming-h">
+    <h2 id="upcoming-h" class="section-label" style="margin:0 0 0.75rem;">Upcoming calls</h2>
 
     {upcomingMatches.length === 0 ? (
       <p style="font-size:0.85rem;color:var(--color-muted);">All tracked matches have results.</p>
     ) : (
-      <div
-        style="background-color:var(--color-surface);border:1px solid var(--color-border);border-radius:8px;overflow:hidden;"
+      <ul
+        style="list-style:none;margin:0;padding:0;background-color:var(--color-surface);border:1px solid var(--color-border);border-radius:8px;overflow:hidden;"
       >
         {upcomingMatches.map((m, i) => (
-          <div
+          <li
             style={`display:grid;grid-template-columns:1fr 2fr 1fr;align-items:center;gap:0.75rem;padding:0.75rem 1rem;${i > 0 ? 'border-top:1px solid var(--color-border);' : ''}`}
           >
             <div>
@@ -194,17 +198,10 @@ const matchdayLabel = (md: number) => {
                 </div>
               )}
             </div>
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     )}
-
-    <!-- Placeholder note for Spain + France -->
-    <div
-      style="margin-top:0.875rem;padding:0.75rem 1rem;background-color:var(--color-surface);border:1px solid var(--color-border);border-radius:6px;font-size:0.78rem;color:var(--color-muted);"
-    >
-      Spain vs Cape Verde (15 June) and France vs Senegal (16 June) to be added once predictions are locked.
-    </div>
   </section>
 
 </Layout>

@@ -5,5 +5,5 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  site: 'https://wc2026.rockyroo.fish/',
+  site: 'https://wc26.rockyroo.fish/',
 });

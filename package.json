@@ -1,11 +1,11 @@
 {
   "name": "wc2026",
-  "version": "0.2.9",
+  "version": "0.3.0",
   "description": "World Cup 2026 prediction tracker",
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "node scripts/generate-og.mjs && astro build",
     "preview": "astro preview"
   },
   "dependencies": {

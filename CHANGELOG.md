@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.0] — 2026-06-15
+
+### Added
+- Open Graph share image (`public/og.png`) generated from `scripts/generate-og.mjs`, on-brand with the dark editorial design; regenerated automatically on every build
+- Twitter/X card meta tags (`summary_large_image`) and `og:site_name`, `og:image:alt`
+- Per-page canonical and `og:url` (resolves correctly on `/about`, not just the homepage)
+- Visible keyboard focus rings on links and `<details>` summaries
+- `prefers-reduced-motion` support (disables smooth scroll and animations)
+- Brand wordmark now links to home; nav marks the active page with `aria-current`
+
+### Changed
+- Corrected live domain from `wc2026.rockyroo.fish` to `wc26.rockyroo.fish` in the layout meta and `astro.config.mjs` (OG/canonical URLs previously pointed at a dead host)
+- Hero headline reworked from "Fifa World Cup 2026 Prediction Engine" to "World Cup 2026, Called." (correct casing, sharper voice)
+- Section headings promoted to real `<h2>`/`<h3>` for a proper heading hierarchy and landmark structure
+- Upcoming calls rebuilt as a semantic `<ul>`/`<li>` list
+- Stat-card grid made responsive (auto-fit) so it no longer cramps on mobile
+- Nav restructured: removed redundant "Home" link, header grows instead of clipping on narrow screens
+- Hero banner image given explicit dimensions, `fetchpriority="high"` and `decoding="async"` (reduces CLS, improves LCP)
+
+### Fixed
+- Prediction-type badges now render their border (was set via `border-color` with no `border-style`, so the outline never appeared)
+- Removed stale note claiming Spain vs Cape Verde and France vs Senegal were "to be added" — both are already in the data and listed under Upcoming
+- Stopped tracking the local `temporary screenshots/` folder; added it to `.gitignore`
+
 ## [0.2.9] — 2026-06-15
 
 ### Changed
