@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.5] — 2026-06-15
+
+### Fixed
+- Corrected dateISO for kor-cze (Jun 11 to Jun 12), usa-par (Jun 12 to Jun 13), hai-sco (Jun 13 to Jun 14) — all three kick off after midnight BST
+- Corrected kickoffBST for 14 matches cross-referenced against football-data.org API (mex-rsa, kor-cze, can-bih, usa-par, qat-sui, bra-mar, hai-sco, aus-tur, civ-ecu, esp-cpv, irn-nzl, mex-kor, bra-hai, tur-par)
+
 ## [0.5.4] — 2026-06-15
 
 ### Fixed
