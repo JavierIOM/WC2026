@@ -448,6 +448,10 @@ export const matches: Match[] = [
     scorerCall: 'Yamal',
     scorerCallType: 'score',
     reasoning: "Spain are European champions with the best midfield in the tournament. Cape Verde are a decent African side but this is a clear mismatch in class. Spain's possession game will suffocate them and the 3-0 margin is fully justified. Yamal as the talisman.",
+    actualHome: 0,
+    actualAway: 0,
+    scorers: [],
+    actualNotes: 'Spain 0-0 Cape Verde. Auto-logged.',
   },
 
   {

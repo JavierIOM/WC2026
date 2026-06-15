@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.9] — 2026-06-15
+
+### Added
+- Spain 0-0 Cape Verde result auto-logged (scorers: none)
+
 ## [0.4.8] — 2026-06-15
 
 ### Changed
