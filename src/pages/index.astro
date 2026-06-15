@@ -6,12 +6,24 @@ import { matches, computeStats, isPlayed, formatDate } from '../data/predictions
 
 const stats = computeStats(matches);
 
-// Group formal matches by matchday
+// Rolling window: show played matches from yesterday onward, archive the rest
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+const yesterday = new Date(today);
+yesterday.setDate(today.getDate() - 1);
+
+const isRecent = (m: typeof matches[0]) =>
+  isPlayed(m) && new Date(m.dateISO) >= yesterday;
+
 const formalMatches = matches.filter(m => !m.informalOnly);
-const allMatchdays = [...new Set(formalMatches.map(m => m.matchday))].sort((a, b) => a - b);
-const matchdayGroups = allMatchdays.map(md => ({
+const recentPlayed  = formalMatches.filter(isRecent);
+const archivedCount = formalMatches.filter(m => isPlayed(m) && !isRecent(m)).length;
+
+// Group recent played matches by matchday
+const recentMatchdays = [...new Set(recentPlayed.map(m => m.matchday))].sort((a, b) => a - b);
+const matchdayGroups  = recentMatchdays.map(md => ({
   md,
-  matches: formalMatches.filter(m => m.matchday === md),
+  matches: recentPlayed.filter(m => m.matchday === md),
 }));
 
 // Upcoming: pending formal matches
@@ -127,31 +139,43 @@ const matchdayLabel = (md: number) => {
 
   <!-- ── MATCHDAYS ─────────────────────────────────────────────────────────── -->
   <section id="matchdays" style="margin-bottom:3rem;" aria-labelledby="matchdays-h">
-    <h2 id="matchdays-h" class="section-label" style="margin:0 0 1.25rem;">Match log</h2>
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:1.25rem;">
+      <h2 id="matchdays-h" class="section-label" style="margin:0;">Recent results</h2>
+      {archivedCount > 0 && (
+        <a
+          href="/archive"
+          style="font-size:0.75rem;font-weight:600;color:var(--color-accent);text-decoration:none;letter-spacing:0.04em;white-space:nowrap;"
+        >
+          Archive ({archivedCount} matches) &rsaquo;
+        </a>
+      )}
+    </div>
 
-    <div style="display:flex;flex-direction:column;gap:2.5rem;">
-      {matchdayGroups.map(({ md, matches: mdMatches }) => (
-        <div>
-          <h3
-            style="font-family:var(--font-display);font-size:1.05rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-muted);margin:0 0 0.75rem;padding-bottom:0.5rem;border-bottom:1px solid var(--color-border);"
-          >
-            {matchdayLabel(md)}
-          </h3>
-          <div style="display:flex;flex-direction:column;gap:0.75rem;">
-            {mdMatches.map(match => (
-              <MatchCard match={match} />
-            ))}
+    {matchdayGroups.length === 0 ? (
+      <p style="font-size:0.85rem;color:var(--color-muted);">
+        No results in the last 24 hours.
+        {archivedCount > 0 && (
+          <a href="/archive" style="color:var(--color-accent);text-decoration:none;">View all past results &rsaquo;</a>
+        )}
+      </p>
+    ) : (
+      <div style="display:flex;flex-direction:column;gap:2.5rem;">
+        {matchdayGroups.map(({ md, matches: mdMatches }) => (
+          <div>
+            <h3
+              style="font-family:var(--font-display);font-size:1.05rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-muted);margin:0 0 0.75rem;padding-bottom:0.5rem;border-bottom:1px solid var(--color-border);"
+            >
+              {matchdayLabel(md)}
+            </h3>
+            <div style="display:flex;flex-direction:column;gap:0.75rem;">
+              {mdMatches.map(match => (
+                <MatchCard match={match} />
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
-
-    <!-- Informal match note -->
-    <div
-      style="margin-top:1.25rem;padding:0.75rem 1rem;background-color:rgb(251 191 36/0.12);border:1px solid rgb(251 191 36/0.35);border-radius:6px;font-size:0.78rem;color:#fbbf24;"
-    >
-      Australia 2-0 Türkiye is excluded from headline tallies. It was an informal lean, not a formally logged prediction.
-    </div>
+        ))}
+      </div>
+    )}
   </section>
 
   <!-- ── UPCOMING ──────────────────────────────────────────────────────────── -->

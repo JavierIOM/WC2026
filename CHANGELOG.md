@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.0] — 2026-06-15
+
+### Added
+- `/archive` page: all played matches older than 1 day, grouped by matchday newest-first, using MatchCard component
+- Archive link added to nav between Matches and Dashboard
+
+### Changed
+- Homepage match log renamed "Recent results": now shows only played matches from yesterday and today
+- Archive count + link shown in the match log header when historical results exist
+- Informal match note removed from homepage (Australia-Türkiye now in archive)
+
 ## [0.4.9] — 2026-06-15
 
 ### Added

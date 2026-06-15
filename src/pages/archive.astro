@@ -1,0 +1,70 @@
+---
+import Layout from '../layouts/Layout.astro';
+import MatchCard from '../components/MatchCard.astro';
+import { matches, isPlayed, formatDate } from '../data/predictions';
+
+// Archive: played matches where dateISO is before yesterday (2+ calendar days old)
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+const yesterday = new Date(today);
+yesterday.setDate(today.getDate() - 1);
+
+const isArchived = (m: typeof matches[0]) =>
+  isPlayed(m) && new Date(m.dateISO) < yesterday;
+
+const archivedMatches = matches.filter(isArchived);
+
+// Group by matchday, newest first
+const matchdays = [...new Set(archivedMatches.map(m => m.matchday))].sort((a, b) => b - a);
+const groups = matchdays.map(md => ({
+  md,
+  matches: archivedMatches.filter(m => m.matchday === md),
+}));
+
+const matchdayLabel = (md: number) => {
+  const first = archivedMatches.find(m => m.matchday === md);
+  return first ? `Matchday ${md}: ${formatDate(first.dateISO)}` : `Matchday ${md}`;
+};
+---
+
+<Layout
+  title="Archive | WC2026 Prediction Tracker"
+  description="Historical WC2026 match results and prediction verdicts."
+>
+
+  <section style="padding-top:2rem;">
+
+    <p class="section-label" style="margin-bottom:0.75rem;">Historical results</p>
+    <h1
+      style="font-family:var(--font-display);font-size:clamp(2.2rem,6vw,3.5rem);font-weight:800;letter-spacing:0.01em;text-transform:uppercase;line-height:0.95;color:var(--color-text);margin-bottom:0.5rem;"
+    >
+      Archive
+    </h1>
+    <p style="font-size:0.85rem;color:var(--color-muted);margin-bottom:2.5rem;">
+      All completed matches. Recent results are on the <a href="/#matchdays" style="color:var(--color-accent);text-decoration:none;">main page</a>.
+    </p>
+
+    {groups.length === 0 ? (
+      <p style="font-size:0.85rem;color:var(--color-muted);">No archived matches yet. Check back once the first matchday is more than a day old.</p>
+    ) : (
+      <div style="display:flex;flex-direction:column;gap:2.5rem;">
+        {groups.map(({ md, matches: mdMatches }) => (
+          <div>
+            <h2
+              style="font-family:var(--font-display);font-size:1.05rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-muted);margin:0 0 0.75rem;padding-bottom:0.5rem;border-bottom:1px solid var(--color-border);"
+            >
+              {matchdayLabel(md)}
+            </h2>
+            <div style="display:flex;flex-direction:column;gap:0.75rem;">
+              {mdMatches.map(match => (
+                <MatchCard match={match} />
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+
+  </section>
+
+</Layout>
