@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.1] — 2026-06-15
+
+### Added
+- Spain 0-0 Cape Verde: actuals updated with full match notes (27 shots, Vozinha 8 saves, Torres hit bar, Yamal off bench no goal; result MISS, scorer MISS)
+- Belgium 1-1 Egypt: actuals logged (Ashour 19, Hany 66 OG; result MISS, scorer MISS)
+
+### Fixed
+- Belgium vs Egypt kickoff corrected to 20:00 BST (was 23:00)
+
 ## [0.5.0] — 2026-06-15
 
 ### Added

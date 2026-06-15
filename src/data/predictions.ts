@@ -451,14 +451,14 @@ export const matches: Match[] = [
     actualHome: 0,
     actualAway: 0,
     scorers: [],
-    actualNotes: 'Spain 0-0 Cape Verde. Auto-logged.',
+    actualNotes: "Biggest shock of the tournament. Spain had 27 shots, 7 on target, Torres hit the bar; 40-year-old keeper Vozinha made 8 saves. Yamal came off the bench and didn't score. Called Spain 3-0 mismatch: first time a genuine mismatch failed to deliver.",
   },
 
   {
     id: 'bel-egy',
     matchday: 5,
     dateISO: '2026-06-15',
-    kickoffBST: '23:00',
+    kickoffBST: '20:00',
     group: 'G',
     venue: 'Lumen Field, Seattle',
     home: 'Belgium',
@@ -469,6 +469,10 @@ export const matches: Match[] = [
     scorerCall: 'De Bruyne',
     scorerCallType: 'score-or-assist',
     reasoning: "Belgium carry genuine quality in attack and should control this. Egypt keep it tight with Salah as the outlet on the break. They will nick one. 2-1 reflects a real game rather than a rout. De Bruyne (Lukaku benched) as the creative hub and most likely to contribute.",
+    actualHome: 1,
+    actualAway: 1,
+    scorers: ["Ashour 19' (Egypt)", "Hany 66' OG (Belgium)"],
+    actualNotes: "Egypt led via Ashour's 20-yard strike at 19 minutes. De Bruyne hit the post. Lukaku came on around 66 minutes; his presence forced Hany's own goal 22 seconds later. Called Belgium 2-1, scorer De Bruyne: result MISS, scorer MISS (goal was an own goal).",
   },
 
   {
