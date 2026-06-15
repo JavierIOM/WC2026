@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.1] — 2026-06-15
+
+### Changed
+- Threats section in outright reasoning now displayed as bullet points
+
 ## [0.4.0] — 2026-06-15
 
 ### Changed
