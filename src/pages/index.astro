@@ -21,7 +21,7 @@ const upcomingMatches = formalMatches.filter(m => !isPlayed(m));
 const matchdayLabel = (md: number) => {
   const mdMatches = formalMatches.filter(m => m.matchday === md);
   const firstDate = mdMatches[0]?.dateISO;
-  return firstDate ? `Matchday ${md} — ${formatDate(firstDate)}` : `Matchday ${md}`;
+  return firstDate ? `Matchday ${md}: ${formatDate(firstDate)}` : `Matchday ${md}`;
 };
 ---
 
@@ -106,7 +106,7 @@ const matchdayLabel = (md: number) => {
         <strong style="color:var(--color-text);">Threats:</strong>
         France, with Mbappe chasing the all-time World Cup scoring record.
         England for squad depth.
-        Dark horse: Portugal — back them to top Group K and reach the quarter-final,
+        Dark horse: Portugal. Back them to top Group K and reach the quarter-final,
         but do not back them further until they win something ugly.
       </p>
       <p style="margin:0;color:var(--color-muted);">
@@ -145,9 +145,9 @@ const matchdayLabel = (md: number) => {
 
     <!-- Informal match note -->
     <div
-      style="margin-top:1.25rem;padding:0.75rem 1rem;background-color:rgb(251 191 36/0.06);border:1px solid rgb(251 191 36/0.2);border-radius:6px;font-size:0.78rem;color:#fbbf24;"
+      style="margin-top:1.25rem;padding:0.75rem 1rem;background-color:rgb(251 191 36/0.12);border:1px solid rgb(251 191 36/0.35);border-radius:6px;font-size:0.78rem;color:#fbbf24;"
     >
-      Australia 2-0 Türkiye is excluded from headline tallies — it was an informal lean, not a formally logged prediction.
+      Australia 2-0 Türkiye is excluded from headline tallies. It was an informal lean, not a formally logged prediction.
     </div>
   </section>
 

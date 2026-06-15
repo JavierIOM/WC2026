@@ -369,7 +369,7 @@ export const matches: Match[] = [
     reasoning: "Attacking mismatch: Gyokeres and Isak are proven Premier League-level strikers; Tunisia have no top-5-league striker and shipped 5 goals to Belgium. Bending the rule here because Tunisia's clean-sheet discipline and cautious opener style means they'll nick one. Sweden win, but Tunisia make them work for it.",
   },
 
-  // ── MATCHDAY 5 ─────────────────────────────────────────────────────────────
+  // ── MATCHDAY 7 ─────────────────────────────────────────────────────────────
 
   {
     id: 'eng-cro',

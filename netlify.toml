@@ -3,11 +3,11 @@
   functions = "netlify/functions"
   publish = "dist"
 
-[env.production]
+[context.production.environment]
   NODE_VERSION = "22"
 
-[env.deploy-preview]
+[context.deploy-preview.environment]
   NODE_VERSION = "22"
 
-[env.branch-deploy]
+[context.branch-deploy.environment]
   NODE_VERSION = "22"

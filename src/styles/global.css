@@ -254,3 +254,42 @@ details summary::marker { display: none; }
   border: none;
   border-top: 1px solid var(--color-border);
 }
+
+/* Light theme */
+[data-theme="light"] {
+  --color-bg: #FAF7F4;
+  --color-surface: #FFFFFF;
+  --color-surface-2: #F3F0ED;
+  --color-border: #D9D9D9;
+  --color-border-2: #C4C4C4;
+  --color-text: #222222;
+  --color-muted: #595959;
+  --color-accent: #F56400;
+}
+
+[data-theme="light"] .site-header {
+  background-color: rgb(250 247 244 / 0.92);
+}
+
+[data-theme="light"] .match-card:hover {
+  border-color: #C4C4C4;
+}
+
+/* Theme toggle button */
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--color-border);
+  color: var(--color-muted);
+  cursor: pointer;
+  padding: 5px 6px;
+  border-radius: 4px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  transition: color 0.15s, border-color 0.15s;
+  flex-shrink: 0;
+}
+.theme-toggle:hover {
+  color: var(--color-text);
+  border-color: var(--color-border-2);
+}

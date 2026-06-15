@@ -4,6 +4,7 @@
 // than a generic OG template, so the share card reads as part of the site.
 
 import sharp from 'sharp';
+import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 
@@ -73,3 +74,10 @@ const svg = `
 
 await sharp(Buffer.from(svg)).png().toFile(outPath);
 console.log('Generated', outPath);
+
+// Generate PNG favicons from favicon.svg
+const faviconSvg = readFileSync(resolve(__dirname, '../public/favicon.svg'));
+await sharp(faviconSvg).resize(180, 180).png().toFile(resolve(__dirname, '../public/apple-touch-icon.png'));
+await sharp(faviconSvg).resize(32, 32).png().toFile(resolve(__dirname, '../public/favicon-32x32.png'));
+await sharp(faviconSvg).resize(16, 16).png().toFile(resolve(__dirname, '../public/favicon-16x16.png'));
+console.log('Generated favicon PNGs');

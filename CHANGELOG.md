@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.4] — 2026-06-15
+
+### Added
+- Light theme toggle (sun/moon icon in nav) with localStorage persistence; light palette matches project design system
+- PNG favicons generated at build time from favicon.svg: 16x16, 32x32, apple-touch-icon 180x180
+- `site.webmanifest` for PWA home-screen support
+- `robots.txt` in `public/` with explicit `Allow: /`
+- `sharp` added to `devDependencies` (was an accidental transitive dependency, build would silently break if npm pruned optionals)
+
+### Changed
+- Footer em-dashes replaced with colons ("Claude AI: Opus, Max Effort", "Claude Code: Sonnet 4.6")
+- `netlify.toml` env sections corrected from `[env.production]` to `[context.production.environment]` (prior syntax was silently ignored by Netlify)
+- Amber informal-match note: background opacity raised from 0.06 to 0.12, border opacity from 0.2 to 0.35 for better visibility
+- `MethodPanel.astro` summary: hover background now actually applies (transition was set but no hover state existed)
+- `tailwind.config.mjs`: comment added explaining why it is empty (Tailwind v4 config lives in `global.css`)
+
+### Fixed
+- Stray `MATCHDAY 5` comment in `predictions.ts` relabelled to `MATCHDAY 7` (wraps eng-cro, gha-pan, uzb-col which are MD7 matches)
+- `CHANGELOG.md` v0.2.3 date corrected from 2026-06-15 to 2026-06-14
+
 ## [0.3.3] — 2026-06-15
 
 ### Fixed
@@ -74,7 +94,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - Hero title updated to "Fifa World Cup 2026 Prediction Engine"
 
-## [0.2.3] — 2026-06-15
+## [0.2.3] — 2026-06-14
 
 ### Added
 - 19 new match predictions seeded across MD5 (Jun 15), MD6 (Jun 16), MD7 (Jun 17), MD8 (Jun 18), MD9 (Jun 19)
