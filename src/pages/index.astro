@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import MatchCard from '../components/MatchCard.astro';
 import MethodPanel from '../components/MethodPanel.astro';
-import AccuracyDashboard from '../components/AccuracyDashboard.astro';
 import { matches, computeStats, isPlayed, formatDate } from '../data/predictions';
 
 const stats = computeStats(matches);
@@ -149,12 +148,6 @@ const matchdayLabel = (md: number) => {
     >
       Australia 2-0 Türkiye is excluded from headline tallies. It was an informal lean, not a formally logged prediction.
     </div>
-  </section>
-
-  <!-- ── DASHBOARD ─────────────────────────────────────────────────────────── -->
-  <section id="dashboard" style="margin-bottom:3rem;" aria-labelledby="dashboard-h">
-    <h2 id="dashboard-h" class="section-label" style="margin:0 0 0.75rem;">Accuracy dashboard</h2>
-    <AccuracyDashboard matches={matches} />
   </section>
 
   <!-- ── UPCOMING ──────────────────────────────────────────────────────────── -->

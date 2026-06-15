@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.6] — 2026-06-15
+
+### Added
+- New `/dashboard` page with accuracy stats and bar chart
+
+### Changed
+- Dashboard moved off homepage to its own page; nav "Dashboard" link updated accordingly
+- Stat cards use fixed `repeat(3,1fr)` grid for consistent equal width and height alignment
+- Bar chart sizing increased (700px viewBox) for better readability
+- Dashboard nav link highlights as active when on `/dashboard`
+
+### Fixed
+- `applyTheme` TS error: added `string` type annotation to parameter
+
 ## [0.3.5] — 2026-06-15
 
 ### Fixed
