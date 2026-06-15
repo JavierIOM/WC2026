@@ -688,12 +688,12 @@ export const matches: Match[] = [
     venue: 'Gillette Stadium, Boston',
     home: 'Scotland',
     away: 'Morocco',
-    predHome: 1,
+    predHome: 0,
     predAway: 1,
-    predType: 'draw',
+    predType: 'favourite-tight',
     scorerCall: 'En-Nesyri',
     scorerCallType: 'score',
-    reasoning: "Morocco are the better side: they pushed Brazil to a draw in MD1. Scotland will defend deep and dig in for a point, exactly as they did against Haiti. The 1-1 reflects Morocco's quality and Scotland's resilience. En-Nesyri as the Moroccan threat.",
+    reasoning: "Revised from 1-1. Morocco are the better side and the draw was a reach, not an honest call. The lesson from the CIV-ECU call: even games resolve narrow, not flat. Scotland will defend deep as always but Morocco have the quality to find a winner. 0-1, En-Nesyri the threat.",
   },
 
   {

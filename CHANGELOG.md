@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.6] — 2026-06-15
+
+### Changed
+- Scotland vs Morocco (MD9) revised from draw (1-1) to Morocco 1-0: Morocco are the stronger side and calling the draw was optimism, not analysis. Lesson from CIV-ECU: even games resolve narrow, not flat.
+
 ## [0.4.5] — 2026-06-15
 
 ### Added
