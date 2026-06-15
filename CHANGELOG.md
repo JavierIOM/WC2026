@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.5] — 2026-06-15
+
+### Added
+- `scripts/update-results.mjs`: auto-update bot fetches finished results from football-data.org and uses Claude Haiku to populate scorers and match notes in predictions.ts
+- `.github/workflows/update-results.yml`: GitHub Actions cron job runs the bot every 3 hours and commits any changes, triggering a Netlify rebuild automatically
+- `@anthropic-ai/sdk` added to devDependencies
+
 ## [0.4.4] — 2026-06-15
 
 ### Added
