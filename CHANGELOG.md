@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.0] — 2026-06-15
+
+### Changed
+- Gold outright tile enlarged: bigger display font, more padding
+
 ## [0.3.9] — 2026-06-15
 
 ### Changed
