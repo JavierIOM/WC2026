@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.2] — 2026-06-15
+
+### Added
+- Fifth lesson in Method panel: mismatch margins consistently under-predicted (Germany 7-1, USA 4-1)
+
 ## [0.4.1] — 2026-06-15
 
 ### Changed
