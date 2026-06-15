@@ -350,6 +350,11 @@ export const matches: Match[] = [
     scorerCall: 'Amad Diallo',
     scorerCallType: 'score',
     reasoning: 'Even game: market Ecuador 41 / draw 34 / CIV 28. Ecuador are unbeaten in 19. Ivory Coast beat France away on 4 June. Neither side has a decisive edge; the draw is the honest call. Amad Diallo is in exceptional form.',
+    actualHome: 1,
+    actualAway: 0,
+    scorers: ['Amad Diallo'],
+    assisters: ['Singo'],
+    actualNotes: 'Amad Diallo 90 (Singo cross/assist). Ecuador hit the crossbar twice in the first half. Late winner in a tight match. Called draw, Ivory Coast won: MISS result. Scorer HIT.',
   },
 
   {
@@ -367,6 +372,10 @@ export const matches: Match[] = [
     scorerCall: 'Gyokeres',
     scorerCallType: 'score',
     reasoning: "Attacking mismatch: Gyokeres and Isak are proven Premier League-level strikers; Tunisia have no top-5-league striker and shipped 5 goals to Belgium. Bending the rule here because Tunisia's clean-sheet discipline and cautious opener style means they'll nick one. Sweden win, but Tunisia make them work for it.",
+    actualHome: 5,
+    actualAway: 1,
+    scorers: ['Yasin Ayari', 'Alexander Isak', 'Yasin Ayari', 'Mattias Svanberg', 'Viktor Gyokeres', 'Omar Rekik'],
+    actualNotes: 'Ayari brace, Isak, Svanberg, Gyokeres; Rekik pulled one back for Tunisia. Called correct direction (Sweden win) but 2-1 was well under the actual margin. Classic mismatch ceiling under-prediction.',
   },
 
   // ── MATCHDAY 7 ─────────────────────────────────────────────────────────────

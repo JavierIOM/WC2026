@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.4] — 2026-06-15
+
+### Added
+- Ivory Coast 1-0 Ecuador result logged (MISS result, Scorer HIT: Amad Diallo 90, Singo assist)
+- Sweden 5-1 Tunisia result logged (CORRECT result, Scorer HIT: Gyokeres scored)
+
 ## [0.4.3] — 2026-06-15
 
 ### Added
