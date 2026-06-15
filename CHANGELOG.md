@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.7] — 2026-06-15
+
+### Changed
+- Outright final prediction displayed as a gold-bordered tile beneath the hero title
+
 ## [0.3.6] — 2026-06-15
 
 ### Added
