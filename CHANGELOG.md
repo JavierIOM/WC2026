@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.7] — 2026-06-15
+
+### Changed
+- ger-cur, ned-jpn, civ-ecu, swe-tun scorer data updated with goal minutes to match verified state
+- Germany vs Curaçao notes updated: Havertz scored twice (pen 45+5 + 88')
+- Ivory Coast vs Ecuador notes updated: Ecuador hit woodwork 3x, Amad Diallo 90' off the bench
+- Sweden vs Tunisia notes updated: confirmed 5-1 scorers with minutes
+- Method panel: Rule box updated to remove blanket draw lean; Lessons replaced with 3 post-Day-4 recalibration points (mismatch boldness, draw coin-flip, scorer call strength)
+
 ## [0.4.6] — 2026-06-15
 
 ### Changed

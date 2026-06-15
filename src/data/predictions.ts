@@ -309,8 +309,8 @@ export const matches: Match[] = [
     reasoning: "Curaçao rank 82nd and are making their World Cup debut after losing 4-1 to Scotland. Germany are on a 9-game win streak scoring 28 goals. Biggest mismatch on the slate. One caveat: patience against a low block. Germany may take time to break them down.",
     actualHome: 7,
     actualAway: 1,
-    scorers: ['Nmecha', 'Comenencia', 'Schlotterbeck', 'Havertz', 'Musiala', 'Brown', 'Undav'],
-    actualNotes: 'Nmecha 6; Comenencia 21 (Curaçao first-ever WC goal, levelled at 1-1); Schlotterbeck, Havertz pen, Musiala, Brown, Undav piled on. Caveat landed. Block held briefly.',
+    scorers: ["Nmecha 6'", "Comenencia 21' (Curacao)", "Schlotterbeck 38'", "Havertz 45+5' pen", "Musiala 47'", "Brown 68'", "Undav 78'", "Havertz 88'"],
+    actualNotes: "Nmecha 6, Comenencia 21 (Curaçao, levelled 1-1), Schlotterbeck 38, Havertz pen 45+5, Musiala 47, Brown 68, Undav 78, Havertz 88. Called 4-0, got 7-1. Badly undershot the ceiling.",
   },
 
   {
@@ -330,7 +330,7 @@ export const matches: Match[] = [
     reasoning: "Lowest-confidence call on the slate. Held after a deep recheck (Opta 49/25/26). Backing the narrow Dutch win is backing the single highest-probability outcome; backing the draw means picking the least likely. Worries: Dutch defensive crisis (Timber, Simons, de Ligt all out/doubtful) and Japan's 3-4-2-1 wing-backs targeting the high Dutch full-backs. Still holds because de Jong and Gravenberch control the midfield and Japan miss Mitoma/Minamino/Endo. Gakpo is the only Netherlands forward nailed on to start.",
     actualHome: 2,
     actualAway: 2,
-    scorers: ['Van Dijk', 'Summerville', 'Nakamura', 'Kamada'],
+    scorers: ["Van Dijk 51'", "Summerville 64'", "Nakamura 57' (Japan)", "Kamada 89' (Japan)"],
     assisters: ['Gravenberch'],
     actualNotes: "Van Dijk 51 (Gravenberch cross); Nakamura 57 deflected; Summerville 64; Kamada 89 off a corner. Dutch led twice, pegged back twice. 69% possession, couldn't see it out. Process was defensible (draw was least-likely at 25%) but gut flagged the draw danger three times and was right. Late set-piece equaliser is exactly the even-opener pattern all tournament.",
   },
@@ -352,9 +352,9 @@ export const matches: Match[] = [
     reasoning: 'Even game: market Ecuador 41 / draw 34 / CIV 28. Ecuador are unbeaten in 19. Ivory Coast beat France away on 4 June. Neither side has a decisive edge; the draw is the honest call. Amad Diallo is in exceptional form.',
     actualHome: 1,
     actualAway: 0,
-    scorers: ['Amad Diallo'],
+    scorers: ["Amad Diallo 90'"],
     assisters: ['Singo'],
-    actualNotes: 'Amad Diallo 90 (Singo cross/assist). Ecuador hit the crossbar twice in the first half. Late winner in a tight match. Called draw, Ivory Coast won: MISS result. Scorer HIT.',
+    actualNotes: "Ecuador hit the woodwork 3x and dominated early. Amad Diallo off the bench, winner in the 90th (Singo assist). Called 1-1, Ivory Coast won 1-0.",
   },
 
   {
@@ -374,8 +374,8 @@ export const matches: Match[] = [
     reasoning: "Attacking mismatch: Gyokeres and Isak are proven Premier League-level strikers; Tunisia have no top-5-league striker and shipped 5 goals to Belgium. Bending the rule here because Tunisia's clean-sheet discipline and cautious opener style means they'll nick one. Sweden win, but Tunisia make them work for it.",
     actualHome: 5,
     actualAway: 1,
-    scorers: ['Yasin Ayari', 'Alexander Isak', 'Yasin Ayari', 'Mattias Svanberg', 'Viktor Gyokeres', 'Omar Rekik'],
-    actualNotes: 'Ayari brace, Isak, Svanberg, Gyokeres; Rekik pulled one back for Tunisia. Called correct direction (Sweden win) but 2-1 was well under the actual margin. Classic mismatch ceiling under-prediction.',
+    scorers: ["Ayari 7'", "Isak 30'", "Gyokeres 59'", "Svanberg 84'", "Ayari 90+6'", "Rekik 43' (Tunisia)"],
+    actualNotes: "Ayari 7, Isak 30, Rekik 43 (Tunisia), Gyokeres 59, Svanberg 84, Ayari 90+6. Called Sweden 2-1; actual 5-1. Right direction, badly undershot the margin.",
   },
 
   // ── MATCHDAY 7 ─────────────────────────────────────────────────────────────
