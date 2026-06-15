@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.5] — 2026-06-15
+
+### Fixed
+- Removed all em-dashes from rendered content across index.astro, about.astro, MethodPanel.astro, Layout.astro, and all predictions.ts reasoning/notes strings
+
 ## [0.3.4] — 2026-06-15
 
 ### Added
