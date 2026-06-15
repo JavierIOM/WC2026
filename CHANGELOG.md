@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.8] — 2026-06-15
+
+### Changed
+- Method panel is now always expanded, collapsible toggle removed
+
 ## [0.3.7] — 2026-06-15
 
 ### Changed

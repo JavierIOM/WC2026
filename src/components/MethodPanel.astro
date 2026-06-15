@@ -2,15 +2,10 @@
 // No props — static content
 ---
 
-<details
+<div
   style="background-color:var(--color-surface);border:1px solid var(--color-border);border-radius:8px;overflow:hidden;"
 >
-  <summary
-    style="padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;cursor:pointer;transition:background-color 0.15s;"
-    onmouseover="this.style.backgroundColor='var(--color-surface-2)'"
-    onmouseout="this.style.backgroundColor=''"
-  >
-    <div style="display:flex;align-items:center;gap:0.75rem;">
+    <div style="padding:1rem 1.25rem;display:flex;align-items:center;gap:0.75rem;">
       <span
         style="font-family:var(--font-display);font-size:1.15rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:var(--color-text);"
       >
@@ -20,10 +15,6 @@
         Recalibrated
       </span>
     </div>
-    <svg width="16" height="16" viewBox="0 0 16 16" class="method-chevron" style="color:var(--color-muted);flex-shrink:0;transition:transform 0.2s;">
-      <path d="M3 6L8 11L13 6" stroke="currentColor" stroke-width="1.75" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  </summary>
 
   <div style="border-top:1px solid var(--color-border);padding:1.25rem;">
     <!-- The Rule -->
@@ -62,10 +53,4 @@
       </ol>
     </div>
   </div>
-</details>
-
-<style>
-  details[open] .method-chevron {
-    transform: rotate(180deg);
-  }
-</style>
+</div>
