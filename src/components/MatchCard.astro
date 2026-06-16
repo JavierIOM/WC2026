@@ -14,9 +14,10 @@ interface Props {
 
 const { match: m } = Astro.props;
 
-const played      = isPlayed(m);
-const rv          = getResultVerdict(m);
-const sv          = getScorerVerdict(m);
+const played         = isPlayed(m);
+const hasPrediction  = m.predHome !== undefined && m.predAway !== undefined;
+const rv             = getResultVerdict(m);
+const sv             = getScorerVerdict(m);
 
 const verdictBorderClass: Record<string, string> = {
   EXACT:   'verdict-border-exact',
@@ -60,9 +61,11 @@ const borderClass = verdictBorderClass[rv] ?? 'verdict-border-pending';
       <span class="badge" style="background:rgb(79 142 247/0.12);color:#4f8ef7;border:1px solid rgb(79 142 247/0.25);">
         GRP {m.group}
       </span>
-      <span class={predTypeBadgeClass[m.predType] ?? 'badge badge-pending'}>
-        {predTypeLabel(m.predType)}
-      </span>
+      {m.predType && (
+        <span class={predTypeBadgeClass[m.predType] ?? 'badge badge-pending'}>
+          {predTypeLabel(m.predType)}
+        </span>
+      )}
       {m.informalOnly && (
         <span class="badge" style="background:rgb(251 191 36/0.1);color:#fbbf24;border:1px solid rgb(251 191 36/0.25);">
           Informal
@@ -88,9 +91,15 @@ const borderClass = verdictBorderClass[rv] ?? 'verdict-border-pending';
       ) : (
         <div style="font-size:0.85rem;color:var(--color-muted);font-weight:600;letter-spacing:0.06em;">vs</div>
       )}
-      <div style="font-size:0.7rem;color:var(--color-muted);margin-top:2px;">
-        pred {m.predHome}–{m.predAway}
-      </div>
+      {hasPrediction ? (
+        <div style="font-size:0.7rem;color:var(--color-muted);margin-top:2px;">
+          pred {m.predHome}–{m.predAway}
+        </div>
+      ) : !played && (
+        <div style="font-size:0.6rem;color:var(--color-muted);margin-top:3px;line-height:1.4;">
+          Prediction<br/>closer to kickoff
+        </div>
+      )}
     </div>
 
     <div style="text-align:right;">
@@ -137,20 +146,22 @@ const borderClass = verdictBorderClass[rv] ?? 'verdict-border-pending';
   )}
   {played && m.actualNotes && <hr class="divider" style="margin:0;" />}
 
-  <!-- Reasoning (collapsible) -->
-  <details>
-    <summary
-      style="padding:0.55rem 1rem;font-size:0.75rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:var(--color-muted);display:flex;align-items:center;gap:0.5rem;transition:color 0.15s;"
-    >
-      <svg width="10" height="10" viewBox="0 0 10 10" style="transition:transform 0.2s;transform:rotate(0deg);" class="summary-chevron">
-        <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-      </svg>
-      Reasoning
-    </summary>
-    <div style="padding:0 1rem 0.85rem;font-size:0.82rem;color:var(--color-text);line-height:1.65;opacity:0.85;">
-      {m.reasoning}
-    </div>
-  </details>
+  <!-- Reasoning (collapsible) — only shown when a prediction exists -->
+  {m.reasoning && (
+    <details>
+      <summary
+        style="padding:0.55rem 1rem;font-size:0.75rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:var(--color-muted);display:flex;align-items:center;gap:0.5rem;transition:color 0.15s;"
+      >
+        <svg width="10" height="10" viewBox="0 0 10 10" style="transition:transform 0.2s;transform:rotate(0deg);" class="summary-chevron">
+          <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        </svg>
+        Reasoning
+      </summary>
+      <div style="padding:0 1rem 0.85rem;font-size:0.82rem;color:var(--color-text);line-height:1.65;opacity:0.85;">
+        {m.reasoning}
+      </div>
+    </details>
+  )}
 </article>
 
 <style>

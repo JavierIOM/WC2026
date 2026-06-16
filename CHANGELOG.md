@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.7.0] — 2026-06-16
+
+### Added
+- Full group stage schedule bulk-loaded: 32 new fixtures (Groups I-L Round 2, all Round 3, Jun 22-28) as schedule-only entries
+- Prediction horizon behaviour: match cards now have three states — PLAYED, PREDICTED, and AWAITING PREDICTION
+- "Prediction closer to kickoff" label shown where scoreline would appear on schedule-only cards
+- Explanatory caption under Upcoming calls heading
+
+### Changed
+- Match interface: predHome, predAway, predType, reasoning now optional — absence signals schedule-only fixture
+- MatchCard: predType badge and reasoning section hidden when undefined; score area handles awaiting-prediction state
+- NZL-EGY fixture cleared to schedule-only (prediction pending)
+- predTypeLabel updated to handle undefined predType safely
+- getResultVerdict guards against missing prediction (returns PENDING)
+
 ## [0.6.3] — 2026-06-16
 
 ### Added

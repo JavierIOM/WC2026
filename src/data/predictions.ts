@@ -7,14 +7,15 @@ export interface Match {
   venue: string;
   home: string;
   away: string;
-  predHome: number;
-  predAway: number;
-  predType: 'mismatch' | 'favourite' | 'favourite-tight' | 'draw' | 'rule-bend';
-  conditions?: string;
+  // Prediction — all optional; absent = awaiting prediction (schedule-only entry)
+  predHome?: number;
+  predAway?: number;
+  predType?: 'mismatch' | 'favourite' | 'favourite-tight' | 'draw' | 'rule-bend';
   scorerCall?: string;
   scorerCallType?: 'score' | 'score-or-assist';
-  reasoning: string;
+  reasoning?: string;
   confidence?: number;  // 0-100, probability that result call (H/D/A) is correct
+  conditions?: string;
   // Actuals — omit both to mark match as PENDING
   actualHome?: number;
   actualAway?: number;
@@ -33,6 +34,7 @@ export function isPlayed(m: Match): boolean {
 
 export function getResultVerdict(m: Match): ResultVerdict {
   if (!isPlayed(m)) return 'PENDING';
+  if (m.predHome === undefined || m.predAway === undefined) return 'PENDING';
   const predOut = m.predHome > m.predAway ? 'H' : m.predHome < m.predAway ? 'A' : 'D';
   const actOut  = m.actualHome! > m.actualAway! ? 'H' : m.actualHome! < m.actualAway! ? 'A' : 'D';
   if (predOut !== actOut) return 'MISS';
@@ -104,15 +106,16 @@ export function formatDate(dateISO: string): string {
   return date.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
 }
 
+type PredType = NonNullable<Match['predType']>;
+const PRED_TYPE_LABELS: Record<PredType, string> = {
+  'mismatch':        'Mismatch',
+  'favourite':       'Favourite',
+  'favourite-tight': 'Fav (tight)',
+  'draw':            'Draw call',
+  'rule-bend':       'Rule bend',
+};
 export function predTypeLabel(t: Match['predType']): string {
-  const map: Record<Match['predType'], string> = {
-    'mismatch':        'Mismatch',
-    'favourite':       'Favourite',
-    'favourite-tight': 'Fav (tight)',
-    'draw':            'Draw call',
-    'rule-bend':       'Rule bend',
-  };
-  return map[t];
+  return t ? PRED_TYPE_LABELS[t] : '';
 }
 
 // ─── MATCH DATA ────────────────────────────────────────────────────────────────
@@ -930,11 +933,362 @@ export const matches: Match[] = [
     venue: 'BC Place, Vancouver',
     home: 'New Zealand',
     away: 'Egypt',
-    predHome: 1,
-    predAway: 1,
-    predType: 'draw',
-    reasoning: 'Prediction pending.',
-    confidence: 50,
+  },
+
+  // ── GROUP STAGE ROUND 2 — Groups I, J, K, L ───────────────────────────────
+
+  {
+    id: 'argentina-austria',
+    matchday: 2,
+    dateISO: '2026-06-22',
+    kickoffBST: '18:00',
+    group: 'J',
+    venue: 'AT&T Stadium, Arlington',
+    home: 'Argentina',
+    away: 'Austria',
+  },
+
+  {
+    id: 'france-iraq',
+    matchday: 2,
+    dateISO: '2026-06-22',
+    kickoffBST: '22:00',
+    group: 'I',
+    venue: 'Lincoln Financial Field, Philadelphia',
+    home: 'France',
+    away: 'Iraq',
+  },
+
+  {
+    id: 'norway-senegal',
+    matchday: 2,
+    dateISO: '2026-06-23',
+    kickoffBST: '01:00',
+    group: 'I',
+    venue: 'BMO Field, Toronto',
+    home: 'Norway',
+    away: 'Senegal',
+  },
+
+  {
+    id: 'jordan-algeria',
+    matchday: 2,
+    dateISO: '2026-06-23',
+    kickoffBST: '04:00',
+    group: 'J',
+    venue: "Levi's Stadium, Santa Clara",
+    home: 'Jordan',
+    away: 'Algeria',
+  },
+
+  {
+    id: 'portugal-uzbekistan',
+    matchday: 2,
+    dateISO: '2026-06-23',
+    kickoffBST: '18:00',
+    group: 'K',
+    venue: 'NRG Stadium, Houston',
+    home: 'Portugal',
+    away: 'Uzbekistan',
+  },
+
+  {
+    id: 'england-ghana',
+    matchday: 2,
+    dateISO: '2026-06-23',
+    kickoffBST: '21:00',
+    group: 'L',
+    venue: 'Gillette Stadium, Boston',
+    home: 'England',
+    away: 'Ghana',
+  },
+
+  {
+    id: 'panama-croatia',
+    matchday: 2,
+    dateISO: '2026-06-24',
+    kickoffBST: '00:00',
+    group: 'L',
+    venue: 'Gillette Stadium, Boston',
+    home: 'Panama',
+    away: 'Croatia',
+  },
+
+  {
+    id: 'colombia-dr-congo',
+    matchday: 2,
+    dateISO: '2026-06-24',
+    kickoffBST: '03:00',
+    group: 'K',
+    venue: 'Estadio Akron, Guadalajara',
+    home: 'Colombia',
+    away: 'DR Congo',
+  },
+
+  // ── GROUP STAGE ROUND 3 ────────────────────────────────────────────────────
+
+  {
+    id: 'switzerland-canada',
+    matchday: 3,
+    dateISO: '2026-06-24',
+    kickoffBST: '20:00',
+    group: 'B',
+    venue: 'BC Place, Vancouver',
+    home: 'Switzerland',
+    away: 'Canada',
+  },
+
+  {
+    id: 'bosnia-qatar',
+    matchday: 3,
+    dateISO: '2026-06-24',
+    kickoffBST: '20:00',
+    group: 'B',
+    venue: 'Lumen Field, Seattle',
+    home: 'Bosnia',
+    away: 'Qatar',
+  },
+
+  {
+    id: 'morocco-haiti',
+    matchday: 3,
+    dateISO: '2026-06-24',
+    kickoffBST: '23:00',
+    group: 'C',
+    venue: 'Mercedes-Benz Stadium, Atlanta',
+    home: 'Morocco',
+    away: 'Haiti',
+  },
+
+  {
+    id: 'scotland-brazil',
+    matchday: 3,
+    dateISO: '2026-06-24',
+    kickoffBST: '23:00',
+    group: 'C',
+    venue: 'Hard Rock Stadium, Miami',
+    home: 'Scotland',
+    away: 'Brazil',
+  },
+
+  {
+    id: 'south-africa-south-korea',
+    matchday: 3,
+    dateISO: '2026-06-25',
+    kickoffBST: '02:00',
+    group: 'A',
+    venue: 'Estadio BBVA, Monterrey',
+    home: 'South Africa',
+    away: 'South Korea',
+  },
+
+  {
+    id: 'czechia-mexico',
+    matchday: 3,
+    dateISO: '2026-06-25',
+    kickoffBST: '02:00',
+    group: 'A',
+    venue: 'Estadio Azteca, Mexico City',
+    home: 'Czechia',
+    away: 'Mexico',
+  },
+
+  {
+    id: 'curacao-ivory-coast',
+    matchday: 3,
+    dateISO: '2026-06-25',
+    kickoffBST: '21:00',
+    group: 'E',
+    venue: 'Lincoln Financial Field, Philadelphia',
+    home: 'Curaçao',
+    away: 'Ivory Coast',
+  },
+
+  {
+    id: 'ecuador-germany',
+    matchday: 3,
+    dateISO: '2026-06-25',
+    kickoffBST: '21:00',
+    group: 'E',
+    venue: 'MetLife Stadium, New Jersey',
+    home: 'Ecuador',
+    away: 'Germany',
+  },
+
+  {
+    id: 'tunisia-netherlands',
+    matchday: 3,
+    dateISO: '2026-06-26',
+    kickoffBST: '00:00',
+    group: 'F',
+    venue: 'Arrowhead Stadium, Kansas City',
+    home: 'Tunisia',
+    away: 'Netherlands',
+  },
+
+  {
+    id: 'japan-sweden',
+    matchday: 3,
+    dateISO: '2026-06-26',
+    kickoffBST: '00:00',
+    group: 'F',
+    venue: 'AT&T Stadium, Arlington',
+    home: 'Japan',
+    away: 'Sweden',
+  },
+
+  {
+    id: 'turkiye-usa',
+    matchday: 3,
+    dateISO: '2026-06-26',
+    kickoffBST: '03:00',
+    group: 'D',
+    venue: 'SoFi Stadium, Los Angeles',
+    home: 'Türkiye',
+    away: 'USA',
+  },
+
+  {
+    id: 'paraguay-australia',
+    matchday: 3,
+    dateISO: '2026-06-26',
+    kickoffBST: '03:00',
+    group: 'D',
+    venue: "Levi's Stadium, Santa Clara",
+    home: 'Paraguay',
+    away: 'Australia',
+  },
+
+  {
+    id: 'norway-france',
+    matchday: 3,
+    dateISO: '2026-06-26',
+    kickoffBST: '20:00',
+    group: 'I',
+    venue: 'Gillette Stadium, Boston',
+    home: 'Norway',
+    away: 'France',
+  },
+
+  {
+    id: 'senegal-iraq',
+    matchday: 3,
+    dateISO: '2026-06-26',
+    kickoffBST: '20:00',
+    group: 'I',
+    venue: 'BMO Field, Toronto',
+    home: 'Senegal',
+    away: 'Iraq',
+  },
+
+  {
+    id: 'cape-verde-saudi-arabia',
+    matchday: 3,
+    dateISO: '2026-06-27',
+    kickoffBST: '01:00',
+    group: 'H',
+    venue: 'NRG Stadium, Houston',
+    home: 'Cape Verde',
+    away: 'Saudi Arabia',
+  },
+
+  {
+    id: 'uruguay-spain',
+    matchday: 3,
+    dateISO: '2026-06-27',
+    kickoffBST: '01:00',
+    group: 'H',
+    venue: 'Estadio Akron, Guadalajara',
+    home: 'Uruguay',
+    away: 'Spain',
+  },
+
+  {
+    id: 'new-zealand-belgium',
+    matchday: 3,
+    dateISO: '2026-06-27',
+    kickoffBST: '04:00',
+    group: 'G',
+    venue: 'BC Place, Vancouver',
+    home: 'New Zealand',
+    away: 'Belgium',
+  },
+
+  {
+    id: 'egypt-iran',
+    matchday: 3,
+    dateISO: '2026-06-27',
+    kickoffBST: '04:00',
+    group: 'G',
+    venue: 'Lumen Field, Seattle',
+    home: 'Egypt',
+    away: 'Iran',
+  },
+
+  {
+    id: 'panama-england',
+    matchday: 3,
+    dateISO: '2026-06-27',
+    kickoffBST: '22:00',
+    group: 'L',
+    venue: 'MetLife Stadium, New Jersey',
+    home: 'Panama',
+    away: 'England',
+  },
+
+  {
+    id: 'croatia-ghana',
+    matchday: 3,
+    dateISO: '2026-06-27',
+    kickoffBST: '22:00',
+    group: 'L',
+    venue: 'Lincoln Financial Field, Philadelphia',
+    home: 'Croatia',
+    away: 'Ghana',
+  },
+
+  {
+    id: 'colombia-portugal',
+    matchday: 3,
+    dateISO: '2026-06-28',
+    kickoffBST: '00:30',
+    group: 'K',
+    venue: 'Hard Rock Stadium, Miami',
+    home: 'Colombia',
+    away: 'Portugal',
+  },
+
+  {
+    id: 'dr-congo-uzbekistan',
+    matchday: 3,
+    dateISO: '2026-06-28',
+    kickoffBST: '00:30',
+    group: 'K',
+    venue: 'Mercedes-Benz Stadium, Atlanta',
+    home: 'DR Congo',
+    away: 'Uzbekistan',
+  },
+
+  {
+    id: 'algeria-austria',
+    matchday: 3,
+    dateISO: '2026-06-28',
+    kickoffBST: '03:00',
+    group: 'J',
+    venue: 'Arrowhead Stadium, Kansas City',
+    home: 'Algeria',
+    away: 'Austria',
+  },
+
+  {
+    id: 'jordan-argentina',
+    matchday: 3,
+    dateISO: '2026-06-28',
+    kickoffBST: '03:00',
+    group: 'J',
+    venue: 'AT&T Stadium, Arlington',
+    home: 'Jordan',
+    away: 'Argentina',
   },
 
 ];

@@ -186,7 +186,10 @@ const matchdayLabel = (md: number) => {
 
   <!-- ── UPCOMING ──────────────────────────────────────────────────────────── -->
   <section id="upcoming" aria-labelledby="upcoming-h">
-    <h2 id="upcoming-h" class="section-label" style="margin:0 0 0.75rem;">Upcoming calls</h2>
+    <h2 id="upcoming-h" class="section-label" style="margin:0 0 0.35rem;">Upcoming calls</h2>
+    <p style="font-size:0.75rem;color:var(--color-muted);margin:0 0 0.75rem;line-height:1.5;">
+      Predictions are added 2-3 days before kickoff. Fixtures further out are listed as scheduled only and will be predicted closer to the time.
+    </p>
 
     {upcomingMatches.length === 0 ? (
       <p style="font-size:0.85rem;color:var(--color-muted);">All tracked matches have results.</p>
