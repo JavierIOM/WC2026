@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.7.1] — 2026-06-16
+
+### Added
+- Prediction lifecycle policy documented in CLAUDE.md (AWAITING → PROVISIONAL → LOCKED → PLAYED; prediction fields frozen on PLAYED)
+- `assertPredictionMutable(id, block)` guard in scripts/update-results.mjs — throws if a match already has actuals recorded; must be called before any automated prediction-field write
+
 ## [0.7.0] — 2026-06-16
 
 ### Added

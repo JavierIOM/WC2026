@@ -122,7 +122,29 @@ function parseEmptyScorerMatches(content) {
   return matches;
 }
 
+// ── Prediction immutability guard ─────────────────────────────────────────────
+// Call this before modifying ANY prediction field (predHome, predAway, predType,
+// scorerCall, confidence, conditions) on a match block read from predictions.ts.
+// Throws if the match already has a result recorded.
+//
+// Result/actual fields (actualHome, actualAway, scorers, actualNotes) are NOT
+// prediction fields — recording a result does not go through this guard.
+//
+// Currently there is no automated code path that writes prediction fields (the
+// bot only records actuals). If you add one, you MUST call this guard first.
+function assertPredictionMutable(id, block) {
+  if (/\bactualHome:/.test(block) || /\bactualAway:/.test(block)) {
+    throw new Error(
+      `Refusing to modify prediction on played match ${id} — ` +
+      `predictions are frozen once a result is recorded.`
+    );
+  }
+}
+
 // ── Inject actual result fields into a pending match block ───────────────────
+// NOTE: this function records results (actualHome/actualAway/scorers), NOT
+// prediction fields. assertPredictionMutable is intentionally NOT called here.
+// Do NOT add prediction-field writes to this function without calling the guard.
 function injectActuals(content, id, actuals) {
   const idIdx = content.indexOf(`id: '${id}'`);
   if (idIdx === -1) {
@@ -160,6 +182,8 @@ function injectActuals(content, id, actuals) {
 }
 
 // ── Replace empty scorers on an already-logged match ─────────────────────────
+// Updates actual/scorer fields only. assertPredictionMutable is NOT called here.
+// Do NOT add prediction-field writes to this function without calling the guard.
 function patchScorers(content, id, scorers, actualNotes) {
   const idIdx = content.indexOf(`id: '${id}'`);
   if (idIdx === -1) {
@@ -269,11 +293,20 @@ async function main() {
   // ── Pass 1: log new results — DISABLED (maintainer enters results manually) ─
   // const finishedMatches = await fetchFinishedMatches();
   // const pending = parsePendingMatches(content);
-  // for (const match of pending) { ... }
+  // for (const match of pending) {
+  //   // injectActuals records results (allowed). If you ever add prediction-field
+  //   // updates here (predHome, predType, etc.), call the guard first:
+  //   //   assertPredictionMutable(match.id, matchBlock);
+  //   content = injectActuals(content, match.id, { ... });
+  // }
 
   // ── Pass 2: backfill empty scorers — DISABLED ────────────────────────────
   // const emptyScorerMatches = parseEmptyScorerMatches(content);
-  // for (const match of emptyScorerMatches) { ... }
+  // for (const match of emptyScorerMatches) {
+  //   // patchScorers updates scorer/actual fields (allowed without guard).
+  //   // If you add prediction-field updates, call assertPredictionMutable first.
+  //   content = patchScorers(content, match.id, scorers, notes);
+  // }
 
   if (changelogEntries.length === 0) {
     console.log('No new results to log (auto-fetch disabled).');
