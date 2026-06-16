@@ -105,6 +105,7 @@ body {
 /* Pred-type small labels — full border shorthand so the 1px outline actually
    renders (border-color alone is inert without a border-style). */
 .predtype-mismatch        { color: #a78bfa; background-color: rgb(167 139 250 / 0.1); border: 1px solid rgb(167 139 250 / 0.25); }
+.predtype-favourite       { color: #38bdf8; background-color: rgb(56 189 248 / 0.1);  border: 1px solid rgb(56 189 248 / 0.25); }
 .predtype-favourite-tight { color: #4f8ef7; background-color: rgb(79 142 247 / 0.1);  border: 1px solid rgb(79 142 247 / 0.25); }
 .predtype-draw            { color: #e879f9; background-color: rgb(232 121 249 / 0.1); border: 1px solid rgb(232 121 249 / 0.25); }
 .predtype-rule-bend       { color: #fb923c; background-color: rgb(251 146 60 / 0.1);  border: 1px solid rgb(251 146 60 / 0.25); }

@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.6.3] — 2026-06-16
+
+### Added
+- Real predictions for 7 MD2 placeholder fixtures (Groups E-H, 20-21 June): venues, scorelines, scorer calls, pred types, conditions, reasoning
+- New fixture: New Zealand vs Egypt (Group G, BC Place Vancouver, 02:00 BST Mon 22 June) — prediction pending
+- New predType 'favourite' (confident win, not mismatch) with sky-blue badge, wired into MatchCard, global.css, about page, and type system
+
+### Changed
+- Auto-update bot: score/goal fetching from football-data.org disabled — results now entered manually by maintainer only
+
+### Removed
+- scripts/generate-append.cjs and vs.md (one-off import artefacts)
+
 ## [0.6.2] — 2026-06-16
 
 ### Added

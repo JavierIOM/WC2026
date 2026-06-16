@@ -9,7 +9,8 @@ export interface Match {
   away: string;
   predHome: number;
   predAway: number;
-  predType: 'mismatch' | 'favourite-tight' | 'draw' | 'rule-bend';
+  predType: 'mismatch' | 'favourite' | 'favourite-tight' | 'draw' | 'rule-bend';
+  conditions?: string;
   scorerCall?: string;
   scorerCallType?: 'score' | 'score-or-assist';
   reasoning: string;
@@ -105,10 +106,11 @@ export function formatDate(dateISO: string): string {
 
 export function predTypeLabel(t: Match['predType']): string {
   const map: Record<Match['predType'], string> = {
-    'mismatch':       'Mismatch',
+    'mismatch':        'Mismatch',
+    'favourite':       'Favourite',
     'favourite-tight': 'Fav (tight)',
-    'draw':           'Draw call',
-    'rule-bend':      'Rule bend',
+    'draw':            'Draw call',
+    'rule-bend':       'Rule bend',
   };
   return map[t];
 }
@@ -790,14 +792,17 @@ export const matches: Match[] = [
     dateISO: '2026-06-20',
     kickoffBST: '18:00',
     group: 'F',
-    venue: 'TBD',
+    venue: 'NRG Stadium, Houston',
     home: 'Netherlands',
     away: 'Sweden',
-    predHome: 1,
+    predHome: 2,
     predAway: 1,
     predType: 'favourite-tight',
-    reasoning: 'Auto-added schedule entry',
-    confidence: 60,
+    scorerCall: 'Gakpo',
+    scorerCallType: 'score',
+    conditions: 'Houston NRG, retractable roof likely closed in midday heat — heat probably neutralised',
+    reasoning: 'Provisional. Coin-flip: NL midfield edge (de Jong, Gravenberch) vs Sweden hot attack (Gyökeres/Isak); both defences leaky. MD2 so more open than the openers.',
+    confidence: 50,
   },
 
   {
@@ -806,14 +811,17 @@ export const matches: Match[] = [
     dateISO: '2026-06-20',
     kickoffBST: '21:00',
     group: 'E',
-    venue: 'TBD',
+    venue: 'BMO Field, Toronto',
     home: 'Germany',
     away: 'Ivory Coast',
-    predHome: 1,
-    predAway: 1,
+    predHome: 2,
+    predAway: 0,
     predType: 'favourite-tight',
-    reasoning: 'Auto-added schedule entry',
-    confidence: 60,
+    scorerCall: 'Havertz',
+    scorerCallType: 'score',
+    conditions: 'Toronto, open-air, mild ~22°C — no heat factor',
+    reasoning: 'Provisional. Germany rampant (7-1 MD1); Ivory Coast organised but outgunned.',
+    confidence: 62,
   },
 
   {
@@ -822,14 +830,17 @@ export const matches: Match[] = [
     dateISO: '2026-06-21',
     kickoffBST: '01:00',
     group: 'E',
-    venue: 'TBD',
+    venue: 'Arrowhead Stadium, Kansas City',
     home: 'Ecuador',
     away: 'Curaçao',
-    predHome: 1,
-    predAway: 1,
-    predType: 'favourite-tight',
-    reasoning: 'Auto-added schedule entry',
-    confidence: 60,
+    predHome: 3,
+    predAway: 0,
+    predType: 'mismatch',
+    scorerCall: 'Enner Valencia',
+    scorerCallType: 'score',
+    conditions: 'Kansas City, open, hot evening ~30°C — minor sap, quality gap dominates',
+    reasoning: 'Provisional. Ecuador dominant in defeat (hit woodwork 3x); Curaçao shipped 7 to Germany.',
+    confidence: 66,
   },
 
   {
@@ -838,13 +849,16 @@ export const matches: Match[] = [
     dateISO: '2026-06-21',
     kickoffBST: '05:00',
     group: 'F',
-    venue: 'TBD',
+    venue: 'Estadio BBVA, Monterrey',
     home: 'Tunisia',
     away: 'Japan',
-    predHome: 1,
-    predAway: 1,
+    predHome: 0,
+    predAway: 2,
     predType: 'favourite-tight',
-    reasoning: 'Auto-added schedule entry',
+    scorerCall: 'Ueda',
+    scorerCallType: 'score',
+    conditions: 'Monterrey, open, hot but 10pm local kickoff = cooler night',
+    reasoning: 'Provisional. Japan strong (drew NL); Tunisia defence shredded by Sweden. (1000th WC match.)',
     confidence: 60,
   },
 
@@ -854,14 +868,17 @@ export const matches: Match[] = [
     dateISO: '2026-06-21',
     kickoffBST: '17:00',
     group: 'H',
-    venue: 'TBD',
+    venue: 'Mercedes-Benz Stadium, Atlanta',
     home: 'Spain',
     away: 'Saudi Arabia',
-    predHome: 1,
-    predAway: 1,
-    predType: 'favourite-tight',
-    reasoning: 'Auto-added schedule entry',
-    confidence: 60,
+    predHome: 2,
+    predAway: 0,
+    predType: 'favourite',
+    scorerCall: 'Oyarzabal',
+    scorerCallType: 'score',
+    conditions: 'Atlanta Mercedes-Benz, retractable roof, climate-controlled — heat neutralised, suits Spain passing',
+    reasoning: 'Provisional. Spain desperate after the shock 0-0; relentless but can be frustrated by a deep block.',
+    confidence: 62,
   },
 
   {
@@ -870,14 +887,17 @@ export const matches: Match[] = [
     dateISO: '2026-06-21',
     kickoffBST: '20:00',
     group: 'G',
-    venue: 'TBD',
+    venue: 'SoFi Stadium, Inglewood',
     home: 'Belgium',
     away: 'Iran',
-    predHome: 1,
+    predHome: 2,
     predAway: 1,
     predType: 'favourite-tight',
-    reasoning: 'Auto-added schedule entry',
-    confidence: 60,
+    scorerCall: 'De Bruyne',
+    scorerCallType: 'score',
+    conditions: 'SoFi (Inglewood), fixed roof, climate-controlled — heat neutralised',
+    reasoning: 'Provisional. Belgium unconvincing (1-1, Lukaku fitness doubt); Iran organised but leaked 2 to NZ.',
+    confidence: 52,
   },
 
   {
@@ -886,14 +906,35 @@ export const matches: Match[] = [
     dateISO: '2026-06-21',
     kickoffBST: '23:00',
     group: 'H',
-    venue: 'TBD',
+    venue: 'Hard Rock Stadium, Miami',
     home: 'Uruguay',
     away: 'Cape Verde',
     predHome: 1,
-    predAway: 1,
+    predAway: 0,
     predType: 'favourite-tight',
-    reasoning: 'Auto-added schedule entry',
-    confidence: 60,
+    scorerCall: 'Núñez',
+    scorerCallType: 'score',
+    conditions: 'Miami Hard Rock, open pitch, hot/humid ~30°C evening — favours a deep block',
+    reasoning: 'Provisional. Trimmed: Cape Verde just shut out Spain, and Miami heat aids a parked bus — real frustration risk.',
+    confidence: 56,
+  },
+
+  // ── MATCHDAY 10 — Sunday 21 / Monday 22 June ───────────────────────────────
+
+  {
+    id: 'new-zealand-egypt',
+    matchday: 2,
+    dateISO: '2026-06-22',
+    kickoffBST: '02:00',
+    group: 'G',
+    venue: 'BC Place, Vancouver',
+    home: 'New Zealand',
+    away: 'Egypt',
+    predHome: 1,
+    predAway: 1,
+    predType: 'draw',
+    reasoning: 'Prediction pending.',
+    confidence: 50,
   },
 
 ];

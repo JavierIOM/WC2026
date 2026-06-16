@@ -258,82 +258,25 @@ function prependChangelog(content, version, entries) {
 }
 
 // ── Main ──────────────────────────────────────────────────────────────────────
+// DISABLED: score/goal fetching from football-data.org is turned off.
+// Results and scorers must be entered manually by the maintainer.
+// The bot now only handles changelog/version bumps when changelogEntries is non-empty,
+// which requires re-enabling Pass 1 or Pass 2 below.
 async function main() {
-  console.log('Fetching finished WC2026 matches from football-data.org...');
-  const finishedMatches = await fetchFinishedMatches();
-  console.log(`  ${finishedMatches.length} finished matches found`);
-
   let content = readFileSync(PREDICTIONS_PATH, 'utf8');
   const changelogEntries = [];
 
-  // ── Pass 1: log new results for pending matches ───────────────────────────
-  const pending = parsePendingMatches(content);
-  console.log(`  ${pending.length} pending matches in predictions.ts`);
+  // ── Pass 1: log new results — DISABLED (maintainer enters results manually) ─
+  // const finishedMatches = await fetchFinishedMatches();
+  // const pending = parsePendingMatches(content);
+  // for (const match of pending) { ... }
 
-  for (const match of pending) {
-    const apiMatch = finishedMatches.find(fm =>
-      norm(fm.homeTeam.name) === norm(match.home) &&
-      norm(fm.awayTeam.name) === norm(match.away)
-    );
-
-    if (!apiMatch) {
-      console.log(`  ${match.id}: not finished yet (${match.home} vs ${match.away})`);
-      continue;
-    }
-
-    const h = apiMatch.score.fullTime.home;
-    const a = apiMatch.score.fullTime.away;
-    const scorers = buildScorers(apiMatch.goals);
-
-    console.log(`  ${match.id}: ${match.home} ${h}-${a} ${match.away} (${scorers.length} goal(s)) — writing notes...`);
-
-    const actualNotes = await buildActualNotes(match, h, a, scorers);
-
-    content = injectActuals(content, match.id, { actualHome: h, actualAway: a, scorers, actualNotes });
-
-    changelogEntries.push(
-      `${match.home} ${h}-${a} ${match.away} result auto-logged (scorers: ${scorers.join(', ') || 'none'})`
-    );
-  }
-
-  // ── Pass 2: backfill empty scorers on already-logged matches ──────────────
-  const emptyScorerMatches = parseEmptyScorerMatches(content);
-  if (emptyScorerMatches.length > 0) {
-    console.log(`  ${emptyScorerMatches.length} match(es) with empty scorers — backfilling...`);
-  }
-
-  for (const match of emptyScorerMatches) {
-    const apiMatch = finishedMatches.find(fm =>
-      norm(fm.homeTeam.name) === norm(match.home) &&
-      norm(fm.awayTeam.name) === norm(match.away)
-    );
-
-    if (!apiMatch) {
-      console.log(`  ${match.id}: cannot find in API for scorer backfill — skipping`);
-      continue;
-    }
-
-    const h = apiMatch.score.fullTime.home;
-    const a = apiMatch.score.fullTime.away;
-    const scorers = buildScorers(apiMatch.goals);
-
-    if (scorers.length === 0) {
-      console.log(`  ${match.id}: API also has no goals data — skipping backfill`);
-      continue;
-    }
-
-    console.log(`  ${match.id}: backfilling ${scorers.length} scorer(s) — writing notes...`);
-
-    const actualNotes = await buildActualNotes(match, h, a, scorers);
-    content = patchScorers(content, match.id, scorers, actualNotes);
-
-    changelogEntries.push(
-      `${match.home} ${h}-${a} ${match.away} scorers backfilled (${scorers.join(', ')})`
-    );
-  }
+  // ── Pass 2: backfill empty scorers — DISABLED ────────────────────────────
+  // const emptyScorerMatches = parseEmptyScorerMatches(content);
+  // for (const match of emptyScorerMatches) { ... }
 
   if (changelogEntries.length === 0) {
-    console.log('No new results to log.');
+    console.log('No new results to log (auto-fetch disabled).');
     return;
   }
 
