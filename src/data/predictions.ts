@@ -509,6 +509,10 @@ export const matches: Match[] = [
     scorerCallType: 'score',
     reasoning: "Uruguay are the stronger side. Darwin Núñez is the attacking threat. Saudi Arabia have some tournament pedigree from 2022 but Uruguay's quality edges this to a tight away win. 0-1 is the method: back the favourite to a scoreline, no more.",
     confidence: 60,
+    actualHome: 1,
+    actualAway: 1,
+    scorers: [],
+    actualNotes: 'Saudi Arabia 1-1 Uruguay. Auto-logged.',
   },
 
   {

@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.6] — 2026-06-16
+
+### Added
+- Saudi Arabia 1-1 Uruguay result auto-logged (scorers: none)
+
 ## [0.5.5] — 2026-06-15
 
 ### Fixed
