@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.7] — 2026-06-16
+
+### Added
+- Iran 2-2 New Zealand result auto-logged (scorers: none)
+
 ## [0.5.6] — 2026-06-16
 
 ### Added

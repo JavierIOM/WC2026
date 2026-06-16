@@ -531,6 +531,10 @@ export const matches: Match[] = [
     scorerCallType: 'score',
     reasoning: "Iran are the clear favourite here. New Zealand will be compact and organised but Iran have enough quality. Taremi is the most dangerous forward and the natural pick. Low-scoring 1-0 favourite call.",
     confidence: 60,
+    actualHome: 2,
+    actualAway: 2,
+    scorers: [],
+    actualNotes: 'Iran 2-2 New Zealand. Auto-logged.',
   },
 
   // ── MATCHDAY 6 — Tuesday 16 June ───────────────────────────────────────────
