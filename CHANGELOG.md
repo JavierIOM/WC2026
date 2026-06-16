@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.9] — 2026-06-16
+
+### Added
+- Saudi Arabia 1-1 Uruguay scorers backfilled: Al-Amri 41, Maxi Araújo (both MISS)
+- Iran 2-2 New Zealand scorers backfilled: Just 7, 54 (NZ); Rezaeian 33, Mohebbi 64 (Iran) (both MISS)
+
+### Changed
+- ksa-uru and irn-nzl confidence updated to 55 (were 60; both drew)
+- France vs Senegal: prediction revised to 1-1 draw (was 1-0), predType draw, confidence 44
+- Iraq vs Norway: prediction revised to 0-1 (was 0-2), predType favourite-tight, confidence 56
+- Argentina vs Algeria: confidence 60 to 64, reasoning sharpened
+- Austria vs Jordan: prediction revised to 1-0 (was 2-0), reasoning tightened
+
+## [0.5.8] — 2026-06-16
+
+### Fixed
+- Auto-update bot: scorers now built directly from per-match `goals` array in football-data.org API response rather than guessing from cumulative tournament totals
+- Bot: added backfill pass for already-logged matches with empty `scorers: []`
+- Bot: Haiku now only writes `actualNotes` prose from real goal data; scorer inference removed
+
 ## [0.5.7] — 2026-06-16
 
 ### Added

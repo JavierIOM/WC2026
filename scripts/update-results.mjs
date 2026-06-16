@@ -37,7 +37,19 @@ function norm(name) {
   return apiToLocal(name).toLowerCase().trim();
 }
 
-// ── Parse predictions.ts to find pending matches ─────────────────────────────
+// ── Build scorer strings directly from API goals array ────────────────────────
+// Format: "Player Name MM' (Team)" or "Player Name MM' OG (Team)"
+function buildScorers(goals) {
+  return (goals || []).map(g => {
+    const name = g.scorer?.name || 'Unknown';
+    const min  = g.injuryTime ? `${g.minute}+${g.injuryTime}'` : `${g.minute}'`;
+    const team = apiToLocal(g.team?.name || '');
+    if (g.type === 'OWN_GOAL') return `${name} ${min} OG (${team})`;
+    return `${name} ${min} (${team})`;
+  });
+}
+
+// ── Parse pending matches (no actuals yet) ────────────────────────────────────
 function parsePendingMatches(content) {
   const pending = [];
   const idPattern = /id:\s*'([^']+)'/g;
@@ -54,26 +66,63 @@ function parsePendingMatches(content) {
     if (block.includes('actualHome:')) continue;
     if (block.includes('informalOnly: true')) continue;
 
-    const dateMatch    = block.match(/dateISO:\s*'([^']+)'/);
-    const homeMatch    = block.match(/home:\s*'([^']+)'/);
-    const awayMatch    = block.match(/away:\s*'([^']+)'/);
-    const scorerMatch  = block.match(/scorerCall:\s*'([^']+)'/);
+    const dateMatch   = block.match(/dateISO:\s*'([^']+)'/);
+    const homeMatch   = block.match(/home:\s*'([^']+)'/);
+    const awayMatch   = block.match(/away:\s*'([^']+)'/);
+    const scorerMatch = block.match(/scorerCall:\s*'([^']+)'/);
 
     if (!dateMatch || !homeMatch || !awayMatch) continue;
 
     pending.push({
       id,
-      dateISO:     dateMatch[1],
-      home:        homeMatch[1],
-      away:        awayMatch[1],
-      scorerCall:  scorerMatch ? scorerMatch[1] : null,
+      dateISO:    dateMatch[1],
+      home:       homeMatch[1],
+      away:       awayMatch[1],
+      scorerCall: scorerMatch ? scorerMatch[1] : null,
     });
   }
 
   return pending;
 }
 
-// ── Inject actual result fields into the match block ─────────────────────────
+// ── Parse already-logged matches that have empty scorers (backfill pass) ──────
+function parseEmptyScorerMatches(content) {
+  const matches = [];
+  const idPattern = /id:\s*'([^']+)'/g;
+  let m;
+
+  while ((m = idPattern.exec(content)) !== null) {
+    const id = m[1];
+    const rest = content.slice(m.index);
+    const endMatch = rest.match(/\n  \},/);
+    if (!endMatch) continue;
+
+    const block = rest.slice(0, endMatch.index + endMatch[0].length);
+
+    if (!block.includes('actualHome:')) continue;
+    if (block.includes('informalOnly: true')) continue;
+
+    // Only process if scorers is empty array
+    if (!block.includes('scorers: [],')) continue;
+
+    const dateMatch  = block.match(/dateISO:\s*'([^']+)'/);
+    const homeMatch  = block.match(/home:\s*'([^']+)'/);
+    const awayMatch  = block.match(/away:\s*'([^']+)'/);
+
+    if (!dateMatch || !homeMatch || !awayMatch) continue;
+
+    matches.push({
+      id,
+      dateISO: dateMatch[1],
+      home:    homeMatch[1],
+      away:    awayMatch[1],
+    });
+  }
+
+  return matches;
+}
+
+// ── Inject actual result fields into a pending match block ───────────────────
 function injectActuals(content, id, actuals) {
   const idIdx = content.indexOf(`id: '${id}'`);
   if (idIdx === -1) {
@@ -103,16 +152,47 @@ function injectActuals(content, id, actuals) {
   }
 
   if (actuals.actualNotes) {
-    const safe = actuals.actualNotes
-      .replace(/'/g, "\\'")
-      .replace(/[—–]/g, ',');
+    const safe = actuals.actualNotes.replace(/'/g, "\\'").replace(/[—–]/g, ',');
     lines.push(`    actualNotes: '${safe}',`);
   }
 
   return content.slice(0, insertAt) + '\n' + lines.join('\n') + content.slice(insertAt);
 }
 
-// ── football-data.org API calls ───────────────────────────────────────────────
+// ── Replace empty scorers on an already-logged match ─────────────────────────
+function patchScorers(content, id, scorers, actualNotes) {
+  const idIdx = content.indexOf(`id: '${id}'`);
+  if (idIdx === -1) {
+    console.warn(`Cannot find match ${id} in predictions.ts`);
+    return content;
+  }
+
+  const rest = content.slice(idIdx);
+  const endMatch = rest.match(/\n  \},/);
+  if (!endMatch) return content;
+
+  const blockStart = idIdx;
+  const blockEnd   = idIdx + endMatch.index + endMatch[0].length;
+  let block = content.slice(blockStart, blockEnd);
+
+  if (scorers.length > 0) {
+    const list = scorers.map(s => `'${s.replace(/'/g, "\\'")}'`).join(', ');
+    block = block.replace(/scorers: \[\],/, `scorers: [${list}],`);
+  }
+
+  if (actualNotes) {
+    const safe = actualNotes.replace(/'/g, "\\'").replace(/[—–]/g, ',');
+    // Replace the auto-logged placeholder note
+    block = block.replace(
+      /actualNotes: '[^']*Auto-logged\.',/,
+      `actualNotes: '${safe}',`
+    );
+  }
+
+  return content.slice(0, blockStart) + block + content.slice(blockEnd);
+}
+
+// ── football-data.org: finished matches (includes goals array) ────────────────
 async function fetchFinishedMatches() {
   const res = await fetch(
     'https://api.football-data.org/v4/competitions/WC/matches?season=2026&status=FINISHED',
@@ -126,80 +206,41 @@ async function fetchFinishedMatches() {
   return data.matches;
 }
 
-async function fetchTournamentScorers() {
-  const res = await fetch(
-    'https://api.football-data.org/v4/competitions/WC/scorers?season=2026&limit=100',
-    { headers: { 'X-Auth-Token': FD_KEY } }
-  );
-  const data = await res.json();
-  return data.scorers || [];
-}
-
-// ── Claude Haiku: figure out scorers + write match note ──────────────────────
-async function claudeAnalyse(match, apiMatch, allScorers) {
+// ── Claude Haiku: write a concise match note from verified goal data ──────────
+async function buildActualNotes(match, homeScore, awayScore, scorers) {
   const { home, away } = match;
-  const homeScore = apiMatch.score.fullTime.home;
-  const awayScore = apiMatch.score.fullTime.away;
 
-  const homeScorers = allScorers
-    .filter(s => norm(s.team.name) === norm(home))
-    .map(s => `${s.player.name} (${s.goals} goals in tournament so far)`);
+  if (scorers.length === 0) {
+    return `${home} ${homeScore}-${awayScore} ${away}.`;
+  }
 
-  const awayScorers = allScorers
-    .filter(s => norm(s.team.name) === norm(away))
-    .map(s => `${s.player.name} (${s.goals} goals in tournament so far)`);
+  const goalsList = scorers.join(', ');
 
-  const prompt = `You are helping update a World Cup 2026 prediction tracker website.
+  const prompt = `Write a concise one-line match note for a World Cup 2026 prediction tracker.
 
-Match: ${home} vs ${away} on ${match.dateISO}
-Final score: ${home} ${homeScore}-${awayScore} ${away}
+Match: ${home} ${homeScore}-${awayScore} ${away}
+Goals: ${goalsList}
 
-Tournament scorer data for these teams (cumulative across all their matches so far):
-${home}: ${homeScorers.length ? homeScorers.join(', ') : 'no scorers recorded yet'}
-${away}: ${awayScorers.length ? awayScorers.join(', ') : 'no scorers recorded yet'}
-
-Task: provide the likely scorers for THIS specific match and write a one-line match note.
-
-If teams have only played one match so far, the cumulative scorer data IS the per-match data.
-If teams have played multiple matches, use context to distribute goals across matches as best you can.
-
-Return ONLY valid JSON in this exact shape — no other text:
-{
-  "scorers": ["Full Player Name", "Full Player Name"],
-  "actualNotes": "Brief match note here."
-}
-
-RULES for actualNotes:
-- NEVER use an em-dash (the character —). Use a comma, colon or semicolon instead.
-- British English only
-- Maximum 120 characters
-- Factual and concise, based on the score and scorer data provided
-- Style: "Balogun brace; Reyna late. Pulisic assisted opener." / "Amad Diallo 90 (Singo). Ecuador hit the bar twice."`;
+Rules:
+- NEVER use an em-dash (—). Use commas, colons or semicolons instead.
+- British English only.
+- Maximum 120 characters.
+- Factual and concise. Name the key moments.
+- Style examples: "Balogun brace; Reyna late. Pulisic assisted opener." / "Amad Diallo 90 (Singo assist). Ecuador hit the bar twice."
+- Return ONLY the note string, no quotes, no JSON.`;
 
   try {
     const response = await client.messages.create({
-      model: 'claude-haiku-4-5-20251001',
-      max_tokens: 300,
-      messages: [{ role: 'user', content: prompt }],
+      model:      'claude-haiku-4-5-20251001',
+      max_tokens: 150,
+      messages:   [{ role: 'user', content: prompt }],
     });
 
-    const text = response.content[0].text.trim();
-    const jsonMatch = text.match(/\{[\s\S]+\}/);
-    if (!jsonMatch) throw new Error(`No JSON in response: ${text}`);
-
-    const parsed = JSON.parse(jsonMatch[0]);
-
-    if (parsed.actualNotes) {
-      parsed.actualNotes = parsed.actualNotes.replace(/[—–]/g, ',').trim();
-    }
-
-    return parsed;
+    const text = response.content[0].text.trim().replace(/[—–]/g, ',');
+    return text.length > 0 ? text : `${home} ${homeScore}-${awayScore} ${away}. Goals: ${goalsList}.`;
   } catch (err) {
-    console.error(`Claude error for ${match.id}:`, err.message);
-    return {
-      scorers: [],
-      actualNotes: `${home} ${homeScore}-${awayScore} ${away}. Auto-logged.`,
-    };
+    console.error(`Haiku error for ${match.id}:`, err.message);
+    return `${home} ${homeScore}-${awayScore} ${away}. Goals: ${goalsList}.`;
   }
 }
 
@@ -222,21 +263,12 @@ async function main() {
   const finishedMatches = await fetchFinishedMatches();
   console.log(`  ${finishedMatches.length} finished matches found`);
 
-  console.log('Fetching tournament scorers...');
-  const allScorers = await fetchTournamentScorers();
-  console.log(`  ${allScorers.length} scorers found`);
+  let content = readFileSync(PREDICTIONS_PATH, 'utf8');
+  const changelogEntries = [];
 
-  const content = readFileSync(PREDICTIONS_PATH, 'utf8');
+  // ── Pass 1: log new results for pending matches ───────────────────────────
   const pending = parsePendingMatches(content);
   console.log(`  ${pending.length} pending matches in predictions.ts`);
-
-  if (pending.length === 0) {
-    console.log('Nothing to update.');
-    return;
-  }
-
-  let updatedContent = content;
-  const changelogEntries = [];
 
   for (const match of pending) {
     const apiMatch = finishedMatches.find(fm =>
@@ -251,19 +283,52 @@ async function main() {
 
     const h = apiMatch.score.fullTime.home;
     const a = apiMatch.score.fullTime.away;
-    console.log(`  ${match.id}: ${match.home} ${h}-${a} ${match.away} — calling Claude...`);
+    const scorers = buildScorers(apiMatch.goals);
 
-    const { scorers, actualNotes } = await claudeAnalyse(match, apiMatch, allScorers);
+    console.log(`  ${match.id}: ${match.home} ${h}-${a} ${match.away} (${scorers.length} goal(s)) — writing notes...`);
 
-    updatedContent = injectActuals(updatedContent, match.id, {
-      actualHome: h,
-      actualAway: a,
-      scorers,
-      actualNotes,
-    });
+    const actualNotes = await buildActualNotes(match, h, a, scorers);
+
+    content = injectActuals(content, match.id, { actualHome: h, actualAway: a, scorers, actualNotes });
 
     changelogEntries.push(
       `${match.home} ${h}-${a} ${match.away} result auto-logged (scorers: ${scorers.join(', ') || 'none'})`
+    );
+  }
+
+  // ── Pass 2: backfill empty scorers on already-logged matches ──────────────
+  const emptyScorerMatches = parseEmptyScorerMatches(content);
+  if (emptyScorerMatches.length > 0) {
+    console.log(`  ${emptyScorerMatches.length} match(es) with empty scorers — backfilling...`);
+  }
+
+  for (const match of emptyScorerMatches) {
+    const apiMatch = finishedMatches.find(fm =>
+      norm(fm.homeTeam.name) === norm(match.home) &&
+      norm(fm.awayTeam.name) === norm(match.away)
+    );
+
+    if (!apiMatch) {
+      console.log(`  ${match.id}: cannot find in API for scorer backfill — skipping`);
+      continue;
+    }
+
+    const h = apiMatch.score.fullTime.home;
+    const a = apiMatch.score.fullTime.away;
+    const scorers = buildScorers(apiMatch.goals);
+
+    if (scorers.length === 0) {
+      console.log(`  ${match.id}: API also has no goals data — skipping backfill`);
+      continue;
+    }
+
+    console.log(`  ${match.id}: backfilling ${scorers.length} scorer(s) — writing notes...`);
+
+    const actualNotes = await buildActualNotes(match, h, a, scorers);
+    content = patchScorers(content, match.id, scorers, actualNotes);
+
+    changelogEntries.push(
+      `${match.home} ${h}-${a} ${match.away} scorers backfilled (${scorers.join(', ')})`
     );
   }
 
@@ -272,8 +337,8 @@ async function main() {
     return;
   }
 
-  writeFileSync(PREDICTIONS_PATH, updatedContent, 'utf8');
-  console.log(`Wrote ${changelogEntries.length} result(s) to predictions.ts`);
+  writeFileSync(PREDICTIONS_PATH, content, 'utf8');
+  console.log(`Wrote ${changelogEntries.length} update(s) to predictions.ts`);
 
   const pkg = JSON.parse(readFileSync(PACKAGE_PATH, 'utf8'));
   const newVersion = bumpVersion(pkg.version);
