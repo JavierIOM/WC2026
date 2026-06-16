@@ -511,7 +511,7 @@ export const matches: Match[] = [
     confidence: 55,
     actualHome: 1,
     actualAway: 1,
-    scorers: ["Al-Amri 41' (Saudi Arabia)", "Maxi Araújo (Uruguay)"],
+    scorers: ["Al-Amri 41' (Saudi Arabia)", "Maxi Araújo 86' (Uruguay)"],
     actualNotes: 'Al-Amri 41, Araújo late. Núñez subbed at HT, did not score; Uruguay improved after he left.',
   },
 
