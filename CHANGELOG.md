@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.6.2] — 2026-06-16
+
+### Added
+- France 3-1 Senegal: Mbappé 66, 90+6; Barcola 82 (MISS result, HIT scorer)
+
 ## [0.6.1] — 2026-06-16
 
 ### Changed

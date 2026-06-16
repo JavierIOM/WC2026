@@ -555,6 +555,11 @@ export const matches: Match[] = [
     scorerCallType: 'score',
     reasoning: "France better squad but Senegal the strongest underdog in the field. Even MD1 opener, the profile that has been drawing all week. The draw is the base case here.",
     confidence: 44,
+    actualHome: 3,
+    actualAway: 1,
+    scorers: ['Mbappé', 'Barcola'],
+    assisters: [],
+    actualNotes: 'Mbappé 66, 90+6 (brace makes him France all-time top scorer); Barcola 82. Mbaye 90+5 consolation for Senegal.',
   },
 
   {
