@@ -191,43 +191,11 @@ const matchdayLabel = (md: number) => {
     {upcomingMatches.length === 0 ? (
       <p style="font-size:0.85rem;color:var(--color-muted);">All tracked matches have results.</p>
     ) : (
-      <ul
-        style="list-style:none;margin:0;padding:0;background-color:var(--color-surface);border:1px solid var(--color-border);border-radius:8px;overflow:hidden;"
-      >
-        {upcomingMatches.map((m, i) => (
-          <li
-            style={`display:grid;grid-template-columns:1fr 2fr 1fr;align-items:center;gap:0.75rem;padding:0.75rem 1rem;${i > 0 ? 'border-top:1px solid var(--color-border);' : ''}`}
-          >
-            <div>
-              <div style="font-size:0.7rem;color:var(--color-muted);margin-bottom:2px;">
-                {formatDate(m.dateISO)} · {m.kickoffBST} BST
-              </div>
-              <div style="font-size:0.72rem;color:var(--color-muted);">
-                Group {m.group}
-              </div>
-            </div>
-
-            <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
-              <span style="font-weight:600;font-size:0.9rem;color:var(--color-text);">{m.home}</span>
-              <span style="color:var(--color-muted);font-size:0.75rem;">vs</span>
-              <span style="font-weight:600;font-size:0.9rem;color:var(--color-text);">{m.away}</span>
-            </div>
-
-            <div style="text-align:right;">
-              <div
-                style="font-family:var(--font-display);font-size:1.4rem;font-weight:700;color:var(--color-text);"
-              >
-                {m.predHome}–{m.predAway}
-              </div>
-              {m.scorerCall && (
-                <div style="font-size:0.7rem;color:var(--color-muted);">
-                  {m.scorerCall}
-                </div>
-              )}
-            </div>
-          </li>
+      <div style="display:flex;flex-direction:column;gap:0.75rem;">
+        {upcomingMatches.map(m => (
+          <MatchCard match={m} />
         ))}
-      </ul>
+      </div>
     )}
   </section>
 

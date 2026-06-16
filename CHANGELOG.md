@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.6.1] — 2026-06-16
+
+### Changed
+- Upcoming calls section now uses full match cards (with pred type badge, scorer call, and collapsible reasoning) instead of compact list rows
+
 ## [0.5.9] — 2026-06-16
 
 ### Added
