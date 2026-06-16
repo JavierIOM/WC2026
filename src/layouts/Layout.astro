@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import pkg from '../../package.json';
 
 interface Props {
   title?: string;
@@ -145,7 +146,7 @@ const onAbout = path.startsWith('/about');
           <div style="margin-bottom:0.3rem;">
             Site by <span style="color:var(--color-text);">Claude Code</span>: Sonnet 4.6
           </div>
-          <div>Updated {buildTime}</div>
+          <div>v{pkg.version} &nbsp;&middot;&nbsp; Updated {buildTime}</div>
         </div>
       </div>
     </footer>

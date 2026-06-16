@@ -15,6 +15,11 @@ All notable changes to this project will be documented in this file.
 - Argentina vs Algeria: confidence 60 to 64, reasoning sharpened
 - Austria vs Jordan: prediction revised to 1-0 (was 2-0), reasoning tightened
 
+## [0.6.0] — 2026-06-16
+
+### Changed
+- Footer now shows version number (e.g. v0.6.0) on all pages
+
 ## [0.5.8] — 2026-06-16
 
 ### Fixed
