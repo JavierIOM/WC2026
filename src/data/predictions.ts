@@ -414,6 +414,10 @@ export const matches: Match[] = [
     scorerCallType: 'score',
     reasoning: "Revised from 2-1; a 1-1 would be no surprise. Even European openers often don't resolve cleanly. Croatia are aging (Modric turns 41 in September) but have never been beaten comfortably. England's squad depth is their biggest edge. 2018 semi rematch. Kane the obvious call if England carve out enough chances.",
     confidence: 60,
+    actualHome: 4,
+    actualAway: 2,
+    scorers: ["Kane 12' pen (England)", "Baturina 36' (Croatia)", "Kane 42' (England)", "Musa 45+' (Croatia)", "Bellingham 47' (England)", "Rashford ~70' (England)"],
+    actualNotes: "Opening-night thriller. Kane brace. Called England 1-0 — result CORRECT, scorer (Kane) HIT; scoreline way off (4-2). England top Group L.",
   },
 
   {
@@ -651,6 +655,10 @@ export const matches: Match[] = [
     scorerCallType: 'score',
     reasoning: "Portugal are clear favourites. DR Congo are the weakest side in Group K on paper. Ronaldo will be motivated: this could be his last World Cup. Mismatch margin fully allowed. Dark horse caveat applies to the tournament, not to this specific game.",
     confidence: 60,
+    actualHome: 1,
+    actualAway: 1,
+    scorers: ["Neves 6' (Portugal)", "Wissa (DR Congo)"],
+    actualNotes: "DR Congo parked the bus and held on; Ronaldo quiet. Called Portugal 3-0 mismatch — result MISS, scorer (Ronaldo) MISS. 2nd mismatch to fail after Spain 0-0.",
   },
 
   // ── MATCHDAY 8 — Thursday 18 June ──────────────────────────────────────────
