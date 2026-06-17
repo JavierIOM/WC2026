@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.7.2] — 2026-06-17
+
+### Added
+- MD6 results: Iraq 1-4 Norway (Haaland brace, result CORRECT, scorer HIT), Argentina 3-0 Algeria (Messi hat-trick, result CORRECT, scorer MISS), Austria 3-1 Jordan (result CORRECT, scorer MISS)
+- France-Senegal scorers updated to timestamped format; actualNotes revised (result MISS, scorer HIT)
+
 ## [0.7.1] — 2026-06-16
 
 ### Added

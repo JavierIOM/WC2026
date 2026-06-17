@@ -562,9 +562,9 @@ export const matches: Match[] = [
     confidence: 44,
     actualHome: 3,
     actualAway: 1,
-    scorers: ['Mbappé', 'Barcola'],
+    scorers: ["Mbappé 66' (France)", "Barcola 82' (France)", "Mbaye 90+5' (Senegal)", "Mbappé 90+6' (France)"],
     assisters: [],
-    actualNotes: 'Mbappé 66, 90+6 (brace makes him France all-time top scorer); Barcola 82. Mbaye 90+5 consolation for Senegal.',
+    actualNotes: "France poor in 1st half, transformed after the break. Mbappé brace. Called a 1-1 draw — result MISS, scorer (Mbappé) HIT.",
   },
 
   {
@@ -583,6 +583,10 @@ export const matches: Match[] = [
     scorerCallType: 'score',
     reasoning: "Norway clearly stronger but it is an opener. Tight 1-0, not a rout. Haaland the obvious scorer call.",
     confidence: 56,
+    actualHome: 1,
+    actualAway: 4,
+    scorers: ["Haaland 29' (Norway)", "Hussein 39' (Iraq)", "Haaland 43' (Norway)", "Ostigård 76' (Norway)", "Hussein 90+6' (OG, counts for Norway)"],
+    actualNotes: "Haaland brace on WC debut. Called Norway 0-1 win — result CORRECT, scorer (Haaland) HIT.",
   },
 
   {
@@ -601,6 +605,10 @@ export const matches: Match[] = [
     scorerCallType: 'score',
     reasoning: "World champions vs outmatched Algeria. The quality-gap category that still delivers. Highest-confidence call of the slate, still capped because openers have humbled everyone.",
     confidence: 64,
+    actualHome: 3,
+    actualAway: 0,
+    scorers: ["Messi 17' (Argentina)", "Messi 60' (Argentina)", "Messi 76' (Argentina)"],
+    actualNotes: "Messi hat-trick (first WC hat-trick; level with Klose on 16 WC goals). Called Argentina 2-0 win — result CORRECT. Scorer call was Lautaro Martínez — MISS. scorerCall field frozen as-is (process miss documented externally).",
   },
 
   {
@@ -619,6 +627,10 @@ export const matches: Match[] = [
     scorerCallType: 'score',
     reasoning: "Austria clear favourites vs WC debutants Jordan. Cagey opener = narrow win. Baumgartner the creative hub.",
     confidence: 60,
+    actualHome: 3,
+    actualAway: 1,
+    scorers: ["Schmid 20' (Austria)", "Olwan 50' (Jordan)", "Al Arab 76' (OG, counts for Austria)", "Arnautović 90+12' pen (Austria)"],
+    actualNotes: "Austria's first WC win in 36 years. Called Austria 1-0 win — result CORRECT, scorer (Baumgartner) MISS.",
   },
 
   // ── MATCHDAY 7 — Wednesday 17 June (continued) ─────────────────────────────
