@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.8.0] — 2026-06-17
+
+### Added
+- Live match ticker on dashboard: Netlify function polls ESPN public API every 30s, shows live scores, clock, and venue for in-progress matches
+- Match stats fields on interface: `possessionHome`, `shotsOnTargetHome`, `shotsOnTargetAway` (reference data, not predictions — excluded from frozen-field guard)
+- Stats backfilled for MD6/MD7: England-Croatia (51.7% poss, 10 SoT), Austria-Jordan (63.2% poss, 2 SoT away), Portugal-DR Congo (75.4% poss, 0 SoT home)
+- `scripts/validate-predictions.mjs`: parses HEAD vs working tree and fails with INTEGRITY VIOLATION if any frozen prediction field is modified on a played match; warns on duplicate ids, invalid predType, played match missing scorers
+- PostToolUse hook in `.claude/settings.json` runs the validator after every Edit/Write
+
+### Changed
+- MatchCard now displays possession % and shots-on-target subtly on played cards when available
+
 ## [0.7.2] — 2026-06-17
 
 ### Added

@@ -40,3 +40,5 @@ Predictions may be freely revised while a match is pending (no actuals). This is
 **Policy:** Overwrite-in-place — the file holds only the current prediction. There is no version history for calls in the repo. The narrative of why a call changed lives in an external Craft doc, not here.
 
 **Results rule (reaffirmed):** Results and goal data come only from the maintainer — never fetched from an external source. The auto-update bot (`scripts/update-results.mjs`) has this fetching disabled.
+
+**Validation hook:** A PostToolUse hook runs `node scripts/validate-predictions.mjs` after every Edit/Write. It fails with an INTEGRITY VIOLATION message if any frozen prediction field on a played match was modified. Stats fields (`possessionHome`, `shotsOnTargetHome`, `shotsOnTargetAway`) are excluded from the frozen check — they are reference data, not predictions.
