@@ -23,6 +23,10 @@ export interface Match {
   assisters?: string[];  // players credited with assists/involvement
   actualNotes?: string;
   informalOnly?: boolean; // exclude from headline tallies
+  // Match stats (ESPN ticker data, maintainer-recorded for played matches only)
+  possessionHome?: number; // %, e.g. 51.7 (possessionAway = 100 - possessionHome)
+  shotsOnTargetHome?: number;
+  shotsOnTargetAway?: number;
 }
 
 export type ResultVerdict = 'EXACT' | 'CORRECT' | 'MISS' | 'PENDING';
@@ -418,6 +422,7 @@ export const matches: Match[] = [
     actualAway: 2,
     scorers: ["Kane 12' pen (England)", "Baturina 36' (Croatia)", "Kane 42' (England)", "Musa 45+' (Croatia)", "Bellingham 47' (England)", "Rashford ~70' (England)"],
     actualNotes: "Opening-night thriller. Kane brace. Called England 1-0 — result CORRECT, scorer (Kane) HIT; scoreline way off (4-2). England top Group L.",
+    possessionHome: 51.7,
   },
 
   {
@@ -635,6 +640,7 @@ export const matches: Match[] = [
     actualAway: 1,
     scorers: ["Schmid 20' (Austria)", "Olwan 50' (Jordan)", "Al Arab 76' (OG, counts for Austria)", "Arnautović 90+12' pen (Austria)"],
     actualNotes: "Austria's first WC win in 36 years. Called Austria 1-0 win — result CORRECT, scorer (Baumgartner) MISS.",
+    possessionHome: 63.2,
   },
 
   // ── MATCHDAY 7 — Wednesday 17 June (continued) ─────────────────────────────
@@ -659,6 +665,9 @@ export const matches: Match[] = [
     actualAway: 1,
     scorers: ["Neves 6' (Portugal)", "Wissa (DR Congo)"],
     actualNotes: "DR Congo parked the bus and held on; Ronaldo quiet. Called Portugal 3-0 mismatch — result MISS, scorer (Ronaldo) MISS. 2nd mismatch to fail after Spain 0-0.",
+    possessionHome: 75.4,
+    shotsOnTargetHome: 3,
+    shotsOnTargetAway: 1,
   },
 
   // ── MATCHDAY 8 — Thursday 18 June ──────────────────────────────────────────

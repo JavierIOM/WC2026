@@ -146,6 +146,19 @@ const borderClass = verdictBorderClass[rv] ?? 'verdict-border-pending';
   )}
   {played && m.actualNotes && <hr class="divider" style="margin:0;" />}
 
+  <!-- Match stats (if available) -->
+  {played && (m.possessionHome !== undefined || m.shotsOnTargetHome !== undefined || m.shotsOnTargetAway !== undefined) && (
+    <div style="padding:0.5rem 1rem;font-size:0.75rem;color:var(--color-muted);display:flex;gap:1rem;flex-wrap:wrap;">
+      {m.possessionHome !== undefined && (
+        <span>{m.possessionHome}% poss / {(100 - m.possessionHome).toFixed(1)}% poss</span>
+      )}
+      {m.shotsOnTargetHome !== undefined && m.shotsOnTargetAway !== undefined && (
+        <span>{m.shotsOnTargetHome}–{m.shotsOnTargetAway} SoT</span>
+      )}
+    </div>
+  )}
+  {played && (m.possessionHome !== undefined || m.shotsOnTargetHome !== undefined || m.shotsOnTargetAway !== undefined) && <hr class="divider" style="margin:0;" />}
+
   <!-- Reasoning (collapsible) — only shown when a prediction exists -->
   {m.reasoning && (
     <details>
