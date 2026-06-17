@@ -1,0 +1,121 @@
+---
+// Server-side component to render live matches with client-side polling
+---
+
+<div id="live-matches-container" style="margin-bottom: 2rem;">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+    <p class="section-label">Live now</p>
+    <span id="live-status" style="font-size:0.7rem;color:var(--color-muted);display:flex;align-items:center;gap:0.3rem;">
+      <span id="live-indicator" style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#999;"></span>
+      <span id="live-text">Initializing...</span>
+    </span>
+  </div>
+
+  <!-- Live matches grid -->
+  <div id="live-matches-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:0.75rem;min-height:80px;">
+    <div style="grid-column:1/-1;padding:1.5rem;text-align:center;color:var(--color-muted);font-size:0.85rem;">
+      Loading live matches...
+    </div>
+  </div>
+</div>
+
+<script>
+  const POLL_INTERVAL = 30000; // 30 seconds
+  const CONTAINER = document.getElementById('live-matches-container');
+  const GRID = document.getElementById('live-matches-grid');
+  const INDICATOR = document.getElementById('live-indicator');
+  const TEXT = document.getElementById('live-text');
+
+  interface Competitor {
+    name: string;
+    logo?: string;
+    score: number;
+  }
+
+  interface LiveMatch {
+    id: string;
+    name: string;
+    status: string;
+    competitors: Competitor[];
+    clock: number | null;
+    displayClock: string | null;
+    period: number | null;
+    venue: string | null;
+  }
+
+  interface Response {
+    timestamp: string;
+    matches: {
+      live: LiveMatch[];
+      halftime: LiveMatch[];
+      upcoming: LiveMatch[];
+      finished: LiveMatch[];
+    };
+  }
+
+  async function fetchLiveMatches() {
+    try {
+      const res = await fetch('/.netlify/functions/live-matches');
+      const data: Response = await res.json();
+
+      // Combine live and halftime matches
+      const activeMatches = [...data.matches.live, ...data.matches.halftime];
+
+      if (activeMatches.length === 0) {
+        renderEmpty();
+        return;
+      }
+
+      renderMatches(activeMatches);
+      INDICATOR.style.background = '#22c55e';
+      TEXT.textContent = `${activeMatches.length} match${activeMatches.length !== 1 ? 'es' : ''} live`;
+    } catch (error) {
+      console.error('Failed to fetch live matches:', error);
+      INDICATOR.style.background = '#ef4444';
+      TEXT.textContent = 'Connection error';
+    }
+  }
+
+  function renderEmpty() {
+    GRID.innerHTML = `<div style="grid-column:1/-1;padding:1.5rem;text-align:center;color:var(--color-muted);font-size:0.85rem;">No matches live right now</div>`;
+    INDICATOR.style.background = '#999';
+    TEXT.textContent = 'No matches';
+  }
+
+  function renderMatches(matches: LiveMatch[]) {
+    GRID.innerHTML = matches.map(m => {
+      const [home, away] = m.competitors;
+      const isHalftime = m.displayClock?.includes('HT');
+      const clockText = isHalftime ? 'HT' : m.displayClock || '●';
+
+      return `
+        <div style="background-color:var(--color-surface);border:2px solid #22c55e;border-radius:8px;padding:1rem;position:relative;overflow:hidden;">
+          <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:0.75rem;">
+            <span style="font-size:0.65rem;color:var(--color-muted);text-transform:uppercase;letter-spacing:0.05em;">${m.venue || 'TBA'}</span>
+            <span style="font-size:0.8rem;font-weight:700;color:#22c55e;padding:0.25rem 0.5rem;background:rgba(34,197,94,0.1);border-radius:4px;">${clockText}</span>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+            <div style="text-align:right;min-width:0;">
+              <div style="font-size:0.9rem;font-weight:600;color:var(--color-text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${home.name}</div>
+            </div>
+            <div style="text-align:center;font-family:var(--font-display);font-size:1.75rem;font-weight:800;color:var(--color-text);min-width:60px;">${home.score}–${away.score}</div>
+            <div style="text-align:left;min-width:0;">
+              <div style="font-size:0.9rem;font-weight:600;color:var(--color-text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${away.name}</div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:0.3rem;flex-wrap:wrap;font-size:0.65rem;color:var(--color-muted);">
+            <span style="padding:0.2rem 0.4rem;background:rgba(79,142,247,0.1);border-radius:3px;">LIVE</span>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // Initial fetch
+  fetchLiveMatches();
+
+  // Poll every 30 seconds
+  setInterval(fetchLiveMatches, POLL_INTERVAL);
+</script>

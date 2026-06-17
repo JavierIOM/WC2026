@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import LiveMatches from '../components/LiveMatches.astro';
 import { matches, computeStats, getResultVerdict, isPlayed } from '../data/predictions';
 
 // ── Calibration ──────────────────────────────────────────────────────────────
@@ -83,6 +84,9 @@ const scorerPct = stats.scorerTotal > 0
   description="Accuracy dashboard for the WC2026 AI prediction engine. Results, exact scorelines, scorer calls, and per-matchday breakdown."
 >
   <section style="padding-top:2.5rem;">
+
+    <!-- Live matches -->
+    <LiveMatches />
 
     <p class="section-label" style="margin-bottom:0.75rem;">Accuracy dashboard</p>
 
