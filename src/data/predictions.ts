@@ -465,7 +465,7 @@ export const matches: Match[] = [
     confidence: 60,
     actualHome: 1,
     actualAway: 3,
-    scorers: ["Muñoz 40' (Colombia)", "Fayzullayev 60' (Uzbekistan)", "Díaz 65' (Colombia)", "Campaz (Colombia, late)"],
+    scorers: ["Muñoz 40' (Colombia)", "Fayzullayev 60' (Uzbekistan)", "Luis Díaz 65' (Colombia)", "Campaz (Colombia, late)"],
     actualNotes: "Colombia top Group K. Called Colombia 0-2 win — result CORRECT, scorer (Luis Díaz) HIT.",
   },
 
