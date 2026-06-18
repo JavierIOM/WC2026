@@ -441,6 +441,10 @@ export const matches: Match[] = [
     scorerCallType: 'score',
     reasoning: "Even game between two sides of similar quality. Ghana have the edge in flair and attacking threat. Panama will be organised and hard to break down. Kudus is Ghana's most dangerous player. Narrow 1-0 favourite call.",
     confidence: 60,
+    actualHome: 1,
+    actualAway: 0,
+    scorers: ["Yirenkyi 90+5' (Ghana)"],
+    actualNotes: "Stoppage-time winner. Called Ghana 1-0 — result CORRECT + EXACT. Scorer call Kudus MISS (Kudus was injured and not in the tournament squad).",
   },
 
   {
@@ -459,6 +463,10 @@ export const matches: Match[] = [
     scorerCallType: 'score',
     reasoning: "Colombia are clear favourites. Uzbekistan are improving but this is a significant quality gap at tournament level. Luis Díaz is Colombia's most dangerous threat and the natural scorer pick. 0-2 away win.",
     confidence: 60,
+    actualHome: 1,
+    actualAway: 3,
+    scorers: ["Muñoz 40' (Colombia)", "Fayzullayev 60' (Uzbekistan)", "Díaz 65' (Colombia)", "Campaz (Colombia, late)"],
+    actualNotes: "Colombia top Group K. Called Colombia 0-2 win — result CORRECT, scorer (Luis Díaz) HIT.",
   },
 
   // ── MATCHDAY 5 — Monday 15 June ────────────────────────────────────────────
@@ -688,6 +696,10 @@ export const matches: Match[] = [
     scorerCallType: 'score',
     reasoning: "Genuinely even game. South Africa will be motivated and organised after the opening loss to Mexico. Czechia have a quality edge but not enough to back them with confidence. Deliberate draw call. Schick is Czechia's danger man.",
     confidence: 60,
+    actualHome: 1,
+    actualAway: 1,
+    scorers: ["Sadílek 6' (Czechia)", "South Africa (equaliser, scorer TBC)"],
+    actualNotes: "Called 1-1 draw — result CORRECT (first draw call to land). Scorer call Schick MISS. SA equaliser scorer to be confirmed and added later.",
   },
 
   {
