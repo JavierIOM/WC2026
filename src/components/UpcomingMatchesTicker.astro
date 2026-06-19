@@ -2,10 +2,14 @@
 import { matches } from '../data/predictions';
 ---
 
-<div id="ticker-outer" style="background:var(--color-surface);border-bottom:1px solid var(--color-border);display:flex;align-items:center;gap:1rem;padding:0 1.25rem;">
-  <div style="flex-shrink:0;padding:0.75rem 0;color:var(--color-muted);font-size:0.7rem;text-transform:uppercase;letter-spacing:0.06em;font-weight:700;white-space:nowrap;">Upcoming</div>
-  <div id="ticker-container" style="flex:1;min-width:0;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;" data-predictions={JSON.stringify(matches)}>
-    <div id="matches-list" style="display:flex;gap:0.75rem;padding:0.6rem 0;width:max-content;"></div>
+<div style="background:var(--color-surface);border-bottom:1px solid var(--color-border);" data-predictions={JSON.stringify(matches)} id="ticker-container">
+  <div style="display:table;width:100%;">
+    <div style="display:table-cell;vertical-align:middle;white-space:nowrap;padding:0.75rem 0.75rem 0.75rem 1.25rem;color:var(--color-muted);font-size:0.7rem;text-transform:uppercase;letter-spacing:0.06em;font-weight:700;width:1%;">Upcoming</div>
+    <div style="display:table-cell;width:99%;">
+      <div style="overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;">
+        <div id="matches-list" style="display:flex;gap:0.75rem;padding:0.6rem 1.25rem 0.6rem 0;width:max-content;min-width:100%;"></div>
+      </div>
+    </div>
   </div>
 </div>
 
