@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.8.1] — 2026-06-19
+
+### Fixed
+- USA vs Paraguay (MD8): corrected reasoning to reflect Balogun as the primary creative threat (was Pulisic)
+
 ## [0.8.0] — 2026-06-17
 
 ### Added

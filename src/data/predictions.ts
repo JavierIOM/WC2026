@@ -209,7 +209,7 @@ export const matches: Match[] = [
     predType: 'favourite-tight',
     scorerCall: 'Pulisic',
     scorerCallType: 'score-or-assist',
-    reasoning: 'USA at home with a massive atmosphere. Pulisic the most dangerous creative threat. Paraguay defensively organised but outclassed in the final third.',
+    reasoning: 'USA at home with a massive atmosphere. Balogun the most dangerous creative threat. Paraguay defensively organised but outclassed in the final third.',
     confidence: 70,
     actualHome: 4,
     actualAway: 1,
