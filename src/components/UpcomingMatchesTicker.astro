@@ -1,0 +1,104 @@
+---
+import { matches } from '../data/predictions';
+const predictionsJSON = JSON.stringify(matches);
+---
+
+<div id="ticker-container" style="background:linear-gradient(90deg,var(--color-surface) 0%,var(--color-surface-alt,var(--color-surface)) 100%);border-bottom:1px solid var(--color-border);padding:0.75rem 1.25rem;overflow-x:auto;overflow-y:hidden;scroll-behavior:smooth;">
+  <div id="ticker-content" style="display:flex;gap:1rem;min-width:min-content;padding:0;">
+    <div style="flex-shrink:0;padding:0.5rem 0;color:var(--color-muted);font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;font-weight:600;display:flex;align-items:center;white-space:nowrap;">Upcoming</div>
+    <div id="matches-list" style="display:flex;gap:1rem;"></div>
+  </div>
+</div>
+
+<script is:inline define:vars={{ predictionsJSON }}>
+  const MATCHES_LIST = document.getElementById('matches-list');
+  const predictions = JSON.parse(predictionsJSON);
+
+  const teamNameMap = {
+    'United States': 'USA', 'Uruguay': 'Uruguay', 'Iran': 'Iran',
+    'New Zealand': 'NZL', 'Saudi Arabia': 'KSA', 'Mexico': 'MEX',
+    'South Korea': 'KOR', 'Senegal': 'SEN', 'Spain': 'ESP',
+    'Cape Verde': 'CPV', 'Belgium': 'BEL', 'Egypt': 'EGY',
+    'Netherlands': 'NED', 'Japan': 'JPN', 'Côte d\'Ivoire': 'CIV',
+    'Ivory Coast': 'CIV', 'Ecuador': 'ECU', 'Germany': 'GER',
+    'Curaçao': 'CUR', 'Sweden': 'SWE', 'Tunisia': 'TUN',
+    'England': 'ENG', 'Croatia': 'CRO', 'Greece': 'GRE',
+    'Turkey': 'TUR', 'Türkiye': 'TUR', 'Australia': 'AUS',
+    'Argentina': 'ARG', 'Algeria': 'ALG', 'Morocco': 'MAR',
+    'Scotland': 'SCO', 'Brazil': 'BRA', 'Haiti': 'HAI',
+    'Paraguay': 'PAR', 'Canada': 'CAN', 'Bosnia and Herzegovina': 'BIH',
+    'Switzerland': 'SUI', 'Ghana': 'GHA', 'Panama': 'PAN',
+    'Uzbekistan': 'UZB', 'Colombia': 'COL', 'Czechia': 'CZE',
+    'Czech Republic': 'CZE', 'South Africa': 'RSA', 'France': 'FRA',
+    'Norway': 'NOR', 'Iraq': 'IRQ', 'Austria': 'AUT',
+    'Jordan': 'JOR', 'Portugal': 'POR', 'DR Congo': 'DRC',
+    'Wales': 'WAL', 'Kazakhstan': 'KAZ', 'Costa Rica': 'CRC',
+  };
+
+  function findPrediction(homeCode, awayCode) {
+    return predictions.find(m => m.home === homeCode && m.away === awayCode);
+  }
+
+  async function fetchAndRender() {
+    try {
+      const res = await fetch('/.netlify/functions/live-matches');
+      const data = await res.json();
+      const upcomingMatches = data.matches.upcoming || [];
+
+      if (upcomingMatches.length === 0) {
+        MATCHES_LIST.innerHTML = '<div style="color:var(--color-muted);font-size:0.8rem;">No upcoming matches</div>';
+        return;
+      }
+
+      MATCHES_LIST.innerHTML = upcomingMatches.slice(0, 12).map(m => {
+        const home = m.competitors?.[0];
+        const away = m.competitors?.[1];
+        if (!home || !away) return '';
+
+        const homeCode = teamNameMap[home.name] || home.name;
+        const awayCode = teamNameMap[away.name] || away.name;
+        const pred = findPrediction(homeCode, awayCode);
+
+        const predictionText = pred && pred.predHome !== undefined
+          ? `${pred.predHome}-${pred.predAway}` : '?-?';
+        const scorerText = pred?.scorerCall ? `⚽ ${pred.scorerCall}` : '';
+
+        return `
+          <div style="flex-shrink:0;display:flex;flex-direction:column;gap:0.3rem;padding:0.5rem 0.75rem;background:var(--color-bg);border:1px solid var(--color-border);border-radius:4px;font-size:0.8rem;min-width:140px;">
+            <div style="display:flex;align-items:center;gap:0.25rem;">
+              <span style="font-weight:600;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:0.75rem;">${homeCode}</span>
+              <span style="font-weight:700;color:var(--color-accent);">${predictionText}</span>
+              <span style="font-weight:600;flex:1;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:0.75rem;">${awayCode}</span>
+            </div>
+            ${scorerText ? `<div style="color:var(--color-muted);font-size:0.7rem;text-align:center;">${scorerText}</div>` : ''}
+          </div>
+        `;
+      }).join('');
+    } catch (error) {
+      console.error('Failed to fetch upcoming matches:', error);
+      MATCHES_LIST.innerHTML = '<div style="color:var(--color-muted);font-size:0.8rem;">Unable to load matches</div>';
+    }
+  }
+
+  fetchAndRender();
+  setInterval(fetchAndRender, 60000);
+</script>
+
+<style>
+  #ticker-container {
+    -webkit-overflow-scrolling: touch;
+  }
+  #ticker-container::-webkit-scrollbar {
+    height: 4px;
+  }
+  #ticker-container::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  #ticker-container::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 2px;
+  }
+  #ticker-container::-webkit-scrollbar-thumb:hover {
+    background: var(--color-muted);
+  }
+</style>

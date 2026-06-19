@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import pkg from '../../package.json';
+import UpcomingMatchesTicker from '../components/UpcomingMatchesTicker.astro';
 
 interface Props {
   title?: string;
@@ -92,6 +93,8 @@ const onAbout = path.startsWith('/about');
         </button>
       </div>
     </header>
+
+    <UpcomingMatchesTicker />
 
     <script>
       const root = document.documentElement;
