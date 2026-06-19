@@ -31,3 +31,4 @@ dist/
 
 # Local working artifacts
 temporary screenshots/
+public/favicon*.png
