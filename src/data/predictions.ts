@@ -783,9 +783,9 @@ export const matches: Match[] = [
     predHome: 1,
     predAway: 0,
     predType: 'favourite-tight',
-    scorerCall: 'Pulisic',
+    scorerCall: 'Balogun',
     scorerCallType: 'score-or-assist',
-    reasoning: "Both won their MD1 matches. USA have the home crowd advantage but Australia showed real fight against Türkiye. Narrow edge to USA. This is exactly the even-opener profile that has been drawing all tournament, one of the genuine coin-flips of the week. Backing USA on home soil. Pulisic as the creative hub.",
+    reasoning: "Both won their MD1 matches. USA have the home crowd advantage but Australia showed real fight against Türkiye. Narrow edge to USA. This is exactly the even-opener profile that has been drawing all tournament, one of the genuine coin-flips of the week. Backing USA on home soil. Scorer switched off Pulisic — he exited the Paraguay opener at half-time, is day-to-day and not expected to start. Balogun is the in-form nailed-on starter (brace vs Paraguay, market favourite to score).",
     confidence: 60,
   },
 
