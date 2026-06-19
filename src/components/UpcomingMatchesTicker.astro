@@ -2,20 +2,24 @@
 import { matches } from '../data/predictions';
 ---
 
-<div style="background:var(--color-surface);border-bottom:1px solid var(--color-border);" data-predictions={JSON.stringify(matches)} id="ticker-container">
-  <div style="display:table;width:100%;">
-    <div style="display:table-cell;vertical-align:middle;white-space:nowrap;padding:0.75rem 0.75rem 0.75rem 1.25rem;color:var(--color-muted);font-size:0.7rem;text-transform:uppercase;letter-spacing:0.06em;font-weight:700;width:1%;">Upcoming</div>
-    <div style="display:table-cell;width:99%;">
-      <div style="overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;">
-        <div id="matches-list" style="display:flex;gap:0.75rem;padding:0.6rem 1.25rem 0.6rem 0;width:max-content;min-width:100%;"></div>
-      </div>
-    </div>
+<div style="background:var(--color-surface);border-bottom:1px solid var(--color-border);display:flex;align-items:center;overflow:hidden;" id="ticker-container" data-predictions={JSON.stringify(matches)}>
+  <div style="flex-shrink:0;padding:0.65rem 0.75rem 0.65rem 1.25rem;color:var(--color-muted);font-size:0.7rem;text-transform:uppercase;letter-spacing:0.06em;font-weight:700;white-space:nowrap;border-right:1px solid var(--color-border);background:var(--color-surface);z-index:1;">Upcoming</div>
+  <div style="flex:1;min-width:0;overflow:hidden;position:relative;">
+    <div id="ticker-track" style="display:flex;gap:0.75rem;padding:0.5rem 0.75rem;animation:ticker-scroll 40s linear infinite;width:max-content;"></div>
   </div>
 </div>
 
+<style>
+  @keyframes ticker-scroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  #ticker-track:hover { animation-play-state: paused; }
+</style>
+
 <script is:inline>
   const CONTAINER = document.getElementById('ticker-container');
-  const MATCHES_LIST = document.getElementById('matches-list');
+  const TRACK = document.getElementById('ticker-track');
   const predictions = JSON.parse(CONTAINER.getAttribute('data-predictions') || '[]');
 
   const teamNameMap = {
@@ -39,15 +43,21 @@ import { matches } from '../data/predictions';
     'Kazakhstan': 'KAZ', 'Costa Rica': 'CRC',
   };
 
-  function card(home, away, predictionText, scorerText) {
-    return `<div style="display:inline-flex;flex-direction:column;gap:0.25rem;padding:0.4rem 0.65rem;background:var(--color-bg);border:1px solid var(--color-border);border-radius:4px;white-space:nowrap;">
+  function card(home, away, score, scorer) {
+    return `<div style="display:inline-flex;flex-direction:column;gap:0.2rem;padding:0.35rem 0.6rem;background:var(--color-bg);border:1px solid var(--color-border);border-radius:4px;white-space:nowrap;flex-shrink:0;">
       <div style="display:flex;align-items:center;gap:0.35rem;font-size:0.75rem;">
         <span style="font-weight:600;">${home}</span>
-        <span style="font-weight:800;color:var(--color-accent);min-width:2rem;text-align:center;">${predictionText}</span>
+        <span style="font-weight:800;color:var(--color-accent);">${score}</span>
         <span style="font-weight:600;">${away}</span>
       </div>
-      ${scorerText ? `<div style="font-size:0.65rem;color:var(--color-muted);text-align:center;">${scorerText}</div>` : ''}
+      ${scorer ? `<div style="font-size:0.65rem;color:var(--color-muted);text-align:center;">${scorer}</div>` : ''}
     </div>`;
+  }
+
+  function renderCards(items) {
+    const html = items.map(({ home, away, score, scorer }) => card(home, away, score, scorer)).join('');
+    // Duplicate for seamless loop
+    TRACK.innerHTML = html + html;
   }
 
   async function fetchAndRender() {
@@ -56,43 +66,34 @@ import { matches } from '../data/predictions';
       const data = await res.json();
       const upcoming = data.matches.upcoming || [];
 
-      if (upcoming.length === 0) {
-        renderFallback();
+      if (upcoming.length > 0) {
+        const items = upcoming.slice(0, 12).map(m => {
+          const hc = teamNameMap[m.competitors?.[0]?.name] || m.competitors?.[0]?.name || '?';
+          const ac = teamNameMap[m.competitors?.[1]?.name] || m.competitors?.[1]?.name || '?';
+          const pred = predictions.find(p => p.home === hc && p.away === ac);
+          return {
+            home: hc, away: ac,
+            score: pred?.predHome !== undefined ? `${pred.predHome}-${pred.predAway}` : '?-?',
+            scorer: pred?.scorerCall ? `⚽ ${pred.scorerCall}` : '',
+          };
+        });
+        renderCards(items);
         return;
       }
+    } catch { /* fall through */ }
 
-      MATCHES_LIST.innerHTML = upcoming.slice(0, 12).map(m => {
-        const home = m.competitors?.[0];
-        const away = m.competitors?.[1];
-        if (!home || !away) return '';
-        const hc = teamNameMap[home.name] || home.name;
-        const ac = teamNameMap[away.name] || away.name;
-        const pred = predictions.find(p => p.home === hc && p.away === ac);
-        const score = pred?.predHome !== undefined ? `${pred.predHome}-${pred.predAway}` : '?-?';
-        const scorer = pred?.scorerCall ? `⚽ ${pred.scorerCall}` : '';
-        return card(hc, ac, score, scorer);
-      }).join('');
-
-    } catch {
-      renderFallback();
-    }
-  }
-
-  function renderFallback() {
-    const upcoming = predictions.filter(m => m.actualHome === undefined && m.predHome !== undefined).slice(0, 12);
-    MATCHES_LIST.innerHTML = upcoming.map(m => {
-      const score = `${m.predHome}-${m.predAway}`;
-      const scorer = m.scorerCall ? `⚽ ${m.scorerCall}` : '';
-      return card(m.home, m.away, score, scorer);
-    }).join('');
+    // Fallback: pending predictions from our data
+    const items = predictions
+      .filter(m => m.actualHome === undefined && m.predHome !== undefined)
+      .slice(0, 12)
+      .map(m => ({
+        home: m.home, away: m.away,
+        score: `${m.predHome}-${m.predAway}`,
+        scorer: m.scorerCall ? `⚽ ${m.scorerCall}` : '',
+      }));
+    renderCards(items);
   }
 
   fetchAndRender();
   setInterval(fetchAndRender, 60000);
 </script>
-
-<style>
-  #ticker-container::-webkit-scrollbar { height: 3px; }
-  #ticker-container::-webkit-scrollbar-track { background: transparent; }
-  #ticker-container::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 2px; }
-</style>
