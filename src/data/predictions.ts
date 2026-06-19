@@ -718,6 +718,11 @@ export const matches: Match[] = [
     scorerCallType: 'score',
     reasoning: "Switzerland had 23 shots against Qatar and drew. They will be fuming and must win here. Bosnia are capable but Switzerland with a point to prove should control this. Embolo the scorer pick again. 2-0 clean sheet.",
     confidence: 60,
+    actualHome: 4,
+    actualAway: 1,
+    scorers: ["Manzambi 74' (Switzerland)", "Muharemović red 80'", "Vargas 84' (Switzerland)", "Manzambi 90' (Switzerland)", "Mahmić 90+3' (Bosnia)", "Xhaka 90+7' pen (Switzerland)"],
+    assisters: ["Embolo"],
+    actualNotes: "Five goals in the last 15 min; Bosnia down to 10. Called Switzerland 2-0 win — result CORRECT. Scorer call Embolo ASSIST (set up Vargas, didn't score).",
   },
 
   {
@@ -736,6 +741,10 @@ export const matches: Match[] = [
     scorerCallType: 'score',
     reasoning: "Canada at home again after the frustrating draw with Bosnia. Qatar were held by Switzerland despite 23 shots against them. Canada are the stronger side and the home crowd will drive them. Jonathan David gets another chance to deliver. 2-0.",
     confidence: 60,
+    actualHome: 6,
+    actualAway: 0,
+    scorers: ["Larin 16' (Canada)", "Jonathan David 29' (Canada)", "Jonathan David 45+3' (Canada)", "Saliba 64' (Canada)", "Manai 75' OG (Canada)", "Jonathan David 90+2' (Canada)"],
+    actualNotes: "Biggest CONCACAF win in men's WC history; Qatar down to 9 men. Called Canada 2-0 win — result CORRECT, scorer (Jonathan David) HIT (hat-trick). Canada top Group B.",
   },
 
   {
@@ -754,6 +763,10 @@ export const matches: Match[] = [
     scorerCallType: 'score',
     reasoning: "Top-of-group clash between two sides who both won their openers. Mexico at home but South Korea have real quality with Son and Hwang. Even matchup, high stakes on both sides. Deliberate draw call. Santiago Giménez as Mexico's focal point.",
     confidence: 60,
+    actualHome: 1,
+    actualAway: 0,
+    scorers: ["Romo 50' (Mexico)"],
+    actualNotes: "Cagey 1-0, Romo scored off a keeper error. Called 1-1 draw — result MISS, scorer (Giménez) MISS. Mexico top Group A, first to clinch a knockout berth.",
   },
 
   // ── MATCHDAY 9 — Friday 19 June ────────────────────────────────────────────
