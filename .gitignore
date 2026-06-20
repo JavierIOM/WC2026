@@ -32,3 +32,4 @@ dist/
 # Local working artifacts
 temporary screenshots/
 public/favicon*.png
+public/apple-touch-icon.png
