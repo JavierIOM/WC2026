@@ -932,13 +932,13 @@ export const matches: Match[] = [
     home: 'Tunisia',
     away: 'Japan',
     predHome: 0,
-    predAway: 2,
+    predAway: 1,
     predType: 'favourite-tight',
     scorerCall: 'Ueda',
     scorerCallType: 'score-or-assist',
     conditions: 'Monterrey, open, cool ~24°C night game',
-    reasoning: 'Japan strong (drew NL); Tunisia defence shredded by Sweden. Ueda pace threat in transition.',
-    confidence: 58,
+    reasoning: "Japan strong (drew NL); Tunisia defence shredded by Sweden. Ueda pace threat in transition. Trimmed from 0-2 to 0-1: Tunisia sacked Lamouchi and appointed Hervé Renard (who beat Argentina with Saudi in 2022), switching to a back four with motivated players — likely harder to break down in must-win territory. Japan still favoured on quality, but a 2-goal win less likely and the draw more live.",
+    confidence: 55,
   },
 
   {
