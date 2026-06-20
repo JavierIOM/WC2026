@@ -787,6 +787,13 @@ export const matches: Match[] = [
     scorerCallType: 'score-or-assist',
     reasoning: "Both won their MD1 matches. USA have the home crowd advantage but Australia showed real fight against Türkiye. Narrow edge to USA. This is exactly the even-opener profile that has been drawing all tournament, one of the genuine coin-flips of the week. Backing USA on home soil. Scorer switched off Pulisic — he exited the Paraguay opener at half-time, is day-to-day and not expected to start. Balogun is the in-form nailed-on starter (brace vs Paraguay, market favourite to score).",
     confidence: 60,
+    actualHome: 2,
+    actualAway: 0,
+    scorers: ["Burgess 11' (OG, counts for USA)", "Freeman 43' (USA)"],
+    possessionHome: 55,
+    shotsOnTargetHome: 2,
+    shotsOnTargetAway: 2,
+    actualNotes: "Pulisic ruled out, never played — the switch to Balogun was right. Balogun forced the OG and assisted but didn't score. Called USA 1-0 — result CORRECT, scorer (Balogun) ASSIST. USA top Group D, into the last 32.",
   },
 
   {
@@ -805,6 +812,10 @@ export const matches: Match[] = [
     scorerCallType: 'score',
     reasoning: "Revised from 1-1. Morocco are the better side and the draw was a reach, not an honest call. The lesson from the CIV-ECU call: even games resolve narrow, not flat. Scotland will defend deep as always but Morocco have the quality to find a winner. 0-1, En-Nesyri the threat.",
     confidence: 60,
+    actualHome: 0,
+    actualAway: 1,
+    scorers: ["Saibari 1' (Morocco)"],
+    actualNotes: "Saibari scored after 70 seconds. Called Morocco 1-0 (flipped from a Scotland draw) — result CORRECT + EXACT, scorer (En-Nesyri) MISS.",
   },
 
   {
@@ -823,6 +834,12 @@ export const matches: Match[] = [
     scorerCallType: 'score',
     reasoning: "Brazil will be coming out with a point to prove after the Morocco draw. Haiti are significantly outclassed at this level. Mismatch: the full multi-goal margin is justified. Vinicius Jr the talisman.",
     confidence: 60,
+    actualHome: 3,
+    actualAway: 0,
+    scorers: ["Cunha 23' (Brazil)", "Cunha 36' (Brazil)", "Vinícius Jr 45' (Brazil)"],
+    possessionHome: 62,
+    shotsOnTargetAway: 0,
+    actualNotes: "Cunha brace + Vinícius. Called Brazil 3-0 mismatch — result CORRECT + EXACT, scorer (Vinícius Jr) HIT. Haiti eliminated.",
   },
 
   {
@@ -841,6 +858,11 @@ export const matches: Match[] = [
     scorerCallType: 'score',
     reasoning: "Both teams are desperate for points after difficult MD1 results. Tight game with a lot riding on it. Türkiye have the creative edge with Arda Güler. 1-0 narrow call: the method says lean the favourite to a scoreline, not a rout.",
     confidence: 60,
+    actualHome: 0,
+    actualAway: 1,
+    scorers: ["Galarza 2' (Paraguay)"],
+    possessionHome: 81,
+    actualNotes: "Earliest winner in WC history (64 secs). Paraguay held on with 10 men (Almirón red). Türkiye ~81% possession but no end product — the possession-without-SoT pattern. Called Türkiye 1-0 — result MISS, scorer (Arda Güler) MISS. Türkiye eliminated.",
   },
 
   {
