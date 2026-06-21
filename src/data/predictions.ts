@@ -882,6 +882,10 @@ export const matches: Match[] = [
     conditions: 'NRG Houston, roof closed — heat neutralised',
     reasoning: 'Coin-flip: NL midfield edge (de Jong, Gravenberch) vs Sweden hot attack (Gyökeres/Isak); both defences leaky. Gakpo margin-maker in final third.',
     confidence: 53,
+    actualHome: 5,
+    actualAway: 1,
+    scorers: ["Brobbey (Netherlands)", "Brobbey (Netherlands)", "Gakpo (Netherlands)", "Gakpo (Netherlands)", "Elanga 59' (Sweden)", "Summerville 89' (Netherlands)"],
+    actualNotes: "Coin-flip went emphatically Dutch. Brobbey + Gakpo braces. Called NL 2-1 — result CORRECT, scorer (Gakpo) HIT. NL top Group F. (Verify exact goal order/minutes.)",
   },
 
   {
@@ -901,6 +905,11 @@ export const matches: Match[] = [
     conditions: 'Toronto, open, ~22°C mild — no heat factor',
     reasoning: 'Germany rampant (7-1 MD1); Ivory Coast organised but outgunned. Havertz penalty/open-play threat.',
     confidence: 60,
+    actualHome: 2,
+    actualAway: 1,
+    scorers: ["Kessié 30' (Ivory Coast)", "Undav 68' (Germany)", "Undav 90+4' (Germany)"],
+    possessionHome: 60,
+    actualNotes: "Germany trailed at HT; super-sub Undav brace won it in stoppage time. Called Germany 2-0 — result CORRECT, scorer (Havertz) MISS. Germany into the last 32.",
   },
 
   {
@@ -920,6 +929,10 @@ export const matches: Match[] = [
     conditions: 'Kansas City, open, ~27°C evening',
     reasoning: 'Ecuador dominant in defeat (hit woodwork 3x); Curaçao shipped 7 to Germany. Valencia spearhead.',
     confidence: 66,
+    actualHome: 0,
+    actualAway: 0,
+    scorers: [],
+    actualNotes: "THIRD mismatch to fail (after Spain 0-0 Cape Verde, Portugal 1-1 DR Congo). Curaçao parked the bus; Ecuador wasteful again. Called Ecuador 3-0 — result MISS, scorer (Valencia) MISS. The wastefulness caveat was flagged but underweighted.",
   },
 
   {
@@ -939,6 +952,10 @@ export const matches: Match[] = [
     conditions: 'Monterrey, open, cool ~24°C night game',
     reasoning: "Japan strong (drew NL); Tunisia defence shredded by Sweden. Ueda pace threat in transition. Trimmed from 0-2 to 0-1: Tunisia sacked Lamouchi and appointed Hervé Renard (who beat Argentina with Saudi in 2022), switching to a back four with motivated players — likely harder to break down in must-win territory. Japan still favoured on quality, but a 2-goal win less likely and the draw more live.",
     confidence: 55,
+    actualHome: 0,
+    actualAway: 4,
+    scorers: ["Kamada 4' (Japan)", "Japan (3 more, scorers TBC)"],
+    actualNotes: "Japan ruthless; the Renard new-manager bounce didn't materialise. Called Japan 0-1 (trimmed from 0-2) — result CORRECT, scorer (Ueda) MISS. Japan eliminate Tunisia. (Confirm the other 3 Japan scorers.)",
   },
 
   {
