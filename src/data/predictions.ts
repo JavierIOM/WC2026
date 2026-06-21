@@ -1020,10 +1020,10 @@ export const matches: Match[] = [
     predHome: 1,
     predAway: 1,
     predType: 'draw',
-    scorerCall: 'Núñez',
+    scorerCall: 'Viñas',
     scorerCallType: 'score-or-assist',
     conditions: 'Miami Hard Rock, open, 33°C humid — heat aids a deep block',
-    reasoning: 'Cape Verde shut out Spain. Miami heat favours a deep block. Coin-flip. Núñez on set-pieces.',
+    reasoning: "Cape Verde shut out Spain. Miami heat favours a deep block. Coin-flip. Scorer switched off Núñez — benched (Bielsa dropped him after hooking him at HT vs Saudi). Viñas starts as sole striker and is the likeliest scorer. Draw call (1-1, conf 40) unchanged and reinforced: Uruguay missing De Arrascaeta, R.Araújo AND Núñez from the start, vs an unchanged Cape Verde deep block in Miami heat.",
     confidence: 40,
   },
 
