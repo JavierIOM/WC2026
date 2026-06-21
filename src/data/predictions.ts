@@ -975,6 +975,13 @@ export const matches: Match[] = [
     conditions: 'Atlanta Mercedes-Benz, roofed — heat neutralised',
     reasoning: 'Spain desperate after shock 0-0 opener; relentless but can be frustrated by a deep block. Oyarzabal from transitions.',
     confidence: 57,
+    actualHome: 4,
+    actualAway: 0,
+    scorers: ["Yamal 10' (Spain)", "Oyarzabal 21' (Spain)", "Oyarzabal 24' (Spain)", "Al-Tambakti 49' (OG, counts for Spain)"],
+    possessionHome: 63,
+    shotsOnTargetHome: 8,
+    shotsOnTargetAway: 2,
+    actualNotes: "Yamal scored on his first WC start; Oyarzabal brace + assist. Yamal/Williams returning unlocked the attack (the reason I faded confidence but NOT the call). Called Spain 1-0 — result CORRECT, scorer (Oyarzabal) HIT. The confidence-fade (57%) under-rated them, but holding off the full draw-fade was right.",
   },
 
   {
@@ -994,6 +1001,11 @@ export const matches: Match[] = [
     conditions: 'SoFi Inglewood, roofed — heat neutralised',
     reasoning: 'Belgium unconvincing (1-1, Lukaku fitness doubt); Iran organised but leaked 2 to NZ. De Bruyne set-piece/open-play creation.',
     confidence: 56,
+    actualHome: 0,
+    actualAway: 0,
+    scorers: [],
+    possessionHome: 65,
+    actualNotes: "Belgium dominated possession, went to 10 men (Ngoy red 66'), wasteful in front of goal. Called Belgium 2-1 — result MISS, scorer (De Bruyne) MISS. Third straight Group G draw — another favourite undone by poor finishing.",
   },
 
   {
