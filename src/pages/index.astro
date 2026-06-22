@@ -6,6 +6,15 @@ import { matches, computeStats, isPlayed, formatDate } from '../data/predictions
 
 const stats = computeStats(matches);
 
+// Helper to calculate kickoff datetime (BST = UTC+1)
+const getKickoffTime = (m: typeof matches[0]): Date => {
+  const [y, mo, d] = m.dateISO.split('-').map(Number);
+  const [h, mi] = m.kickoffBST.split(':').map(Number);
+  const kickoff = new Date(y, mo - 1, d, h, mi);
+  kickoff.setHours(kickoff.getHours() - 1); // Convert from BST to UTC
+  return kickoff;
+};
+
 // Rolling window: show played matches from yesterday onward, archive the rest
 const today = new Date();
 today.setHours(0, 0, 0, 0);
@@ -26,14 +35,19 @@ const matchdayGroups  = recentMatchdays.map(md => ({
   matches: recentPlayed.filter(m => m.matchday === md),
 }));
 
-// Upcoming: pending formal matches, sorted by date then kickoff
+// Upcoming: unplayed matches with future kickoff, sorted by date then kickoff
 const upcomingMatches = formalMatches
-  .filter(m => !isPlayed(m))
+  .filter(m => !isPlayed(m) && getKickoffTime(m) > new Date())
   .sort((a, b) => {
     const dateCompare = a.dateISO.localeCompare(b.dateISO);
     if (dateCompare !== 0) return dateCompare;
     return a.kickoffBST.localeCompare(b.kickoffBST);
   });
+
+// Live/Awaiting: unplayed matches with past kickoff (match in progress or finished but not logged)
+const liveOrAwaitingMatches = formalMatches
+  .filter(m => !isPlayed(m) && getKickoffTime(m) <= new Date())
+  .sort((a, b) => b.dateISO.localeCompare(a.dateISO) || b.kickoffBST.localeCompare(a.kickoffBST));
 
 const matchdayLabel = (md: number) => {
   const mdMatches = formalMatches.filter(m => m.matchday === md);
@@ -192,7 +206,7 @@ const matchdayLabel = (md: number) => {
     </p>
 
     {upcomingMatches.length === 0 ? (
-      <p style="font-size:0.85rem;color:var(--color-muted);">All tracked matches have results.</p>
+      <p style="font-size:0.85rem;color:var(--color-muted);">No upcoming matches.</p>
     ) : (
       <div style="display:flex;flex-direction:column;gap:0.75rem;">
         {upcomingMatches.map(m => (
@@ -201,5 +215,19 @@ const matchdayLabel = (md: number) => {
       </div>
     )}
   </section>
+
+  {liveOrAwaitingMatches.length > 0 && (
+    <section style="margin-top:2rem;padding-top:2rem;border-top:1px solid var(--color-border);">
+      <h2 class="section-label" style="margin:0 0 0.35rem;">Live / Awaiting result</h2>
+      <p style="font-size:0.75rem;color:var(--color-muted);margin:0 0 0.75rem;">
+        These matches have started or finished but results have not yet been logged.
+      </p>
+      <div style="display:flex;flex-direction:column;gap:0.75rem;">
+        {liveOrAwaitingMatches.map(m => (
+          <MatchCard match={m} />
+        ))}
+      </div>
+    </section>
+  )}
 
 </Layout>

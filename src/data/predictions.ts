@@ -1025,6 +1025,13 @@ export const matches: Match[] = [
     conditions: 'Miami Hard Rock, open, 33°C humid — heat aids a deep block',
     reasoning: "Cape Verde shut out Spain. Miami heat favours a deep block. Coin-flip. Scorer switched off Núñez — benched (Bielsa dropped him after hooking him at HT vs Saudi). Viñas starts as sole striker and is the likeliest scorer. Draw call (1-1, conf 40) unchanged and reinforced: Uruguay missing De Arrascaeta, R.Araújo AND Núñez from the start, vs an unchanged Cape Verde deep block in Miami heat.",
     confidence: 40,
+    actualHome: 2,
+    actualAway: 2,
+    scorers: ["Pina 21' (Cape Verde)", "Maxi Araújo 44' (Uruguay)", "Canobbio 45+6' (Uruguay)", "Varela 61' (Cape Verde)"],
+    possessionHome: 54,
+    shotsOnTargetHome: 2,
+    shotsOnTargetAway: 4,
+    actualNotes: "Bold draw fade LANDED (called 1-1). Scorer (Viñas) MISS. Uruguay's 2 goals were their only 2 shots on target from 17.",
   },
 
   // ── MATCHDAY 10 — Sunday 21 / Monday 22 June ───────────────────────────────
