@@ -1062,6 +1062,12 @@ export const matches: Match[] = [
     venue: 'Lincoln Financial Field, Philadelphia',
     home: 'France',
     away: 'Iraq',
+    predHome: 3,
+    predAway: 0,
+    predType: 'mismatch',
+    scorerCall: 'Mbappé',
+    scorerCallType: 'score-or-assist',
+    confidence: 64,
   },
 
   {
@@ -1073,6 +1079,12 @@ export const matches: Match[] = [
     venue: 'MetLife Stadium, East Rutherford NJ',
     home: 'Norway',
     away: 'Senegal',
+    predHome: 2,
+    predAway: 1,
+    predType: 'favourite-tight',
+    scorerCall: 'Haaland',
+    scorerCallType: 'score-or-assist',
+    confidence: 52,
   },
 
   {
@@ -1084,6 +1096,12 @@ export const matches: Match[] = [
     venue: "Levi's Stadium, Santa Clara",
     home: 'Jordan',
     away: 'Algeria',
+    predHome: 1,
+    predAway: 2,
+    predType: 'favourite-tight',
+    scorerCall: 'Amoura',
+    scorerCallType: 'score-or-assist',
+    confidence: 54,
   },
 
   {
@@ -1095,6 +1113,12 @@ export const matches: Match[] = [
     venue: 'NRG Stadium, Houston',
     home: 'Portugal',
     away: 'Uzbekistan',
+    predHome: 2,
+    predAway: 0,
+    predType: 'favourite-tight',
+    scorerCall: 'Fernandes',
+    scorerCallType: 'score-or-assist',
+    confidence: 58,
   },
 
   {
@@ -1106,6 +1130,12 @@ export const matches: Match[] = [
     venue: 'Gillette Stadium, Boston',
     home: 'England',
     away: 'Ghana',
+    predHome: 2,
+    predAway: 1,
+    predType: 'favourite-tight',
+    scorerCall: 'Kane',
+    scorerCallType: 'score-or-assist',
+    confidence: 56,
   },
 
   {
@@ -1117,6 +1147,12 @@ export const matches: Match[] = [
     venue: 'BMO Field, Toronto',
     home: 'Panama',
     away: 'Croatia',
+    predHome: 1,
+    predAway: 2,
+    predType: 'favourite-tight',
+    scorerCall: 'Kramarić',
+    scorerCallType: 'score-or-assist',
+    confidence: 56,
   },
 
   {
@@ -1128,6 +1164,12 @@ export const matches: Match[] = [
     venue: 'Estadio Akron, Guadalajara',
     home: 'Colombia',
     away: 'DR Congo',
+    predHome: 2,
+    predAway: 1,
+    predType: 'favourite-tight',
+    scorerCall: 'Luis Díaz',
+    scorerCallType: 'score-or-assist',
+    confidence: 55,
   },
 
   // ── GROUP STAGE ROUND 3 ────────────────────────────────────────────────────
