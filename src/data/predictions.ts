@@ -1058,6 +1058,11 @@ export const matches: Match[] = [
     venue: 'AT&T Stadium, Arlington',
     home: 'Argentina',
     away: 'Austria',
+    actualHome: 2,
+    actualAway: 0,
+    scorers: ["Messi 38' (Argentina)", "Messi 90+ (Argentina)"],
+    actualNotes: "No pre-match prediction was logged (kicked off before it was set) — record result only, exclude from prediction tallies. Messi brace broke the all-time WC scoring record (18 goals). Argentina top Group J, into last 32.",
+    informalOnly: true,
   },
 
   {
@@ -1075,6 +1080,10 @@ export const matches: Match[] = [
     scorerCall: 'Mbappé',
     scorerCallType: 'score-or-assist',
     confidence: 64,
+    actualHome: 3,
+    actualAway: 0,
+    scorers: ["Mbappé 14' (France)", "Dembélé (France)", "Mbappé (France)"],
+    actualNotes: "Mbappé brace incl. an outside-box curler; Dembélé's first WC goal. Rain-delayed 2h10 HT. Called France 3-0 mismatch — result CORRECT + EXACT, scorer (Mbappé) HIT.",
   },
 
   {
@@ -1092,6 +1101,10 @@ export const matches: Match[] = [
     scorerCall: 'Haaland',
     scorerCallType: 'score-or-assist',
     confidence: 52,
+    actualHome: 3,
+    actualAway: 2,
+    scorers: ["Haaland 8' (Norway)", "Haaland 47' (Norway)", "Sarr (Senegal)", "Ndiaye 90+ (Senegal)"],
+    actualNotes: "Haaland brace; Senegal scored twice including deep into injury time. Called Norway 2-1 favourite-tight — result CORRECT (right winner, wrong margin), scorer (Haaland) HIT. Sarr's name not collected, Ndiaye unlikely to be in squad. Senegal exit with 1 point.",
   },
 
   {
@@ -1109,6 +1122,10 @@ export const matches: Match[] = [
     scorerCall: 'Amoura',
     scorerCallType: 'score-or-assist',
     confidence: 54,
+    actualHome: 1,
+    actualAway: 2,
+    scorers: ["Gouiri 82' (Algeria)"],
+    actualNotes: "Called Algeria 2-1 favourite-tight — result CORRECT + EXACT, but scorer call (Amoura) didn't appear. Gouiri scored the only logged goal; possible own goal or incomplete records. Algeria top Group J.",
   },
 
   {

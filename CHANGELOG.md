@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.8.2] — 2026-06-23
+
+### Fixed
+- MD12 results logged: Argentina–Austria 2-0 (Messi brace, informal-only), France–Iraq 3-0 EXACT (Mbappé brace + Dembélé), Norway–Senegal 3-2 (Haaland brace), Jordan–Algeria 1-2 EXACT (Gouiri)
+
 ## [0.8.1] — 2026-06-19
 
 ### Fixed
