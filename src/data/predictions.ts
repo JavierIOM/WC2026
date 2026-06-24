@@ -1051,7 +1051,7 @@ export const matches: Match[] = [
     possessionHome: 39,
     shotsOnTargetHome: 5,
     shotsOnTargetAway: 7,
-    actualNotes: "No pre-match prediction was logged — record result only, exclude from prediction tallies. NZ led via Surman's header; Egypt's 2nd-half flurry (Zico, Salah, Trezeguet) won it for their first-ever World Cup victory. Egypt top Group G.",
+    actualNotes: "NO prediction logged — record only, exclude from tallies. Egypt's first-ever WC win; top Group G. (This is the one stuck in Live/Awaiting from Mon 22 — adding actuals should drop it to PLAYED.)",
     informalOnly: true,
   },
 
@@ -1240,6 +1240,10 @@ export const matches: Match[] = [
     scorerCall: 'Embolo',
     scorerCallType: 'score-or-assist',
     confidence: 46,
+    actualHome: 2,
+    actualAway: 1,
+    scorers: ["Vargas 46' (Switzerland)", "Manzambi 57' (Switzerland)", "David 76' (Canada)"],
+    actualNotes: "Switzerland win Group B; Canada through 2nd. Called Switzerland 2-1 — result CORRECT + EXACT, scorer (Embolo) ASSIST (set up Manzambi).",
   },
 
   {
@@ -1257,6 +1261,10 @@ export const matches: Match[] = [
     scorerCall: 'Džeko',
     scorerCallType: 'score-or-assist',
     confidence: 55,
+    actualHome: 3,
+    actualAway: 1,
+    scorers: ["Alajbegović 29' (Bosnia)", "Al-Brake OG (Qatar own goal, counts for Bosnia)", "Bosnia 3rd (scorer TBC)", "Mahmić late (Bosnia)", "Qatar (1, scorer TBC)"],
+    actualNotes: "Bosnia finish on 4 pts, outside shot at a 3rd-place spot; Qatar out. Called Bosnia win — result CORRECT, scorer (Džeko) MISS. (Tidy exact goals/order.)",
   },
 
   {
