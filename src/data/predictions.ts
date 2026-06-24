@@ -1045,6 +1045,14 @@ export const matches: Match[] = [
     venue: 'BC Place, Vancouver',
     home: 'New Zealand',
     away: 'Egypt',
+    actualHome: 1,
+    actualAway: 3,
+    scorers: ["Surman 15' (New Zealand)", "Zico 58' (Egypt)", "Salah 67' (Egypt)", "Trezeguet 82' (Egypt)"],
+    possessionHome: 39,
+    shotsOnTargetHome: 5,
+    shotsOnTargetAway: 7,
+    actualNotes: "No pre-match prediction was logged — record result only, exclude from prediction tallies. NZ led via Surman's header; Egypt's 2nd-half flurry (Zico, Salah, Trezeguet) won it for their first-ever World Cup victory. Egypt top Group G.",
+    informalOnly: true,
   },
 
   // ── GROUP STAGE ROUND 2 — Groups I, J, K, L ───────────────────────────────
