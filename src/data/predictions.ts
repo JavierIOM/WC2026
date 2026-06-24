@@ -1226,6 +1226,12 @@ export const matches: Match[] = [
     venue: 'BC Place, Vancouver',
     home: 'Switzerland',
     away: 'Canada',
+    predHome: 2,
+    predAway: 1,
+    predType: 'favourite-tight',
+    scorerCall: 'Embolo',
+    scorerCallType: 'score-or-assist',
+    confidence: 46,
   },
 
   {
@@ -1237,6 +1243,12 @@ export const matches: Match[] = [
     venue: 'Lumen Field, Seattle',
     home: 'Bosnia',
     away: 'Qatar',
+    predHome: 2,
+    predAway: 1,
+    predType: 'favourite-tight',
+    scorerCall: 'Džeko',
+    scorerCallType: 'score-or-assist',
+    confidence: 55,
   },
 
   {
@@ -1248,6 +1260,12 @@ export const matches: Match[] = [
     venue: 'Mercedes-Benz Stadium, Atlanta',
     home: 'Morocco',
     away: 'Haiti',
+    predHome: 2,
+    predAway: 0,
+    predType: 'favourite-tight',
+    scorerCall: 'En-Nesyri',
+    scorerCallType: 'score-or-assist',
+    confidence: 62,
   },
 
   {
@@ -1259,6 +1277,12 @@ export const matches: Match[] = [
     venue: 'Hard Rock Stadium, Miami',
     home: 'Scotland',
     away: 'Brazil',
+    predHome: 0,
+    predAway: 2,
+    predType: 'favourite-tight',
+    scorerCall: 'Vinícius Jr',
+    scorerCallType: 'score-or-assist',
+    confidence: 56,
   },
 
   {

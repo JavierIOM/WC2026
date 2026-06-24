@@ -6,15 +6,6 @@ import { matches, computeStats, isPlayed, formatDate } from '../data/predictions
 
 const stats = computeStats(matches);
 
-// Helper to calculate kickoff datetime (BST = UTC+1)
-const getKickoffTime = (m: typeof matches[0]): Date => {
-  const [y, mo, d] = m.dateISO.split('-').map(Number);
-  const [h, mi] = m.kickoffBST.split(':').map(Number);
-  const kickoff = new Date(y, mo - 1, d, h, mi);
-  kickoff.setHours(kickoff.getHours() - 1); // Convert from BST to UTC
-  return kickoff;
-};
-
 // Rolling window: show played matches from yesterday onward, archive the rest
 const today = new Date();
 today.setHours(0, 0, 0, 0);
@@ -28,31 +19,28 @@ const formalMatches = matches.filter(m => !m.informalOnly);
 const recentPlayed  = formalMatches.filter(isRecent);
 const archivedCount = formalMatches.filter(m => isPlayed(m) && !isRecent(m)).length;
 
-// Group recent played matches by matchday
-const recentMatchdays = [...new Set(recentPlayed.map(m => m.matchday))].sort((a, b) => a - b);
-const matchdayGroups  = recentMatchdays.map(md => ({
-  md,
-  matches: recentPlayed.filter(m => m.matchday === md),
+// Group recent played matches by calendar date (not matchday number — MD2 spans many days)
+const recentDates = [...new Set(recentPlayed.map(m => m.dateISO))].sort();
+const matchdayGroups = recentDates.map(date => ({
+  date,
+  matches: recentPlayed
+    .filter(m => m.dateISO === date)
+    .sort((a, b) => a.kickoffBST.localeCompare(b.kickoffBST)),
 }));
 
-// Upcoming: unplayed matches with future kickoff, sorted by date then kickoff
-const upcomingMatches = formalMatches
-  .filter(m => !isPlayed(m) && getKickoffTime(m) > new Date())
+// All pending (unplayed) matches — client-side JS buckets into upcoming vs live/awaiting
+const pendingMatches = formalMatches
+  .filter(m => !isPlayed(m))
   .sort((a, b) => {
-    const dateCompare = a.dateISO.localeCompare(b.dateISO);
-    if (dateCompare !== 0) return dateCompare;
-    return a.kickoffBST.localeCompare(b.kickoffBST);
+    const dc = a.dateISO.localeCompare(b.dateISO);
+    return dc !== 0 ? dc : a.kickoffBST.localeCompare(b.kickoffBST);
   });
 
-// Live/Awaiting: unplayed matches with past kickoff (match in progress or finished but not logged)
-const liveOrAwaitingMatches = formalMatches
-  .filter(m => !isPlayed(m) && getKickoffTime(m) <= new Date())
-  .sort((a, b) => b.dateISO.localeCompare(a.dateISO) || b.kickoffBST.localeCompare(a.kickoffBST));
-
-const matchdayLabel = (md: number) => {
-  const mdMatches = formalMatches.filter(m => m.matchday === md);
-  const firstDate = mdMatches[0]?.dateISO;
-  return firstDate ? `Matchday ${md}: ${formatDate(firstDate)}` : `Matchday ${md}`;
+// Returns kickoff as UTC milliseconds for embedding in data attribute
+const kickoffUTCms = (m: typeof matches[0]): number => {
+  const [y, mo, d] = m.dateISO.split('-').map(Number);
+  const [h, mi] = m.kickoffBST.split(':').map(Number);
+  return Date.UTC(y, mo - 1, d, h - 1, mi); // BST = UTC+1
 };
 ---
 
@@ -180,15 +168,15 @@ const matchdayLabel = (md: number) => {
       </p>
     ) : (
       <div style="display:flex;flex-direction:column;gap:2.5rem;">
-        {matchdayGroups.map(({ md, matches: mdMatches }) => (
+        {matchdayGroups.map(({ date, matches: dateMatches }) => (
           <div>
             <h3
               style="font-family:var(--font-display);font-size:1.05rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-muted);margin:0 0 0.75rem;padding-bottom:0.5rem;border-bottom:1px solid var(--color-border);"
             >
-              {matchdayLabel(md)}
+              {formatDate(date)}
             </h3>
             <div style="display:flex;flex-direction:column;gap:0.75rem;">
-              {mdMatches.map(match => (
+              {dateMatches.map(match => (
                 <MatchCard match={match} />
               ))}
             </div>
@@ -198,36 +186,65 @@ const matchdayLabel = (md: number) => {
     )}
   </section>
 
-  <!-- ── UPCOMING ──────────────────────────────────────────────────────────── -->
+  <!-- ── UPCOMING / LIVE AWAITING ─────────────────────────────────────────── -->
   <section id="upcoming" aria-labelledby="upcoming-h">
     <h2 id="upcoming-h" class="section-label" style="margin:0 0 0.35rem;">Upcoming calls</h2>
     <p style="font-size:0.75rem;color:var(--color-muted);margin:0 0 0.75rem;line-height:1.5;">
       Predictions are added 2-3 days before kickoff. Fixtures further out are listed as scheduled only and will be predicted closer to the time.
     </p>
-
-    {upcomingMatches.length === 0 ? (
-      <p style="font-size:0.85rem;color:var(--color-muted);">No upcoming matches.</p>
-    ) : (
-      <div style="display:flex;flex-direction:column;gap:0.75rem;">
-        {upcomingMatches.map(m => (
+    <div id="upcoming-list" style="display:flex;flex-direction:column;gap:0.75rem;">
+      {pendingMatches.map(m => (
+        <div data-pending-match="" data-kickoff-utc={kickoffUTCms(m).toString()}>
           <MatchCard match={m} />
-        ))}
-      </div>
-    )}
+        </div>
+      ))}
+    </div>
+    <p id="no-upcoming-msg" style="font-size:0.85rem;color:var(--color-muted);display:none;">No upcoming matches.</p>
   </section>
 
-  {liveOrAwaitingMatches.length > 0 && (
-    <section style="margin-top:2rem;padding-top:2rem;border-top:1px solid var(--color-border);">
-      <h2 class="section-label" style="margin:0 0 0.35rem;">Live / Awaiting result</h2>
-      <p style="font-size:0.75rem;color:var(--color-muted);margin:0 0 0.75rem;">
-        These matches have started or finished but results have not yet been logged.
-      </p>
-      <div style="display:flex;flex-direction:column;gap:0.75rem;">
-        {liveOrAwaitingMatches.map(m => (
-          <MatchCard match={m} />
-        ))}
-      </div>
-    </section>
-  )}
+  <section id="live-awaiting-section" style="margin-top:2rem;padding-top:2rem;border-top:1px solid var(--color-border);display:none;" aria-label="Live or awaiting result">
+    <h2 class="section-label" style="margin:0 0 0.35rem;">Live / Awaiting result</h2>
+    <p style="font-size:0.75rem;color:var(--color-muted);margin:0 0 0.75rem;">
+      These matches have started or finished but results have not yet been logged.
+    </p>
+    <div id="live-awaiting-list" style="display:flex;flex-direction:column;gap:0.75rem;"></div>
+  </section>
+
+  <script>
+    (function () {
+      function bucketMatches() {
+        const now = Date.now();
+        const upcomingList = document.getElementById('upcoming-list');
+        const liveSection = document.getElementById('live-awaiting-section');
+        const liveList = document.getElementById('live-awaiting-list');
+        const noUpcomingMsg = document.getElementById('no-upcoming-msg');
+        if (!upcomingList || !liveSection || !liveList) return;
+
+        const liveCards = [];
+        upcomingList.querySelectorAll('[data-pending-match]').forEach(card => {
+          const kickoff = parseInt(card.getAttribute('data-kickoff-utc') || '0', 10);
+          if (kickoff > 0 && kickoff <= now) liveCards.push(card);
+        });
+
+        // Append descending (most recent first) — cards are ascending from source
+        for (let i = liveCards.length - 1; i >= 0; i--) {
+          liveList.appendChild(liveCards[i]);
+        }
+
+        if (liveCards.length > 0) liveSection.style.display = '';
+
+        if (upcomingList.querySelectorAll('[data-pending-match]').length === 0 && noUpcomingMsg) {
+          upcomingList.style.display = 'none';
+          noUpcomingMsg.style.display = '';
+        }
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', bucketMatches);
+      } else {
+        bucketMatches();
+      }
+    })();
+  </script>
 
 </Layout>

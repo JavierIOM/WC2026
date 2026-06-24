@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.8.4] — 2026-06-25
+
+### Fixed
+- Bug: Recent results section showed "Matchday 2: Fri 12 Jun" for all MD2 games — now groups by calendar date (dateISO) so each date gets its own header
+- Bug: Upcoming/Live bucketing was computed at SSR build time (new Date() was frozen at deploy) — replaced with client-side JS that reads kickoff UTC from data attributes and buckets on page load
+- Bug: Switzerland-Canada, Bosnia-Qatar, Morocco-Haiti, Scotland-Brazil had no prediction fields — predictions added (Embolo, Dzeko, En-Nesyri, Vinicius Jr)
+
 ## [0.8.3] — 2026-06-24
 
 ### Fixed
