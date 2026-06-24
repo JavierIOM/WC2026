@@ -1310,6 +1310,13 @@ export const matches: Match[] = [
     venue: 'Estadio BBVA, Monterrey',
     home: 'South Africa',
     away: 'South Korea',
+    predHome: 1,
+    predAway: 1,
+    predType: 'draw',
+    scorerCall: 'Son Heung-min',
+    scorerCallType: 'score-or-assist',
+    confidence: 42,
+    conditions: 'Estadio BBVA, Monterrey. KEY: South Korea need only a DRAW to secure 2nd (head-to-head over Czechia) — content to manage the game. South Africa must win but are the group minnow. Draw well above market.',
   },
 
   {
@@ -1321,6 +1328,13 @@ export const matches: Match[] = [
     venue: 'Estadio Azteca, Mexico City',
     home: 'Czechia',
     away: 'Mexico',
+    predHome: 1,
+    predAway: 2,
+    predType: 'favourite-tight',
+    scorerCall: 'Raúl Jiménez',
+    scorerCallType: 'score-or-assist',
+    confidence: 55,
+    conditions: 'Estadio Azteca, Mexico City — ALTITUDE ~2240m aids acclimatised Mexico. Mexico already won the group (nothing to play for but pride at home); Czechia must win to chase a 3rd-place spot.',
   },
 
   {
@@ -1332,6 +1346,13 @@ export const matches: Match[] = [
     venue: 'Lincoln Financial Field, Philadelphia',
     home: 'Curaçao',
     away: 'Ivory Coast',
+    predHome: 0,
+    predAway: 2,
+    predType: 'favourite-tight',
+    scorerCall: 'Amad Diallo',
+    scorerCallType: 'score-or-assist',
+    confidence: 60,
+    conditions: 'Lincoln Financial Field, Philadelphia. Mismatch CAPPED at 2-0 per sharpened rule (Curaçao may park it, Ivory Coast finishing can be loose — the 0-0 mismatch-fail profile). Ivory Coast need a result.',
   },
 
   {
@@ -1343,6 +1364,13 @@ export const matches: Match[] = [
     venue: 'MetLife Stadium, New Jersey',
     home: 'Ecuador',
     away: 'Germany',
+    predHome: 1,
+    predAway: 1,
+    predType: 'draw',
+    scorerCall: 'Enner Valencia',
+    scorerCallType: 'score-or-assist',
+    confidence: 40,
+    conditions: 'MetLife Stadium, NJ. FADE: Germany already qualified and may rotate/rest; Ecuador need a point and are organised + motivated (unlucky vs Ivory Coast). Live draw well above Germany market price.',
   },
 
   {
