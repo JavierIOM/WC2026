@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.8.5] — 2026-06-25
+
+### Added
+- Prediction-due visibility flags: unpredicted matches within 72h of kickoff now show an amber "PREDICTION DUE" badge; past-kickoff unpredicted matches in Live/Awaiting show a red "NO CALL LOGGED" badge. Default "Prediction closer to kickoff" placeholder remains for matches further out.
+- Predictions-due counter above Upcoming list — shows count of imminent unpredicted games at a glance.
+
 ## [0.8.4] — 2026-06-25
 
 ### Fixed

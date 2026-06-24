@@ -192,6 +192,7 @@ const kickoffUTCms = (m: typeof matches[0]): number => {
     <p style="font-size:0.75rem;color:var(--color-muted);margin:0 0 0.75rem;line-height:1.5;">
       Predictions are added 2-3 days before kickoff. Fixtures further out are listed as scheduled only and will be predicted closer to the time.
     </p>
+    <p id="predictions-due-count" style="font-size:0.75rem;font-weight:600;color:#f59e0b;margin:0 0 0.75rem;display:none;"></p>
     <div id="upcoming-list" style="display:flex;flex-direction:column;gap:0.75rem;">
       {pendingMatches.map(m => (
         <div data-pending-match="" data-kickoff-utc={kickoffUTCms(m).toString()}>
@@ -212,22 +213,29 @@ const kickoffUTCms = (m: typeof matches[0]): number => {
 
   <script>
     (function () {
+      const BADGE_DUE  = '<span style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:0.65rem;font-weight:700;letter-spacing:0.06em;background:rgb(245 158 11/0.15);color:#f59e0b;border:1px solid rgb(245 158 11/0.35);">PREDICTION DUE</span>';
+      const BADGE_MISS = '<span style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:0.65rem;font-weight:700;letter-spacing:0.06em;background:rgb(239 68 68/0.15);color:#ef4444;border:1px solid rgb(239 68 68/0.35);">NO CALL LOGGED</span>';
+
       function bucketMatches() {
         const now = Date.now();
-        const upcomingList = document.getElementById('upcoming-list');
-        const liveSection = document.getElementById('live-awaiting-section');
-        const liveList = document.getElementById('live-awaiting-list');
+        const upcomingList  = document.getElementById('upcoming-list');
+        const liveSection   = document.getElementById('live-awaiting-section');
+        const liveList      = document.getElementById('live-awaiting-list');
         const noUpcomingMsg = document.getElementById('no-upcoming-msg');
+        const dueCountEl    = document.getElementById('predictions-due-count');
         if (!upcomingList || !liveSection || !liveList) return;
 
+        // Collect past-kickoff cards
         const liveCards = [];
         upcomingList.querySelectorAll('[data-pending-match]').forEach(card => {
           const kickoff = parseInt(card.getAttribute('data-kickoff-utc') || '0', 10);
           if (kickoff > 0 && kickoff <= now) liveCards.push(card);
         });
 
-        // Append descending (most recent first) — cards are ascending from source
+        // Move to live section (most recent first); flag unpredicted as NO CALL
         for (let i = liveCards.length - 1; i >= 0; i--) {
+          const ph = liveCards[i].querySelector('.prediction-placeholder');
+          if (ph) ph.innerHTML = BADGE_MISS;
           liveList.appendChild(liveCards[i]);
         }
 
@@ -236,6 +244,27 @@ const kickoffUTCms = (m: typeof matches[0]): number => {
         if (upcomingList.querySelectorAll('[data-pending-match]').length === 0 && noUpcomingMsg) {
           upcomingList.style.display = 'none';
           noUpcomingMsg.style.display = '';
+        }
+
+        // Flag upcoming unpredicted matches within 72h
+        let dueCount = 0;
+        upcomingList.querySelectorAll('[data-pending-match]').forEach(wrapper => {
+          const kickoff = parseInt(wrapper.getAttribute('data-kickoff-utc') || '0', 10);
+          const ph = wrapper.querySelector('.prediction-placeholder');
+          if (!ph || !kickoff) return;
+          if ((kickoff - now) / 3_600_000 <= 72) {
+            ph.innerHTML = BADGE_DUE;
+            dueCount++;
+          }
+        });
+
+        if (dueCountEl) {
+          if (dueCount > 0) {
+            dueCountEl.textContent = `${dueCount} prediction${dueCount === 1 ? '' : 's'} due in next 72h`;
+            dueCountEl.style.display = '';
+          } else {
+            dueCountEl.style.display = 'none';
+          }
         }
       }
 
