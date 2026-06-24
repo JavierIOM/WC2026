@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.8.6] — 2026-06-25
+
+### Changed
+- "Live / Awaiting result" section moved to the top of page content (above Recent results and Upcoming) — now the first thing visible when matches are in progress
+- Section stays hidden when empty so no blank gap appears
+- Live cards now show: pulsing red dot to left of home team name, red left border, "● LIVE" badge (replacing PENDING), accessible prefers-reduced-motion: steady dot
+
 ## [0.8.5] — 2026-06-25
 
 ### Added

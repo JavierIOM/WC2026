@@ -145,6 +145,15 @@ const kickoffUTCms = (m: typeof matches[0]): number => {
     <MethodPanel />
   </section>
 
+  <!-- ── LIVE / AWAITING ───────────────────────────────────────────────────── -->
+  <section id="live-awaiting-section" style="margin-bottom:3rem;display:none;" aria-labelledby="live-awaiting-h">
+    <h2 id="live-awaiting-h" class="section-label" style="margin:0 0 0.35rem;">Live / Awaiting result</h2>
+    <p style="font-size:0.75rem;color:var(--color-muted);margin:0 0 0.75rem;">
+      These matches have started or finished but results have not yet been logged.
+    </p>
+    <div id="live-awaiting-list" style="display:flex;flex-direction:column;gap:0.75rem;"></div>
+  </section>
+
   <!-- ── MATCHDAYS ─────────────────────────────────────────────────────────── -->
   <section id="matchdays" style="margin-bottom:3rem;" aria-labelledby="matchdays-h">
     <div style="display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:1.25rem;">
@@ -203,18 +212,41 @@ const kickoffUTCms = (m: typeof matches[0]): number => {
     <p id="no-upcoming-msg" style="font-size:0.85rem;color:var(--color-muted);display:none;">No upcoming matches.</p>
   </section>
 
-  <section id="live-awaiting-section" style="margin-top:2rem;padding-top:2rem;border-top:1px solid var(--color-border);display:none;" aria-label="Live or awaiting result">
-    <h2 class="section-label" style="margin:0 0 0.35rem;">Live / Awaiting result</h2>
-    <p style="font-size:0.75rem;color:var(--color-muted);margin:0 0 0.75rem;">
-      These matches have started or finished but results have not yet been logged.
-    </p>
-    <div id="live-awaiting-list" style="display:flex;flex-direction:column;gap:0.75rem;"></div>
-  </section>
-
   <script>
     (function () {
       const BADGE_DUE  = '<span style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:0.65rem;font-weight:700;letter-spacing:0.06em;background:rgb(245 158 11/0.15);color:#f59e0b;border:1px solid rgb(245 158 11/0.35);">PREDICTION DUE</span>';
       const BADGE_MISS = '<span style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:0.65rem;font-weight:700;letter-spacing:0.06em;background:rgb(239 68 68/0.15);color:#ef4444;border:1px solid rgb(239 68 68/0.35);">NO CALL LOGGED</span>';
+      const LIVE_DOT   = '<span class="live-dot"></span>';
+
+      function applyLiveCard(wrapper) {
+        const article = wrapper.querySelector('article');
+        if (!article) return;
+
+        // Red left border (overrides verdict-border-pending via inline style)
+        article.style.borderLeftColor = '#e5342a';
+
+        // Pulsing dot to left of home team name
+        const homeTeam = article.querySelector('.team-name');
+        if (homeTeam) {
+          homeTeam.style.display = 'flex';
+          homeTeam.style.alignItems = 'center';
+          homeTeam.style.gap = '6px';
+          homeTeam.insertAdjacentHTML('afterbegin', LIVE_DOT);
+        }
+
+        // Change PENDING verdict badge to ● LIVE
+        const pendingBadge = article.querySelector('.badge-pending');
+        if (pendingBadge) {
+          pendingBadge.textContent = '● LIVE';
+          pendingBadge.style.background = 'rgb(229 52 42/0.15)';
+          pendingBadge.style.color = '#e5342a';
+          pendingBadge.style.borderColor = 'rgb(229 52 42/0.35)';
+        }
+
+        // NO CALL LOGGED for unpredicted
+        const ph = wrapper.querySelector('.prediction-placeholder');
+        if (ph) ph.innerHTML = BADGE_MISS;
+      }
 
       function bucketMatches() {
         const now = Date.now();
@@ -232,10 +264,9 @@ const kickoffUTCms = (m: typeof matches[0]): number => {
           if (kickoff > 0 && kickoff <= now) liveCards.push(card);
         });
 
-        // Move to live section (most recent first); flag unpredicted as NO CALL
+        // Move to live section (most recent first); apply live styling
         for (let i = liveCards.length - 1; i >= 0; i--) {
-          const ph = liveCards[i].querySelector('.prediction-placeholder');
-          if (ph) ph.innerHTML = BADGE_MISS;
+          applyLiveCard(liveCards[i]);
           liveList.appendChild(liveCards[i]);
         }
 
@@ -275,5 +306,25 @@ const kickoffUTCms = (m: typeof matches[0]): number => {
       }
     })();
   </script>
+
+  <style is:global>
+    @keyframes livePulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.3; transform: scale(0.7); }
+    }
+    .live-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #e5342a;
+      display: inline-block;
+      flex-shrink: 0;
+      animation: livePulse 1s ease-in-out infinite;
+      box-shadow: 0 0 6px 1px rgba(229, 52, 42, 0.6);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .live-dot { animation: none; }
+    }
+  </style>
 
 </Layout>
