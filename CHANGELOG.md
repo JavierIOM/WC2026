@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.8.3] — 2026-06-24
+
+### Fixed
+- MD13 results logged: England–Ghana 0-0 (possession-trap MISS), Portugal–Uzbekistan 5-0 CORRECT (Ronaldo brace + OG), Panama–Croatia 0-1 (Budimir), Colombia–DR Congo 1-0 EXACT (Muñoz). 43 played, 29/45 correct, 16 hits / 4 assists / 23 misses.
+
 ## [0.8.2] — 2026-06-23
 
 ### Fixed

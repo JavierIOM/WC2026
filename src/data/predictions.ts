@@ -1143,6 +1143,10 @@ export const matches: Match[] = [
     scorerCall: 'Fernandes',
     scorerCallType: 'score-or-assist',
     confidence: 58,
+    actualHome: 5,
+    actualAway: 0,
+    scorers: ["Ronaldo 6' (Portugal)", "Nuno Mendes 17' (Portugal)", "Ronaldo 39' (Portugal)", "Nematov 60' (OG, counts for Portugal)", "Leão (Portugal)"],
+    actualNotes: "Ronaldo brace (first to score at 6 different World Cups). Called Portugal 2-0 — result CORRECT, scorer (Fernandes) ASSIST (set up Ronaldo's 2nd). The Ronaldo-fade backfired.",
   },
 
   {
@@ -1160,6 +1164,13 @@ export const matches: Match[] = [
     scorerCall: 'Kane',
     scorerCallType: 'score-or-assist',
     confidence: 56,
+    actualHome: 0,
+    actualAway: 0,
+    scorers: [],
+    possessionHome: 72,
+    shotsOnTargetHome: 3,
+    shotsOnTargetAway: 0,
+    actualNotes: "Possession-trap: England 72% poss, 3 SoT from 19, no goals vs Ghana's deep block. Called England 2-1 — result MISS, scorer (Kane) MISS. England still top Group L.",
   },
 
   {
@@ -1177,6 +1188,10 @@ export const matches: Match[] = [
     scorerCall: 'Kramarić',
     scorerCallType: 'score-or-assist',
     confidence: 56,
+    actualHome: 0,
+    actualAway: 1,
+    scorers: ["Budimir 54' (Croatia)"],
+    actualNotes: "Sub Budimir winner; Modrić 200th cap. Called Croatia win — result CORRECT, scorer (Kramarić) MISS. Panama eliminated.",
   },
 
   {
@@ -1194,6 +1209,10 @@ export const matches: Match[] = [
     scorerCall: 'Luis Díaz',
     scorerCallType: 'score-or-assist',
     confidence: 55,
+    actualHome: 1,
+    actualAway: 0,
+    scorers: ["Muñoz 76' (Colombia)"],
+    actualNotes: "Mpasi (DRC) 8 saves. Called Colombia win — result CORRECT, scorer (Luis Díaz) MISS. Colombia top Group K, through.",
   },
 
   // ── GROUP STAGE ROUND 3 ────────────────────────────────────────────────────
