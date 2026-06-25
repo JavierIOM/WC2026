@@ -1282,6 +1282,10 @@ export const matches: Match[] = [
     scorerCall: 'En-Nesyri',
     scorerCallType: 'score-or-assist',
     confidence: 62,
+    actualHome: 4,
+    actualAway: 2,
+    scorers: ["Saibari 2' (Morocco)"],
+    actualNotes: "Called Morocco 2-0 — CORRECT, scorer (En-Nesyri) MISS. Brazil pip Morocco to top on GD. (Tidy full scorers.)",
   },
 
   {
@@ -1299,6 +1303,10 @@ export const matches: Match[] = [
     scorerCall: 'Vinícius Jr',
     scorerCallType: 'score-or-assist',
     confidence: 56,
+    actualHome: 0,
+    actualAway: 3,
+    scorers: ["Cunha 23' (Brazil)", "Cunha 36' (Brazil)", "Vinícius Jr 45' (Brazil)"],
+    actualNotes: "Called Brazil 0-2 — CORRECT, scorer (Vinícius Jr) HIT. Brazil top Group C.",
   },
 
   {
@@ -1317,6 +1325,10 @@ export const matches: Match[] = [
     scorerCallType: 'score-or-assist',
     confidence: 42,
     conditions: 'Estadio BBVA, Monterrey. KEY: South Korea need only a DRAW to secure 2nd (head-to-head over Czechia) — content to manage the game. South Africa must win but are the group minnow. Draw well above market.',
+    actualHome: 1,
+    actualAway: 0,
+    scorers: ["South Africa (1)"],
+    actualNotes: "Called 1-1 draw — MISS, scorer (Son) MISS. Historic SA upset; first-ever knockout berth. (Confirm SA scorer.)",
   },
 
   {
@@ -1335,6 +1347,10 @@ export const matches: Match[] = [
     scorerCallType: 'score-or-assist',
     confidence: 55,
     conditions: 'Estadio Azteca, Mexico City — ALTITUDE ~2240m aids acclimatised Mexico. Mexico already won the group (nothing to play for but pride at home); Czechia must win to chase a 3rd-place spot.',
+    actualHome: 0,
+    actualAway: 3,
+    scorers: ["Chávez (Mexico)", "Quiñones (Mexico)", "Fidalgo 90+ (Mexico)"],
+    actualNotes: "Called Mexico win — CORRECT, scorer (Jiménez) MISS. Mexico top Group A unbeaten.",
   },
 
   {
@@ -1382,6 +1398,12 @@ export const matches: Match[] = [
     venue: 'Arrowhead Stadium, Kansas City',
     home: 'Tunisia',
     away: 'Netherlands',
+    predHome: 0,
+    predAway: 2,
+    predType: 'favourite-tight',
+    scorerCall: 'Gakpo',
+    scorerCallType: 'score-or-assist',
+    confidence: 60,
   },
 
   {
@@ -1393,6 +1415,12 @@ export const matches: Match[] = [
     venue: 'AT&T Stadium, Arlington',
     home: 'Japan',
     away: 'Sweden',
+    predHome: 1,
+    predAway: 2,
+    predType: 'favourite-tight',
+    scorerCall: 'Gyökeres',
+    scorerCallType: 'score-or-assist',
+    confidence: 46,
   },
 
   {
@@ -1404,6 +1432,12 @@ export const matches: Match[] = [
     venue: 'SoFi Stadium, Los Angeles',
     home: 'Türkiye',
     away: 'USA',
+    predHome: 1,
+    predAway: 1,
+    predType: 'draw',
+    scorerCall: 'Arda Güler',
+    scorerCallType: 'score-or-assist',
+    confidence: 40,
   },
 
   {
@@ -1415,6 +1449,12 @@ export const matches: Match[] = [
     venue: "Levi's Stadium, Santa Clara",
     home: 'Paraguay',
     away: 'Australia',
+    predHome: 1,
+    predAway: 0,
+    predType: 'favourite-tight',
+    scorerCall: 'Sanabria',
+    scorerCallType: 'score-or-assist',
+    confidence: 46,
   },
 
   {
@@ -1426,6 +1466,12 @@ export const matches: Match[] = [
     venue: 'Gillette Stadium, Boston',
     home: 'Norway',
     away: 'France',
+    predHome: 1,
+    predAway: 2,
+    predType: 'favourite-tight',
+    scorerCall: 'Mbappé',
+    scorerCallType: 'score-or-assist',
+    confidence: 48,
   },
 
   {
@@ -1437,6 +1483,12 @@ export const matches: Match[] = [
     venue: 'BMO Field, Toronto',
     home: 'Senegal',
     away: 'Iraq',
+    predHome: 2,
+    predAway: 0,
+    predType: 'favourite-tight',
+    scorerCall: 'Ismaila Sarr',
+    scorerCallType: 'score-or-assist',
+    confidence: 60,
   },
 
   {
@@ -1448,6 +1500,12 @@ export const matches: Match[] = [
     venue: 'NRG Stadium, Houston',
     home: 'Cape Verde',
     away: 'Saudi Arabia',
+    predHome: 2,
+    predAway: 1,
+    predType: 'favourite-tight',
+    scorerCall: 'Varela',
+    scorerCallType: 'score-or-assist',
+    confidence: 54,
   },
 
   {
@@ -1459,6 +1517,12 @@ export const matches: Match[] = [
     venue: 'Estadio Akron, Guadalajara',
     home: 'Uruguay',
     away: 'Spain',
+    predHome: 2,
+    predAway: 1,
+    predType: 'favourite-tight',
+    scorerCall: 'Núñez',
+    scorerCallType: 'score-or-assist',
+    confidence: 47,
   },
 
   {
@@ -1470,6 +1534,12 @@ export const matches: Match[] = [
     venue: 'BC Place, Vancouver',
     home: 'New Zealand',
     away: 'Belgium',
+    predHome: 0,
+    predAway: 2,
+    predType: 'favourite-tight',
+    scorerCall: 'Openda',
+    scorerCallType: 'score-or-assist',
+    confidence: 58,
   },
 
   {
@@ -1481,6 +1551,12 @@ export const matches: Match[] = [
     venue: 'Lumen Field, Seattle',
     home: 'Egypt',
     away: 'Iran',
+    predHome: 1,
+    predAway: 1,
+    predType: 'draw',
+    scorerCall: 'Salah',
+    scorerCallType: 'score-or-assist',
+    confidence: 42,
   },
 
   {
@@ -1492,6 +1568,12 @@ export const matches: Match[] = [
     venue: 'MetLife Stadium, New Jersey',
     home: 'Panama',
     away: 'England',
+    predHome: 0,
+    predAway: 2,
+    predType: 'favourite-tight',
+    scorerCall: 'Kane',
+    scorerCallType: 'score-or-assist',
+    confidence: 56,
   },
 
   {
@@ -1503,6 +1585,12 @@ export const matches: Match[] = [
     venue: 'Lincoln Financial Field, Philadelphia',
     home: 'Croatia',
     away: 'Ghana',
+    predHome: 1,
+    predAway: 1,
+    predType: 'draw',
+    scorerCall: 'Kramarić',
+    scorerCallType: 'score-or-assist',
+    confidence: 40,
   },
 
   {
