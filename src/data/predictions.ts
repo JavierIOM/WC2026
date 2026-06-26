@@ -1471,7 +1471,8 @@ export const matches: Match[] = [
     predType: 'favourite-tight',
     scorerCall: 'Mbappé',
     scorerCallType: 'score-or-assist',
-    confidence: 48,
+    confidence: 60,
+    reasoning: 'Lineup-locked ~1hr pre-KO: Mbappé STARTS in a loaded France XI (no forward rotation); Norway BENCH Haaland AND Ødegaard. Both risks that capped this call flipped in France\'s favour — confidence up 48->60. Norway 1-2 France and Mbappé scorer both stronger. Market firmed France to ~-155.',
   },
 
   {
