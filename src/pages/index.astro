@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import MatchCard from '../components/MatchCard.astro';
 import MethodPanel from '../components/MethodPanel.astro';
-import { matches, computeStats, isPlayed, formatDate } from '../data/predictions';
+import { matches, computeStats, isPlayed, isArchived, formatDate } from '../data/predictions';
 
 const stats = computeStats(matches);
 
@@ -16,8 +16,8 @@ const isRecent = (m: typeof matches[0]) =>
   isPlayed(m) && new Date(m.dateISO) >= yesterday;
 
 const formalMatches = matches.filter(m => !m.informalOnly);
-const recentPlayed  = formalMatches.filter(isRecent);
-const archivedCount = formalMatches.filter(m => isPlayed(m) && !isRecent(m)).length;
+const recentPlayed  = formalMatches.filter(m => isRecent(m) && !isArchived(m));
+const groupArchiveCount = formalMatches.filter(m => isArchived(m)).length;
 
 // Group recent played matches by calendar date (not matchday number — MD2 spans many days)
 const recentDates = [...new Set(recentPlayed.map(m => m.dateISO))].sort();
@@ -28,9 +28,9 @@ const matchdayGroups = recentDates.map(date => ({
     .sort((a, b) => a.kickoffBST.localeCompare(b.kickoffBST)),
 }));
 
-// All pending (unplayed) matches — client-side JS buckets into upcoming vs live/awaiting
+// All pending (unplayed, non-archived) matches — client-side JS buckets into upcoming vs live/awaiting
 const pendingMatches = formalMatches
-  .filter(m => !isPlayed(m))
+  .filter(m => !isPlayed(m) && !isArchived(m))
   .sort((a, b) => {
     const dc = a.dateISO.localeCompare(b.dateISO);
     return dc !== 0 ? dc : a.kickoffBST.localeCompare(b.kickoffBST);
@@ -175,21 +175,21 @@ const kickoffUTCms = (m: typeof matches[0]): number => {
   <section id="matchdays" style="margin-bottom:3rem;" aria-labelledby="matchdays-h">
     <div style="display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:1.25rem;">
       <h2 id="matchdays-h" class="section-label" style="margin:0;">Recent results</h2>
-      {archivedCount > 0 && (
+      {groupArchiveCount > 0 && (
         <a
           href="/archive"
           style="font-size:0.75rem;font-weight:600;color:var(--color-accent);text-decoration:none;letter-spacing:0.04em;white-space:nowrap;"
         >
-          Archive ({archivedCount} matches) &rsaquo;
+          Group stage archive ({groupArchiveCount}) &rsaquo;
         </a>
       )}
     </div>
 
     {matchdayGroups.length === 0 ? (
       <p style="font-size:0.85rem;color:var(--color-muted);">
-        No results in the last 24 hours.
-        {archivedCount > 0 && (
-          <a href="/archive" style="color:var(--color-accent);text-decoration:none;">View all past results &rsaquo;</a>
+        No R32 results yet.{' '}
+        {groupArchiveCount > 0 && (
+          <a href="/archive" style="color:var(--color-accent);text-decoration:none;">View group stage archive ({groupArchiveCount} matches) &rsaquo;</a>
         )}
       </p>
     ) : (
@@ -248,15 +248,15 @@ const kickoffUTCms = (m: typeof matches[0]): number => {
       const BADGE_MISS = '<span style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:0.65rem;font-weight:700;letter-spacing:0.06em;background:rgb(239 68 68/0.15);color:#ef4444;border:1px solid rgb(239 68 68/0.35);">NO CALL LOGGED</span>';
       const LIVE_DOT   = '<span class="live-dot"></span>';
 
-      function applyLiveCard(wrapper: Element) {
-        const article = wrapper.querySelector('article');
+      function applyLiveCard(wrapper: HTMLElement) {
+        const article = wrapper.querySelector<HTMLElement>('article');
         if (!article) return;
 
         // Red left border (overrides verdict-border-pending via inline style)
         article.style.borderLeftColor = '#e5342a';
 
         // Pulsing dot to left of home team name
-        const homeTeam = article.querySelector('.team-name');
+        const homeTeam = article.querySelector<HTMLElement>('.team-name');
         if (homeTeam) {
           homeTeam.style.display = 'flex';
           homeTeam.style.alignItems = 'center';
@@ -265,7 +265,7 @@ const kickoffUTCms = (m: typeof matches[0]): number => {
         }
 
         // Change PENDING verdict badge to ● LIVE
-        const pendingBadge = article.querySelector('.badge-pending');
+        const pendingBadge = article.querySelector<HTMLElement>('.badge-pending');
         if (pendingBadge) {
           pendingBadge.textContent = '● LIVE';
           pendingBadge.style.background = 'rgb(229 52 42/0.15)';
@@ -274,7 +274,7 @@ const kickoffUTCms = (m: typeof matches[0]): number => {
         }
 
         // NO CALL LOGGED for unpredicted
-        const ph = wrapper.querySelector('.prediction-placeholder');
+        const ph = wrapper.querySelector<HTMLElement>('.prediction-placeholder');
         if (ph) ph.innerHTML = BADGE_MISS;
       }
 
@@ -288,7 +288,7 @@ const kickoffUTCms = (m: typeof matches[0]): number => {
         if (!upcomingList || !liveSection || !liveList) return;
 
         // Collect past-kickoff cards
-        const liveCards = Array.from(upcomingList.querySelectorAll('[data-pending-match]')).filter(card => {
+        const liveCards = Array.from(upcomingList.querySelectorAll<HTMLElement>('[data-pending-match]')).filter(card => {
           const kickoff = parseInt(card.getAttribute('data-kickoff-utc') || '0', 10);
           return kickoff > 0 && kickoff <= now;
         });
@@ -308,7 +308,7 @@ const kickoffUTCms = (m: typeof matches[0]): number => {
 
         // Flag upcoming unpredicted matches within 72h
         let dueCount = 0;
-        Array.from(upcomingList.querySelectorAll('[data-pending-match]')).forEach(wrapper => {
+        Array.from(upcomingList.querySelectorAll<HTMLElement>('[data-pending-match]')).forEach(wrapper => {
           const kickoff = parseInt(wrapper.getAttribute('data-kickoff-utc') || '0', 10);
           const ph = wrapper.querySelector('.prediction-placeholder');
           if (!ph || !kickoff) return;

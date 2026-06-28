@@ -1,64 +1,83 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import MatchCard from '../components/MatchCard.astro';
-import { matches, isPlayed, formatDate } from '../data/predictions';
+import { matches, isPlayed, computeStats } from '../data/predictions';
 
-// Archive: played matches where dateISO is before yesterday (2+ calendar days old)
-const today = new Date();
-today.setHours(0, 0, 0, 0);
-const yesterday = new Date(today);
-yesterday.setDate(today.getDate() - 1);
+// Group stage archive: all formal played group-stage matches (matchday 1-3)
+const groupStageMatches = matches.filter(
+  m => !m.informalOnly && isPlayed(m) && m.matchday <= 3
+);
 
-const isArchived = (m: typeof matches[0]) =>
-  isPlayed(m) && new Date(m.dateISO) < yesterday;
+// Group by group letter (A-L), sorted chronologically within each group
+const groupLetters = [...new Set(
+  groupStageMatches.map(m => m.group ?? '').filter(Boolean)
+)].sort();
 
-const archivedMatches = matches.filter(isArchived);
-
-// Group by matchday, newest first
-const matchdays = [...new Set(archivedMatches.map(m => m.matchday))].sort((a, b) => b - a);
-const groups = matchdays.map(md => ({
-  md,
-  matches: archivedMatches.filter(m => m.matchday === md),
+const groupData = groupLetters.map(grp => ({
+  grp,
+  matches: groupStageMatches
+    .filter(m => m.group === grp)
+    .sort((a, b) => a.dateISO.localeCompare(b.dateISO) || a.kickoffBST.localeCompare(b.kickoffBST)),
 }));
 
-const ROUND_NAMES: Record<string, string> = { R32: 'Round of 32', QF: 'Quarter-finals', SF: 'Semi-finals', F: 'Final' };
-const matchdayLabel = (md: number) => {
-  const first = archivedMatches.find(m => m.matchday === md);
-  if (first?.round) return ROUND_NAMES[first.round] ?? first.round;
-  return first ? `Matchday ${md}: ${formatDate(first.dateISO)}` : `Matchday ${md}`;
-};
+const stats = computeStats(groupStageMatches);
 ---
 
 <Layout
-  title="Archive | WC2026 Prediction Tracker"
-  description="Historical WC2026 match results and prediction verdicts."
+  title="Group Stage Archive | WC2026 Prediction Tracker"
+  description="All WC2026 group stage results and prediction verdicts, grouped by group."
 >
 
   <section style="padding-top:2rem;">
 
-    <p class="section-label" style="margin-bottom:0.75rem;">Historical results</p>
+    <p class="section-label" style="margin-bottom:0.75rem;">Archive</p>
     <h1
       style="font-family:var(--font-display);font-size:clamp(2.2rem,6vw,3.5rem);font-weight:800;letter-spacing:0.01em;text-transform:uppercase;line-height:0.95;color:var(--color-text);margin-bottom:0.5rem;"
     >
-      Archive
+      Group Stage
     </h1>
-    <p style="font-size:0.85rem;color:var(--color-muted);margin-bottom:2.5rem;">
-      All completed matches. Recent results are on the <a href="/#matchdays" style="color:var(--color-accent);text-decoration:none;">main page</a>.
+    <p style="font-size:0.85rem;color:var(--color-muted);margin-bottom:1.25rem;">
+      All {groupStageMatches.length} predictions and results from Groups A-L.
+      Current scores on the <a href="/" style="color:var(--color-accent);text-decoration:none;">main page</a>.
     </p>
 
-    {groups.length === 0 ? (
-      <p style="font-size:0.85rem;color:var(--color-muted);">No archived matches yet. Check back once the first matchday is more than a day old.</p>
+    <!-- Group stage tally -->
+    {stats.resultTotal > 0 && (
+      <div style="display:flex;gap:1.5rem;flex-wrap:wrap;margin-bottom:2rem;padding:1rem 1.25rem;background:var(--color-surface);border:1px solid var(--color-border);border-radius:8px;">
+        <div style="text-align:center;">
+          <div style="font-family:var(--font-display);font-size:2rem;font-weight:800;color:var(--color-correct);line-height:1;">
+            {stats.resultCorrect}<span style="font-size:1.1rem;color:var(--color-muted);">/{stats.resultTotal}</span>
+          </div>
+          <div style="font-size:0.7rem;color:var(--color-muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:2px;">Results</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-family:var(--font-display);font-size:2rem;font-weight:800;color:var(--color-exact);line-height:1;">
+            {stats.resultExact}
+          </div>
+          <div style="font-size:0.7rem;color:var(--color-muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:2px;">Exact</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-family:var(--font-display);font-size:2rem;font-weight:800;color:var(--color-accent);line-height:1;">
+            {stats.scorerPositive}<span style="font-size:1.1rem;color:var(--color-muted);">/{stats.scorerTotal}</span>
+          </div>
+          <div style="font-size:0.7rem;color:var(--color-muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:2px;">Scorers</div>
+        </div>
+      </div>
+    )}
+
+    {groupData.length === 0 ? (
+      <p style="font-size:0.85rem;color:var(--color-muted);">No group stage matches logged yet.</p>
     ) : (
       <div style="display:flex;flex-direction:column;gap:2.5rem;">
-        {groups.map(({ md, matches: mdMatches }) => (
+        {groupData.map(({ grp, matches: grpMatches }) => (
           <div>
             <h2
               style="font-family:var(--font-display);font-size:1.05rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-muted);margin:0 0 0.75rem;padding-bottom:0.5rem;border-bottom:1px solid var(--color-border);"
             >
-              {matchdayLabel(md)}
+              Group {grp}
             </h2>
             <div style="display:flex;flex-direction:column;gap:0.75rem;">
-              {mdMatches.map(match => (
+              {grpMatches.map(match => (
                 <MatchCard match={match} />
               ))}
             </div>

@@ -24,6 +24,7 @@ export interface Match {
   assisters?: string[];  // players credited with assists/involvement
   actualNotes?: string;
   informalOnly?: boolean; // exclude from headline tallies
+  archived?: boolean;    // true = hidden from main page, visible in group stage archive only
   // Match stats (ESPN ticker data, maintainer-recorded for played matches only)
   possessionHome?: number; // %, e.g. 51.7 (possessionAway = 100 - possessionHome)
   shotsOnTargetHome?: number;
@@ -35,6 +36,12 @@ export type ScorerVerdict = 'HIT' | 'ASSIST' | 'MISS' | 'PENDING';
 
 export function isPlayed(m: Match): boolean {
   return m.actualHome !== undefined && m.actualAway !== undefined;
+}
+
+// Group stage played matches are automatically archived (matchday 1-3 + played).
+// The archived?: boolean flag on the Match is available for manual overrides.
+export function isArchived(m: Match): boolean {
+  return m.archived === true || (isPlayed(m) && m.matchday <= 3);
 }
 
 export function getResultVerdict(m: Match): ResultVerdict {

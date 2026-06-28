@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.8.8] — 2026-06-28
+
+### Added
+- Group stage archive: `/archive` now shows all 65 formal group stage results grouped by Group A-L with a group-stage-specific tally panel. Replaces the old "matchday N" view.
+- `isArchived(m)` export in predictions.ts: returns true for any played match with matchday <= 3 (all group stage). The `archived?: boolean` field is available for manual overrides.
+- `archived?: boolean` field added to Match interface.
+
+### Changed
+- Homepage "Recent results" and "Upcoming" now exclude group stage archived matches — main page shows R32 fixtures only going forward.
+- "No recent results" empty state now links to group stage archive with match count.
+- Archive link in Recent results header updated to "Group stage archive (N) >" text.
+- TypeScript fixes in homepage script block: all `querySelector` calls inside `applyLiveCard` now use `querySelector<HTMLElement>` for correct type inference.
+
+### Fixed
+- All 25 Step 2 group stage matches verified to have actuals — no gaps found.
+- All 16 R32 fixtures confirmed present with predictions, scorer calls, and conditions set.
+- Validation hook: 88 matches, 72 played, 0 integrity violations.
+
 ## [0.8.7] — 2026-06-28
 
 ### Added
