@@ -1,6 +1,6 @@
 {
   "name": "wc2026",
-  "version": "0.8.8",
+  "version": "0.8.9",
   "description": "World Cup 2026 prediction tracker",
   "type": "module",
   "scripts": {

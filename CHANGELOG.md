@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.8.9] — 2026-06-28
+
+### Fixed
+- Ticker fallback: increased slice limit from 12 to 16 so all R32 fixtures show in the scroll.
+- Ticker teamNameMap: added 'Bosnia' entry so ESPN live path handles both 'Bosnia' and 'Bosnia and Herzegovina'.
+
 ## [0.8.8] — 2026-06-28
 
 ### Added

@@ -34,7 +34,7 @@ import { matches } from '../data/predictions';
     'Türkiye': 'TUR', 'Australia': 'AUS', 'Argentina': 'ARG',
     'Algeria': 'ALG', 'Morocco': 'MAR', 'Scotland': 'SCO',
     'Brazil': 'BRA', 'Haiti': 'HAI', 'Paraguay': 'PAR',
-    'Canada': 'CAN', 'Bosnia and Herzegovina': 'BIH', 'Switzerland': 'SUI',
+    'Canada': 'CAN', 'Bosnia': 'BIH', 'Bosnia and Herzegovina': 'BIH', 'Switzerland': 'SUI',
     'Ghana': 'GHA', 'Panama': 'PAN', 'Uzbekistan': 'UZB',
     'Colombia': 'COL', 'Czechia': 'CZE', 'Czech Republic': 'CZE',
     'South Africa': 'RSA', 'France': 'FRA', 'Norway': 'NOR',
@@ -85,7 +85,7 @@ import { matches } from '../data/predictions';
     // Fallback: pending predictions from our data
     const items = predictions
       .filter(m => m.actualHome === undefined && m.predHome !== undefined)
-      .slice(0, 12)
+      .slice(0, 16)
       .map(m => ({
         home: m.home, away: m.away,
         score: `${m.predHome}-${m.predAway}`,
