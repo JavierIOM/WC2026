@@ -21,8 +21,10 @@ const groups = matchdays.map(md => ({
   matches: archivedMatches.filter(m => m.matchday === md),
 }));
 
+const ROUND_NAMES: Record<string, string> = { R32: 'Round of 32', QF: 'Quarter-finals', SF: 'Semi-finals', F: 'Final' };
 const matchdayLabel = (md: number) => {
   const first = archivedMatches.find(m => m.matchday === md);
+  if (first?.round) return ROUND_NAMES[first.round] ?? first.round;
   return first ? `Matchday ${md}: ${formatDate(first.dateISO)}` : `Matchday ${md}`;
 };
 ---

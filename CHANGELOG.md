@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.8.7] — 2026-06-28
+
+### Added
+- Round of 32: 16 new match objects in predictions.ts (canada-south-africa through colombia-ghana, 2026-06-28 to 2026-07-04). All predictions and scorer calls set, no actuals.
+- `round` field added to Match interface for knockout round identification (e.g. 'R32', 'QF', 'SF', 'F').
+- `group` field made optional in Match interface (knockout matches have no group).
+- Upcoming section on homepage now groups by round with a "Round of 32" heading separator.
+- Archive page label logic updated: round-based matches show "Round of 32" etc. instead of "Matchday 4".
+- MatchCard badge: shows round badge (e.g. "R32") when no group is set, group badge otherwise.
+
+### Fixed
+- TypeScript errors in homepage script block: `liveCards` and `forEach` callbacks now use `Array.from()` for proper type inference; `applyLiveCard` parameter explicitly typed as `Element`.
+
 ## [0.8.6] — 2026-06-25
 
 ### Changed

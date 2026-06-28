@@ -36,6 +36,23 @@ const pendingMatches = formalMatches
     return dc !== 0 ? dc : a.kickoffBST.localeCompare(b.kickoffBST);
   });
 
+// Group pending by knockout round (group stage matches have no round field)
+const ROUND_ORDER = ['R32', 'QF', 'SF', 'F'];
+const ROUND_NAMES: Record<string, string> = { R32: 'Round of 32', QF: 'Quarter-finals', SF: 'Semi-finals', F: 'Final' };
+const pendingRoundMap = new Map<string, typeof pendingMatches>();
+for (const m of pendingMatches) {
+  const key = m.round ?? '__group__';
+  if (!pendingRoundMap.has(key)) pendingRoundMap.set(key, []);
+  pendingRoundMap.get(key)!.push(m);
+}
+const pendingGroups = [...pendingRoundMap.keys()]
+  .sort((a, b) => {
+    if (a === '__group__') return -1;
+    if (b === '__group__') return 1;
+    return ROUND_ORDER.indexOf(a) - ROUND_ORDER.indexOf(b);
+  })
+  .map(key => ({ key, matches: pendingRoundMap.get(key)! }));
+
 // Returns kickoff as UTC milliseconds for embedding in data attribute
 const kickoffUTCms = (m: typeof matches[0]): number => {
   const [y, mo, d] = m.dateISO.split('-').map(Number);
@@ -202,10 +219,23 @@ const kickoffUTCms = (m: typeof matches[0]): number => {
       Predictions are added 2-3 days before kickoff. Fixtures further out are listed as scheduled only and will be predicted closer to the time.
     </p>
     <p id="predictions-due-count" style="font-size:0.75rem;font-weight:600;color:#f59e0b;margin:0 0 0.75rem;display:none;"></p>
-    <div id="upcoming-list" style="display:flex;flex-direction:column;gap:0.75rem;">
-      {pendingMatches.map(m => (
-        <div data-pending-match="" data-kickoff-utc={kickoffUTCms(m).toString()}>
-          <MatchCard match={m} />
+    <div id="upcoming-list" style="display:flex;flex-direction:column;gap:1.5rem;">
+      {pendingGroups.map(({ key, matches: roundMatches }) => (
+        <div>
+          {key !== '__group__' && (
+            <h3
+              style="font-family:var(--font-display);font-size:1.05rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-muted);margin:0 0 0.75rem;padding-bottom:0.5rem;border-bottom:1px solid var(--color-border);"
+            >
+              {ROUND_NAMES[key] ?? key}
+            </h3>
+          )}
+          <div style="display:flex;flex-direction:column;gap:0.75rem;">
+            {roundMatches.map(m => (
+              <div data-pending-match="" data-kickoff-utc={kickoffUTCms(m).toString()}>
+                <MatchCard match={m} />
+              </div>
+            ))}
+          </div>
         </div>
       ))}
     </div>
@@ -218,7 +248,7 @@ const kickoffUTCms = (m: typeof matches[0]): number => {
       const BADGE_MISS = '<span style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:0.65rem;font-weight:700;letter-spacing:0.06em;background:rgb(239 68 68/0.15);color:#ef4444;border:1px solid rgb(239 68 68/0.35);">NO CALL LOGGED</span>';
       const LIVE_DOT   = '<span class="live-dot"></span>';
 
-      function applyLiveCard(wrapper) {
+      function applyLiveCard(wrapper: Element) {
         const article = wrapper.querySelector('article');
         if (!article) return;
 
@@ -258,10 +288,9 @@ const kickoffUTCms = (m: typeof matches[0]): number => {
         if (!upcomingList || !liveSection || !liveList) return;
 
         // Collect past-kickoff cards
-        const liveCards = [];
-        upcomingList.querySelectorAll('[data-pending-match]').forEach(card => {
+        const liveCards = Array.from(upcomingList.querySelectorAll('[data-pending-match]')).filter(card => {
           const kickoff = parseInt(card.getAttribute('data-kickoff-utc') || '0', 10);
-          if (kickoff > 0 && kickoff <= now) liveCards.push(card);
+          return kickoff > 0 && kickoff <= now;
         });
 
         // Move to live section (most recent first); apply live styling
@@ -279,7 +308,7 @@ const kickoffUTCms = (m: typeof matches[0]): number => {
 
         // Flag upcoming unpredicted matches within 72h
         let dueCount = 0;
-        upcomingList.querySelectorAll('[data-pending-match]').forEach(wrapper => {
+        Array.from(upcomingList.querySelectorAll('[data-pending-match]')).forEach(wrapper => {
           const kickoff = parseInt(wrapper.getAttribute('data-kickoff-utc') || '0', 10);
           const ph = wrapper.querySelector('.prediction-placeholder');
           if (!ph || !kickoff) return;

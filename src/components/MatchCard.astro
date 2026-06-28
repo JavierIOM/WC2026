@@ -58,9 +58,15 @@ const borderClass = verdictBorderClass[rv] ?? 'verdict-border-pending';
     style="display:flex;align-items:flex-start;justify-content:space-between;gap:0.75rem;padding:0.75rem 1rem 0.5rem;"
   >
     <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
-      <span class="badge" style="background:rgb(79 142 247/0.12);color:#4f8ef7;border:1px solid rgb(79 142 247/0.25);">
-        GRP {m.group}
-      </span>
+      {m.group ? (
+        <span class="badge" style="background:rgb(79 142 247/0.12);color:#4f8ef7;border:1px solid rgb(79 142 247/0.25);">
+          GRP {m.group}
+        </span>
+      ) : m.round ? (
+        <span class="badge" style="background:rgb(79 142 247/0.12);color:#4f8ef7;border:1px solid rgb(79 142 247/0.25);">
+          {m.round}
+        </span>
+      ) : null}
       {m.predType && (
         <span class={predTypeBadgeClass[m.predType] ?? 'badge badge-pending'}>
           {predTypeLabel(m.predType)}
