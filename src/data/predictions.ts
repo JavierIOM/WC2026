@@ -1369,6 +1369,10 @@ export const matches: Match[] = [
     scorerCallType: 'score-or-assist',
     confidence: 60,
     conditions: 'Lincoln Financial Field, Philadelphia. Mismatch CAPPED at 2-0 per sharpened rule (Curaçao may park it, Ivory Coast finishing can be loose — the 0-0 mismatch-fail profile). Ivory Coast need a result.',
+    actualHome: 0,
+    actualAway: 2,
+    scorers: ["Pépé (Ivory Coast)", "Pépé (Ivory Coast)"],
+    actualNotes: "Called 0-2 — CORRECT+EXACT, scorer (Amad) MISS. Ivory Coast through 2nd.",
   },
 
   {
@@ -1387,6 +1391,10 @@ export const matches: Match[] = [
     scorerCallType: 'score-or-assist',
     confidence: 40,
     conditions: 'MetLife Stadium, NJ. FADE: Germany already qualified and may rotate/rest; Ecuador need a point and are organised + motivated (unlucky vs Ivory Coast). Live draw well above Germany market price.',
+    actualHome: 2,
+    actualAway: 1,
+    scorers: ["Sané 2' (Germany)", "Angulo 9' (Ecuador)", "Plata 77' (Ecuador)"],
+    actualNotes: "Called 1-1 draw — MISS, scorer (Valencia) MISS. Ecuador WON the upset, through as best-3rd.",
   },
 
   {
@@ -1404,6 +1412,10 @@ export const matches: Match[] = [
     scorerCall: 'Gakpo',
     scorerCallType: 'score-or-assist',
     confidence: 60,
+    actualHome: 1,
+    actualAway: 3,
+    scorers: ["Netherlands (3, TBC)", "Tunisia (1, TBC)"],
+    actualNotes: "Called 0-2 — CORRECT, scorer (Gakpo) TBC. NL top Group F. (Confirm scorers.)",
   },
 
   {
@@ -1421,6 +1433,10 @@ export const matches: Match[] = [
     scorerCall: 'Gyökeres',
     scorerCallType: 'score-or-assist',
     confidence: 46,
+    actualHome: 1,
+    actualAway: 1,
+    scorers: ["Japan (1, TBC)", "Sweden (1, TBC)"],
+    actualNotes: "Called Sweden win — MISS, scorer (Gyökeres) TBC. Japan 2nd & through; Sweden out.",
   },
 
   {
@@ -1438,6 +1454,10 @@ export const matches: Match[] = [
     scorerCall: 'Arda Güler',
     scorerCallType: 'score-or-assist',
     confidence: 40,
+    actualHome: 3,
+    actualAway: 2,
+    scorers: ["USA (2, TBC)", "Türkiye (2, TBC)", "Kaan Ayhan 90+ (Türkiye)"],
+    actualNotes: "Called 1-1 draw — MISS, scorer (Arda Güler) MISS. Türkiye won late but were eliminated; USA top Group D.",
   },
 
   {
@@ -1455,6 +1475,10 @@ export const matches: Match[] = [
     scorerCall: 'Sanabria',
     scorerCallType: 'score-or-assist',
     confidence: 46,
+    actualHome: 0,
+    actualAway: 0,
+    scorers: [],
+    actualNotes: "Called Paraguay win — MISS, scorer (Sanabria) MISS. Both advance (AUS 2nd, PAR 3rd).",
   },
 
   {
@@ -1473,6 +1497,10 @@ export const matches: Match[] = [
     scorerCallType: 'score-or-assist',
     confidence: 60,
     reasoning: 'Lineup-locked ~1hr pre-KO: Mbappé STARTS in a loaded France XI (no forward rotation); Norway BENCH Haaland AND Ødegaard. Both risks that capped this call flipped in France\'s favour — confidence up 48->60. Norway 1-2 France and Mbappé scorer both stronger. Market firmed France to ~-155.',
+    actualHome: 1,
+    actualAway: 4,
+    scorers: ["Dembélé 7' (France)", "Dembélé 20' (France)", "Norway (1, TBC)", "Dembélé 32' (France)", "Doué 88' (France)"],
+    actualNotes: "Called France win — CORRECT, scorer (Mbappé) MISS — Dembélé first-half hat-trick. France perfect 9pts, top Group I.",
   },
 
   {
@@ -1490,6 +1518,10 @@ export const matches: Match[] = [
     scorerCall: 'Ismaila Sarr',
     scorerCallType: 'score-or-assist',
     confidence: 60,
+    actualHome: 5,
+    actualAway: 0,
+    scorers: ["Diarra 4' (Senegal)", "Sarr (Senegal)", "Gueye (Senegal)", "Gueye (Senegal)", "Ndiaye (Senegal)"],
+    actualNotes: "Called 2-0 — CORRECT, scorer (Ismaila Sarr) HIT. Iraq down to 10 men. Senegal 3rd, through.",
   },
 
   {
@@ -1507,6 +1539,10 @@ export const matches: Match[] = [
     scorerCall: 'Varela',
     scorerCallType: 'score-or-assist',
     confidence: 54,
+    actualHome: 0,
+    actualAway: 0,
+    scorers: [],
+    actualNotes: "Called Cape Verde 2-1 — MISS, scorer (Varela) MISS. CV drew, finished 3rd.",
   },
 
   {
@@ -1524,6 +1560,10 @@ export const matches: Match[] = [
     scorerCall: 'Núñez',
     scorerCallType: 'score-or-assist',
     confidence: 47,
+    actualHome: 0,
+    actualAway: 1,
+    scorers: ["Spain (1, TBC)"],
+    actualNotes: "Called Uruguay 2-1 — MISS, scorer (Núñez) MISS. Spain won even rotated; Uruguay eliminated.",
   },
 
   {
@@ -1541,6 +1581,10 @@ export const matches: Match[] = [
     scorerCall: 'Openda',
     scorerCallType: 'score-or-assist',
     confidence: 58,
+    actualHome: 1,
+    actualAway: 5,
+    scorers: ["Belgium (5, TBC)", "New Zealand (1, TBC)"],
+    actualNotes: "Called 0-2 — CORRECT, scorer (Openda) TBC. Belgium top Group G.",
   },
 
   {
@@ -1558,6 +1602,10 @@ export const matches: Match[] = [
     scorerCall: 'Salah',
     scorerCallType: 'score-or-assist',
     confidence: 42,
+    actualHome: 1,
+    actualAway: 1,
+    scorers: ["Egypt (1, TBC)", "Iran (1, TBC)"],
+    actualNotes: "Called 1-1 draw — CORRECT, scorer (Salah) TBC. Egypt advance; Iran out.",
   },
 
   {
@@ -1575,6 +1623,10 @@ export const matches: Match[] = [
     scorerCall: 'Kane',
     scorerCallType: 'score-or-assist',
     confidence: 56,
+    actualHome: 0,
+    actualAway: 2,
+    scorers: ["Bellingham 62' (England)", "Kane 68' (England)"],
+    actualNotes: "Called 0-2 — CORRECT+EXACT, scorer (Kane) HIT. Kane = England all-time WC top scorer (11). England top Group L, face Senegal in R32.",
   },
 
   {
@@ -1592,6 +1644,10 @@ export const matches: Match[] = [
     scorerCall: 'Kramarić',
     scorerCallType: 'score-or-assist',
     confidence: 40,
+    actualHome: 2,
+    actualAway: 1,
+    scorers: ["Sučić (Croatia)", "Luckassen (Ghana)", "Vlašić 83' (Croatia)"],
+    actualNotes: "Called 1-1 draw — MISS, scorer (Kramarić) MISS. Croatia 2nd; Ghana 3rd, through.",
   },
 
   {
@@ -1603,6 +1659,11 @@ export const matches: Match[] = [
     venue: 'Hard Rock Stadium, Miami',
     home: 'Colombia',
     away: 'Portugal',
+    actualHome: 0,
+    actualAway: 0,
+    scorers: [],
+    actualNotes: "No prediction — record only. Colombia top Group K, Portugal 2nd, both through.",
+    informalOnly: true,
   },
 
   {
@@ -1614,6 +1675,11 @@ export const matches: Match[] = [
     venue: 'Mercedes-Benz Stadium, Atlanta',
     home: 'DR Congo',
     away: 'Uzbekistan',
+    actualHome: 3,
+    actualAway: 1,
+    scorers: ["Wissa (DR Congo)"],
+    actualNotes: "No prediction — record only. DR Congo through as best-3rd.",
+    informalOnly: true,
   },
 
   {
@@ -1625,6 +1691,11 @@ export const matches: Match[] = [
     venue: 'Arrowhead Stadium, Kansas City',
     home: 'Algeria',
     away: 'Austria',
+    actualHome: 3,
+    actualAway: 3,
+    scorers: ["(6 goals, scorers TBC)"],
+    actualNotes: "No prediction — record only. Both advance.",
+    informalOnly: true,
   },
 
   {
@@ -1636,6 +1707,11 @@ export const matches: Match[] = [
     venue: 'AT&T Stadium, Arlington',
     home: 'Jordan',
     away: 'Argentina',
+    actualHome: 1,
+    actualAway: 3,
+    scorers: ["Lautaro (Argentina)", "Lo Celso (Argentina)", "Messi (Argentina)", "Jordan (1)"],
+    actualNotes: "No prediction — record only. Messi scored in a 7th straight WC game (record). Argentina perfect 9pts, top Group J.",
+    informalOnly: true,
   },
 
 ];
