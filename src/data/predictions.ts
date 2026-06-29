@@ -1741,6 +1741,12 @@ export const matches: Match[] = [
     scorerCallType: 'score-or-assist',
     conditions: 'Roofed, neutral. Canada -145 fav.',
     reasoning: 'Roofed, neutral. Canada -145 fav.',
+    actualHome: 1,
+    actualAway: 0,
+    scorers: ["Eustáquio 90+2' (Canada)"],
+    possessionHome: 42,
+    shotsOnTargetAway: 1,
+    actualNotes: "Eustáquio stoppage-time winner; Canada reach R16 for the first time ever (face NED/MAR winner, Houston, 4 Jul). South Africa 58% possession but 0.13 xG / 9 box touches -- possession-without-product. Called Canada 2-0 -- result CORRECT, scorer (J. David) MISS. Alphonso Davies WC debut off the bench.",
   },
 
   {
