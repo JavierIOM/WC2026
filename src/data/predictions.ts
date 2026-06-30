@@ -1804,6 +1804,10 @@ export const matches: Match[] = [
     scorerCallType: 'score-or-assist',
     conditions: 'Monterrey ~33C day/cooler night, mild Morocco edge. BANANA SKIN -- near coin-flip, Morocco upset live.',
     reasoning: 'Monterrey ~33C day/cooler night, mild Morocco edge. BANANA SKIN -- near coin-flip, Morocco upset live.',
+    actualHome: 1,
+    actualAway: 1,
+    scorers: ["Gakpo (Netherlands)", "Diop 90+1' (Morocco)"],
+    actualNotes: "1-1 after extra time (Gakpo 2nd-half goal; Diop 90+1' equaliser); Morocco win 3-2 on pens. Called Netherlands 2-1 -- result MISS, scorer (Gakpo) HIT (confirmed scorer). Morocco face Canada in R16.",
   },
 
   {
@@ -1823,6 +1827,10 @@ export const matches: Match[] = [
     scorerCallType: 'score-or-assist',
     conditions: 'Roof neutral. Norway -190 (Haaland); CIV pace close.',
     reasoning: 'Roof neutral. Norway -190 (Haaland); CIV pace close.',
+    actualHome: 1,
+    actualAway: 2,
+    scorers: ["Nusa (Norway)", "Ivory Coast (74')", "Haaland 86' (Norway)"],
+    actualNotes: "Norway came from behind; Haaland 86' winner. Called Norway 2-1 -- result CORRECT + EXACT, scorer (Haaland) HIT. Norway face Brazil in R16.",
   },
 
   {
@@ -1842,6 +1850,10 @@ export const matches: Match[] = [
     scorerCallType: 'score-or-assist',
     conditions: 'Mild. France -370; Mbappé due + record chase.',
     reasoning: 'Mild. France -370; Mbappé due + record chase.',
+    actualHome: 3,
+    actualAway: 0,
+    scorers: ["Mbappé 45' (France)", "Barcola (France)", "Mbappé (France)"],
+    actualNotes: "France cruised. Called France 3-1 -- result CORRECT, scorer (Mbappé) HIT (brace). Mbappé now 18 WC goals, 1 behind Messi; leads Golden Boot. France face Paraguay in R16.",
   },
 
   {
