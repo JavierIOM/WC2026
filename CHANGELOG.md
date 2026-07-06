@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.9.0] — 2026-07-06
+
+### Added
+- R16 fixture: belgium-usa (2026-07-07 01:00 BST, Lumen Field Seattle) — PENDING with Tillman scorer call, confidence 53.
+
+### Changed
+- Full Reconciliation #2: actuals added to 4 R32 fixtures (mexico-ecuador 2-0, england-dr-congo 2-1, belgium-senegal 3-2 AET, usa-bosnia 2-0).
+- 96 total matches, 76 played. Validator: 0 integrity violations.
+
 ## [0.8.9] — 2026-06-28
 
 ### Fixed
