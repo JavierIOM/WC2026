@@ -2120,6 +2120,10 @@ export const matches: Match[] = [
     scorerCallType: 'score-or-assist',
     confidence: 57,
     reasoning: 'Spain the stronger team overall with deeper midfield; Portugal reliant on Ronaldo/Pepe at age 41/38. Home advantage negligible at neutral. Oyarzabal in form.',
+    actualHome: 1,
+    actualAway: 0,
+    scorers: ["Merino 90+1' (Spain)"],
+    actualNotes: "Stoppage-time winner (Ferran Torres assist, both subs). Diogo Costa heroic for Portugal; Ronaldo's last World Cup ends. Spain: 5 wins, 0 conceded. Called Spain 2-1 — result CORRECT, scorer (Oyarzabal) MISS. QF: Spain vs Belgium/USA winner (SoFi, Fri).",
   },
 
   {
@@ -2261,10 +2265,10 @@ export const matches: Match[] = [
     predHome: 1,
     predAway: 2,
     predType: 'favourite-tight',
-    scorerCall: 'Tillman',
+    scorerCall: 'Balogun',
     scorerCallType: 'score-or-assist',
     confidence: 53,
-    reasoning: 'USA underdog but clinical; Tillman and Balogun a real threat. Belgium red-hot post-Senegal but exposed on the break.',
+    reasoning: 'USA underdog but clinical; Balogun and Tillman a real threat. Belgium red-hot post-Senegal but exposed on the break. Lineup-lock: FIFA cleared Balogun\'s wrongful red (Belgium appeal inadmissible) — Tillman pick existed only for the suspension risk. Balogun in form, point to prove.',
   },
 
 ];
