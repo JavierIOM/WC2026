@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.9.1] — 2026-07-06
+
+### Added
+- `advancedTeam?: 'home' | 'away'` field on Match interface for knockout pen results.
+- `getResultVerdict` now uses advancedTeam when present, so penalty shootout wins are correctly counted as CORRECT/MISS based on who advanced, not the draw scoreline.
+- australia-egypt, netherlands-morocco, germany-paraguay all tagged with `advancedTeam: 'away'`.
+
+### Changed
+- Reconciliation #2 complete: brazil-japan (2-1 EXACT) and germany-paraguay (1-1 AET, Paraguay advance 4-3 pens) actuals added.
+- Three scorer string bugs fixed: bra-hai (accent mismatch on Vinícius), senegal-iraq (last-name-only Sarr), mexico-ecuador (last-name-only Jiménez) — all flipped MISS → HIT.
+- 96 matches, 90 played. Computed tally: RESULT 58/85, SCORER 31 HIT / 2 ASSIST / 50 MISS.
+
 ## [0.9.0] — 2026-07-06
 
 ### Added

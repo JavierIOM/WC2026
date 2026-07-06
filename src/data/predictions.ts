@@ -20,6 +20,7 @@ export interface Match {
   // Actuals — omit both to mark match as PENDING
   actualHome?: number;
   actualAway?: number;
+  advancedTeam?: 'home' | 'away'; // knockout pens only: overrides score for result verdict
   scorers?: string[];    // goalscorers (either side)
   assisters?: string[];  // players credited with assists/involvement
   actualNotes?: string;
@@ -48,7 +49,9 @@ export function getResultVerdict(m: Match): ResultVerdict {
   if (!isPlayed(m)) return 'PENDING';
   if (m.predHome === undefined || m.predAway === undefined) return 'PENDING';
   const predOut = m.predHome > m.predAway ? 'H' : m.predHome < m.predAway ? 'A' : 'D';
-  const actOut  = m.actualHome! > m.actualAway! ? 'H' : m.actualHome! < m.actualAway! ? 'A' : 'D';
+  const actOut  = m.advancedTeam
+    ? (m.advancedTeam === 'home' ? 'H' : 'A')
+    : (m.actualHome! > m.actualAway! ? 'H' : m.actualHome! < m.actualAway! ? 'A' : 'D');
   if (predOut !== actOut) return 'MISS';
   if (m.predHome === m.actualHome && m.predAway === m.actualAway) return 'EXACT';
   return 'CORRECT';
@@ -844,7 +847,7 @@ export const matches: Match[] = [
     confidence: 60,
     actualHome: 3,
     actualAway: 0,
-    scorers: ["Cunha 23' (Brazil)", "Cunha 36' (Brazil)", "Vinícius Jr 45' (Brazil)"],
+    scorers: ["Cunha 23' (Brazil)", "Cunha 36' (Brazil)", "Vinicius Jr 45' (Brazil)"],
     possessionHome: 62,
     shotsOnTargetAway: 0,
     actualNotes: "Cunha brace + Vinícius. Called Brazil 3-0 mismatch — result CORRECT + EXACT, scorer (Vinícius Jr) HIT. Haiti eliminated.",
@@ -1528,7 +1531,7 @@ export const matches: Match[] = [
     confidence: 60,
     actualHome: 5,
     actualAway: 0,
-    scorers: ["Diarra 4' (Senegal)", "Sarr (Senegal)", "Gueye (Senegal)", "Gueye (Senegal)", "Ndiaye (Senegal)"],
+    scorers: ["Diarra 4' (Senegal)", "Ismaila Sarr (Senegal)", "Gueye (Senegal)", "Gueye (Senegal)", "Ndiaye (Senegal)"],
     actualNotes: "Called 2-0 — CORRECT, scorer (Ismaila Sarr) HIT. Iraq down to 10 men. Senegal 3rd, through.",
   },
 
@@ -1766,6 +1769,10 @@ export const matches: Match[] = [
     scorerCallType: 'score-or-assist',
     conditions: "Roofed, neutral. Japan's press a real test.",
     reasoning: "Roofed, neutral. Japan's press a real test.",
+    actualHome: 2,
+    actualAway: 1,
+    scorers: ["Sano 29' (Japan)", "Casemiro 46' (Brazil)", "Martinelli 90+ (Brazil)"],
+    actualNotes: "Called Brazil 2-1 — CORRECT + EXACT, scorer (Vinícius Jr) MISS.",
   },
 
   {
@@ -1785,6 +1792,11 @@ export const matches: Match[] = [
     scorerCallType: 'score-or-assist',
     conditions: 'Mild, no factor. Germany -280; PAR deep block.',
     reasoning: 'Mild, no factor. Germany -280; PAR deep block.',
+    actualHome: 1,
+    actualAway: 1,
+    advancedTeam: 'away',
+    scorers: ["Enciso (Paraguay)", "Havertz (Germany)"],
+    actualNotes: "Biggest upset — Germany OUT. 1-1 after AET, Paraguay win 4-3 pens. Called Germany 2-0 — MISS, scorer (Wirtz) MISS.",
   },
 
   {
@@ -1806,6 +1818,7 @@ export const matches: Match[] = [
     reasoning: 'Monterrey ~33C day/cooler night, mild Morocco edge. BANANA SKIN -- near coin-flip, Morocco upset live.',
     actualHome: 1,
     actualAway: 1,
+    advancedTeam: 'away',
     scorers: ["Gakpo (Netherlands)", "Diop 90+1' (Morocco)"],
     actualNotes: "1-1 after extra time (Gakpo 2nd-half goal; Diop 90+1' equaliser); Morocco win 3-2 on pens. Called Netherlands 2-1 -- result MISS, scorer (Gakpo) HIT (confirmed scorer). Morocco face Canada in R16.",
   },
@@ -1875,7 +1888,7 @@ export const matches: Match[] = [
     reasoning: 'Altitude NEUTRALISED (both altitude nations). Tight, ET live.',
     actualHome: 2,
     actualAway: 0,
-    scorers: ["Quiñones 22' (Mexico)", "Jiménez 31' (Mexico)"],
+    scorers: ["Quiñones 22' (Mexico)", "Raúl Jiménez 31' (Mexico)"],
     actualNotes: "Called Mexico 1-0 — CORRECT, scorer (Raúl Jiménez) HIT.",
   },
 
@@ -2036,8 +2049,9 @@ export const matches: Match[] = [
     reasoning: 'Roof neutral. Salah the difference vs resilient AUS. A grind.',
     actualHome: 1,
     actualAway: 1,
+    advancedTeam: 'away',
     scorers: ["Ashour 13' (Egypt)", "Hany 55' OG (counts for Australia)"],
-    actualNotes: "AET + Egypt advance 4-2 on pens (Abdelmaguid winning pen). Egypt's first-ever WC knockout win. Called Egypt 1-0 — result CORRECT (advanced), scorer (Salah) MISS.",
+    actualNotes: "1-1 after AET; Egypt advance 4-2 on pens. Egypt's first-ever WC knockout win. Called Egypt 1-0 — CORRECT (advanced), scorer (Salah) MISS.",
   },
 
   {
