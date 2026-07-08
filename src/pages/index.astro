@@ -226,24 +226,30 @@ const kickoffUTCms = (m: typeof matches[0]): number => {
     </p>
     <p id="predictions-due-count" style="font-size:0.75rem;font-weight:600;color:#f59e0b;margin:0 0 0.75rem;display:none;"></p>
     <div id="upcoming-list" style="display:flex;flex-direction:column;gap:1.5rem;">
-      {pendingGroups.map(({ key, matches: roundMatches }) => (
-        <div>
-          {key !== '__group__' && (
-            <h3
-              style="font-family:var(--font-display);font-size:1.05rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-muted);margin:0 0 0.75rem;padding-bottom:0.5rem;border-bottom:1px solid var(--color-border);"
-            >
-              {ROUND_NAMES[key] ?? key}
-            </h3>
-          )}
-          <div style="display:flex;flex-direction:column;gap:0.75rem;">
-            {roundMatches.map(m => (
-              <div data-pending-match="" data-kickoff-utc={kickoffUTCms(m).toString()}>
-                <MatchCard match={m} />
-              </div>
-            ))}
+      {pendingGroups.map(({ key, matches: roundMatches }) => {
+        const isQF = key === 'QF';
+        const containerStyle = isQF
+          ? "background:rgb(234 179 8/0.06);border:1px solid rgb(234 179 8/0.3);border-radius:8px;padding:1rem;display:flex;flex-direction:column;gap:0.75rem;"
+          : "display:flex;flex-direction:column;gap:0.75rem;";
+        return (
+          <div style={isQF ? "display:flex;flex-direction:column;gap:1.5rem;" : ""}>
+            {key !== '__group__' && (
+              <h3
+                style={`font-family:var(--font-display);font-size:1.05rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:${isQF ? '#eab308' : 'var(--color-muted)'};margin:0 0 0.75rem;padding-bottom:0.5rem;border-bottom:1px solid ${isQF ? 'rgb(234 179 8/0.5)' : 'var(--color-border)'};`}
+              >
+                {ROUND_NAMES[key] ?? key}
+              </h3>
+            )}
+            <div style={containerStyle}>
+              {roundMatches.map(m => (
+                <div data-pending-match="" data-kickoff-utc={kickoffUTCms(m).toString()}>
+                  <MatchCard match={m} />
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
     <p id="no-upcoming-msg" style="font-size:0.85rem;color:var(--color-muted);display:none;">No upcoming matches.</p>
   </section>
