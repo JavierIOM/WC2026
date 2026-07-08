@@ -230,41 +230,34 @@ const kickoffUTCms = (m: typeof matches[0]): number => {
         const isFinal = key === 'F';
         const isSemi = key === 'SF';
         const isQF = key === 'QF';
-
+        let wrapperStyle = "display:flex;flex-direction:column;gap:1.5rem;";
         let containerStyle = "display:flex;flex-direction:column;gap:0.75rem;";
-        let headingColor = 'var(--color-muted)';
-        let headingSize = '1.05rem';
-        let borderColor = 'var(--color-border)';
-        let wrapperStyle = "";
+        let headingStyle = "font-family:var(--font-display);font-size:1.05rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-muted);margin:0 0 0.75rem;padding-bottom:0.5rem;border-bottom:1px solid var(--color-border);";
+        let headingClass = "";
+        let label = ROUND_NAMES[key] ?? key;
 
         if (isFinal) {
-          containerStyle = "background:linear-gradient(135deg, rgb(255 215 0/0.15), rgb(255 193 7/0.1));border:3px solid #FFD700;border-radius:16px;padding:2rem;display:flex;flex-direction:column;gap:1.5rem;box-shadow:0 0 30px rgb(255 215 0/0.2);";
-          headingColor = '#FFD700';
-          headingSize = '2.2rem';
-          borderColor = '#FFD700';
-          wrapperStyle = "background:rgb(255 215 0/0.08);border-radius:16px;padding:2.5rem;display:flex;flex-direction:column;gap:2rem;border:2px solid rgb(255 215 0/0.3);";
+          wrapperStyle = "position:relative;border-radius:20px;padding:3rem 2rem;background:radial-gradient(ellipse at top, rgb(255 205 0/0.22), rgb(255 215 0/0.05) 70%), var(--color-surface);border:2.5px solid rgb(255 205 0/0.6);box-shadow:0 0 70px rgb(255 190 0/0.35), inset 0 0 46px rgb(255 215 0/0.08);display:flex;flex-direction:column;gap:1.5rem;";
+          containerStyle = "display:flex;flex-direction:column;gap:1rem;";
+          headingStyle = "font-family:var(--font-display);font-size:clamp(2.4rem,7vw,3.6rem);font-weight:800;letter-spacing:0.12em;text-transform:uppercase;text-align:center;margin:0;text-shadow:0 0 36px rgb(255 190 0/0.6);";
+          headingClass = "metal-text metal-final";
+          label = "★ FINAL ★";
         } else if (isSemi) {
-          containerStyle = "background:rgb(192 192 192/0.08);border:1.5px solid rgb(192 192 192/0.4);border-radius:10px;padding:1.25rem;display:flex;flex-direction:column;gap:0.75rem;";
-          headingColor = '#C0C0C0';
-          headingSize = '1.2rem';
-          borderColor = 'rgb(192 192 192/0.5)';
-          wrapperStyle = "display:flex;flex-direction:column;gap:1.5rem;";
+          wrapperStyle = "border-radius:14px;padding:1.7rem 1.4rem;background:linear-gradient(160deg, rgb(224 228 240/0.2), rgb(150 158 180/0.05)), var(--color-surface);border:1.5px solid rgb(214 220 235/0.6);box-shadow:0 0 34px rgb(200 208 230/0.22);display:flex;flex-direction:column;gap:0.9rem;";
+          containerStyle = "display:flex;flex-direction:column;gap:0.75rem;";
+          headingStyle = "font-family:var(--font-display);font-size:2rem;font-weight:800;letter-spacing:0.09em;text-transform:uppercase;margin:0;text-shadow:0 0 22px rgb(220 226 245/0.5);";
+          headingClass = "metal-text metal-sf";
         } else if (isQF) {
-          containerStyle = "background:rgb(205 127 50/0.08);border:1.5px solid rgb(205 127 50/0.4);border-radius:8px;padding:1rem;display:flex;flex-direction:column;gap:0.75rem;";
-          headingColor = '#CD7F32';
-          headingSize = '1.15rem';
-          borderColor = 'rgb(205 127 50/0.5)';
-          wrapperStyle = "display:flex;flex-direction:column;gap:1.5rem;";
+          wrapperStyle = "border-radius:12px;padding:1.4rem 1.25rem;background:linear-gradient(160deg, rgb(216 132 50/0.2), rgb(130 80 38/0.05)), var(--color-surface);border:1.5px solid rgb(214 138 60/0.6);box-shadow:0 0 28px rgb(210 130 50/0.22);display:flex;flex-direction:column;gap:0.9rem;";
+          containerStyle = "display:flex;flex-direction:column;gap:0.75rem;";
+          headingStyle = "font-family:var(--font-display);font-size:1.65rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;margin:0;text-shadow:0 0 18px rgb(214 130 50/0.5);";
+          headingClass = "metal-text metal-qf";
         }
 
         return (
           <div style={wrapperStyle}>
             {key !== '__group__' && (
-              <h3
-                style={`font-family:var(--font-display);font-size:${headingSize};font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:${headingColor};margin:0 0 0.75rem;padding-bottom:0.5rem;border-bottom:2px solid ${borderColor};`}
-              >
-                {ROUND_NAMES[key] ?? key}
-              </h3>
+              <h3 class={headingClass} style={headingStyle}>{label}</h3>
             )}
             <div style={containerStyle}>
               {roundMatches.map(m => (

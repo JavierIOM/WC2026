@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.9.3] — 2026-07-08
+
+### Changed
+- Knockout round panes in Upcoming now use a vivid metallic hierarchy: bronze quarter-finals, chrome-silver semi-finals, and a large glowing gold Final (★ FINAL ★, centred). Headings use gradient-clipped metallic text with a coloured glow and tinted glass container.
+- Added `.metal-qf` / `.metal-sf` / `.metal-final` classes in global.css with light-theme overrides (deeper metal stops) so the silver/gold headings stay legible on the light palette.
+
 ## [0.9.2] — 2026-07-08
 
 ### Added

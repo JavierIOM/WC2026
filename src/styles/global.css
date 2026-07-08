@@ -110,6 +110,23 @@ body {
 .predtype-draw            { color: #e879f9; background-color: rgb(232 121 249 / 0.1); border: 1px solid rgb(232 121 249 / 0.25); }
 .predtype-rule-bend       { color: #fb923c; background-color: rgb(251 146 60 / 0.1);  border: 1px solid rgb(251 146 60 / 0.25); }
 
+/* Metallic knockout headings — gradient text clipped to the glyphs.
+   Dark theme uses bright metal stops that glow on near-black; light theme
+   swaps to deeper, saturated metal so the text stays legible on #FAF7F4. */
+.metal-text {
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+.metal-qf    { background-image: linear-gradient(180deg,#ffd9a8 0%,#f0a24d 38%,#d07a26 60%,#ffe4bf 100%); }
+.metal-sf    { background-image: linear-gradient(180deg,#ffffff 0%,#f4f6fb 35%,#d3d8e6 58%,#ffffff 100%); }
+.metal-final { background-image: linear-gradient(180deg,#fff7cc 0%,#ffe680 22%,#ffd11a 48%,#dd9b00 68%,#fff2b3 100%); }
+
+[data-theme="light"] .metal-qf    { background-image: linear-gradient(180deg,#b26a24 0%,#8a4f18 55%,#c67e33 100%); }
+[data-theme="light"] .metal-sf    { background-image: linear-gradient(180deg,#7c8090 0%,#565b6b 50%,#8b90a1 100%); }
+[data-theme="light"] .metal-final { background-image: linear-gradient(180deg,#c99700 0%,#9a6f00 50%,#dcae1e 100%); }
+
 /* Match card base */
 .match-card {
   background-color: var(--color-surface);
