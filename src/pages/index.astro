@@ -225,17 +225,41 @@ const kickoffUTCms = (m: typeof matches[0]): number => {
       Predictions are added 2-3 days before kickoff. Fixtures further out are listed as scheduled only and will be predicted closer to the time.
     </p>
     <p id="predictions-due-count" style="font-size:0.75rem;font-weight:600;color:#f59e0b;margin:0 0 0.75rem;display:none;"></p>
-    <div id="upcoming-list" style="display:flex;flex-direction:column;gap:1.5rem;">
+    <div id="upcoming-list" style="display:flex;flex-direction:column;gap:2rem;">
       {pendingGroups.map(({ key, matches: roundMatches }) => {
+        const isFinal = key === 'F';
+        const isSemi = key === 'SF';
         const isQF = key === 'QF';
-        const containerStyle = isQF
-          ? "background:rgb(234 179 8/0.06);border:1px solid rgb(234 179 8/0.3);border-radius:8px;padding:1rem;display:flex;flex-direction:column;gap:0.75rem;"
-          : "display:flex;flex-direction:column;gap:0.75rem;";
+
+        let containerStyle = "display:flex;flex-direction:column;gap:0.75rem;";
+        let headingColor = 'var(--color-muted)';
+        let headingSize = '1.05rem';
+        let borderColor = 'var(--color-border)';
+        let wrapperStyle = "";
+
+        if (isFinal) {
+          containerStyle = "background:rgb(239 68 68/0.1);border:2px solid rgb(239 68 68/0.5);border-radius:12px;padding:1.5rem;display:flex;flex-direction:column;gap:1rem;";
+          headingColor = '#ef4444';
+          headingSize = '1.4rem';
+          borderColor = 'rgb(239 68 68/0.6)';
+          wrapperStyle = "background:rgb(239 68 68/0.03);border-radius:12px;padding:1.5rem;display:flex;flex-direction:column;gap:1.5rem;";
+        } else if (isSemi) {
+          containerStyle = "background:rgb(168 85 247/0.08);border:1.5px solid rgb(168 85 247/0.4);border-radius:10px;padding:1.25rem;display:flex;flex-direction:column;gap:0.75rem;";
+          headingColor = '#a855f7';
+          headingSize = '1.2rem';
+          borderColor = 'rgb(168 85 247/0.5)';
+          wrapperStyle = "display:flex;flex-direction:column;gap:1.5rem;";
+        } else if (isQF) {
+          containerStyle = "background:rgb(234 179 8/0.06);border:1px solid rgb(234 179 8/0.3);border-radius:8px;padding:1rem;display:flex;flex-direction:column;gap:0.75rem;";
+          headingColor = '#eab308';
+          wrapperStyle = "display:flex;flex-direction:column;gap:1.5rem;";
+        }
+
         return (
-          <div style={isQF ? "display:flex;flex-direction:column;gap:1.5rem;" : ""}>
+          <div style={wrapperStyle}>
             {key !== '__group__' && (
               <h3
-                style={`font-family:var(--font-display);font-size:1.05rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:${isQF ? '#eab308' : 'var(--color-muted)'};margin:0 0 0.75rem;padding-bottom:0.5rem;border-bottom:1px solid ${isQF ? 'rgb(234 179 8/0.5)' : 'var(--color-border)'};`}
+                style={`font-family:var(--font-display);font-size:${headingSize};font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:${headingColor};margin:0 0 0.75rem;padding-bottom:0.5rem;border-bottom:1px solid ${borderColor};`}
               >
                 {ROUND_NAMES[key] ?? key}
               </h3>
