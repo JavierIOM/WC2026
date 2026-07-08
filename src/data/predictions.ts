@@ -2143,6 +2143,10 @@ export const matches: Match[] = [
     scorerCallType: 'score-or-assist',
     confidence: 62,
     reasoning: 'Egypt the Cinderella story (first WC QF ever) but Argentina are the defending champions and too good on the day. Messi still dangerous.',
+    actualHome: 2,
+    actualAway: 3,
+    scorers: ["Ibrahim 15' (Egypt)", "Zico 67' (Egypt)", "Romero 79' (Argentina)", "Messi 83' (Argentina)", "E. Fernández 90+ (Argentina)"],
+    actualNotes: "2-0 down, Messi pen saved, then 3 in 15 mins. Messi's 8th — outright Boot lead. Called Argentina 2-1 — result CORRECT, scorer (Messi) HIT.",
   },
 
   {
@@ -2162,6 +2166,11 @@ export const matches: Match[] = [
     scorerCallType: 'score-or-assist',
     confidence: 50,
     reasoning: 'Colombia have proven themselves more decisive on the ball; Switzerland organised but vulnerable on transitions. Colombia unbeaten in 7.',
+    actualHome: 0,
+    actualAway: 0,
+    advancedTeam: 'home',
+    scorers: [],
+    actualNotes: "0-0 through 120; Vargas decisive kick. First Swiss QF in 72 years. Called Colombia 2-1 — result MISS, scorer (Luis Díaz) MISS.",
   },
 
   {
@@ -2269,6 +2278,10 @@ export const matches: Match[] = [
     scorerCallType: 'score-or-assist',
     confidence: 53,
     reasoning: 'USA underdog but clinical; Balogun and Tillman a real threat. Belgium red-hot post-Senegal but exposed on the break. Lineup-lock: FIFA cleared Balogun\'s wrongful red (Belgium appeal inadmissible) — Tillman pick existed only for the suspension risk. Balogun in form, point to prove.',
+    actualHome: 4,
+    actualAway: 1,
+    scorers: ["De Ketelaere 9' (Belgium)", "Tillman 31' (USA)", "De Ketelaere 33' (Belgium)", "Vanaken 57' (Belgium)", "Lukaku 90+3' (Belgium)"],
+    actualNotes: "De Ketelaere MOTM. Called USA 2-1 — result MISS, scorer (Balogun) MISS (ironic: Tillman, the original pick, scored). Belgium face Spain in QF.",
   },
 
   // ── QUARTER-FINALS ──────────────────────────────────────────────────────────────

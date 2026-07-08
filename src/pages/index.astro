@@ -6,7 +6,7 @@ import { matches, computeStats, isPlayed, isArchived, formatDate } from '../data
 
 const stats = computeStats(matches);
 
-// Rolling window: show played matches from yesterday onward, archive the rest
+// Show all completed knockout matches (R32, R16, QF, SF, F) plus recent group stage results
 const today = new Date();
 today.setHours(0, 0, 0, 0);
 const yesterday = new Date(today);
@@ -16,7 +16,13 @@ const isRecent = (m: typeof matches[0]) =>
   isPlayed(m) && new Date(m.dateISO) >= yesterday;
 
 const formalMatches = matches.filter(m => !m.informalOnly);
-const recentPlayed  = formalMatches.filter(m => isRecent(m) && !isArchived(m));
+const knockoutRounds = new Set(['R32', 'R16', 'QF', 'SF', 'F']);
+const recentPlayed  = formalMatches.filter(m => {
+  if (isArchived(m)) return false;
+  if (!isPlayed(m)) return false;
+  // Show all knockout matches + recent group stage matches
+  return m.round && knockoutRounds.has(m.round) ? true : isRecent(m);
+});
 const groupArchiveCount = formalMatches.filter(m => isArchived(m)).length;
 
 // Group recent played matches by calendar date (not matchday number — MD2 spans many days)
@@ -187,7 +193,7 @@ const kickoffUTCms = (m: typeof matches[0]): number => {
 
     {matchdayGroups.length === 0 ? (
       <p style="font-size:0.85rem;color:var(--color-muted);">
-        No R32 results yet.{' '}
+        No knockout results yet.{' '}
         {groupArchiveCount > 0 && (
           <a href="/archive" style="color:var(--color-accent);text-decoration:none;">View group stage archive ({groupArchiveCount} matches) &rsaquo;</a>
         )}

@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.9.2] — 2026-07-08
+
+### Added
+- Three R16 results: belgium-usa (4-1), egypt-argentina (2-3), switzerland-colombia (0-0, pens).
+
+### Changed
+- Homepage "Recent results" section now shows all completed knockout matches (R32, R16, QF, SF, F), not just those from yesterday. Group stage results still limited to yesterday onward.
+- Empty state corrected to "No knockout results yet" (was "No R32 results yet").
+- 104 matches, 96 played. Computed tally: RESULT 60/89, SCORER 32 HIT / 5 ASSIST / 46 MISS.
+
 ## [0.9.1] — 2026-07-06
 
 ### Added
