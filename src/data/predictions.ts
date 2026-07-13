@@ -2304,6 +2304,10 @@ export const matches: Match[] = [
     confidence: 55,
     conditions: "France won all 5 in 90 mins (14-2 agg); market -390 to advance, faded to 55 — Paraguay blueprint, 2022 revenge, Bounou; Saibari (hamstring) likely out for Morocco.",
     reasoning: "France won all 5 in 90 mins (14-2 agg); market -390 to advance, faded to 55 — Paraguay blueprint, 2022 revenge, Bounou; Saibari (hamstring) likely out for Morocco.",
+    actualHome: 2,
+    actualAway: 0,
+    scorers: ["Mbappé 60' (France)", "Dembélé 66' (France)"],
+    actualNotes: "Mbappé missed a 1st-half pen (Bounou), then a superb curler + assist for Dembélé — 8 goals, level with Messi, 20th career. Third straight France semi. Called France 2-1 — result CORRECT, scorer (Mbappé) HIT.",
   },
 
   {
@@ -2324,6 +2328,10 @@ export const matches: Match[] = [
     confidence: 62,
     conditions: "Spain unbeaten 35, 0 conceded all tournament (Simón WC clean-sheet streak since 2022); Belgium unbeaten 18 but leaky. Belgium's high line vs Yamal = the mismatch.",
     reasoning: "Spain unbeaten 35, 0 conceded all tournament (Simón WC clean-sheet streak since 2022); Belgium unbeaten 18 but leaky. Belgium's high line vs Yamal = the mismatch.",
+    actualHome: 2,
+    actualAway: 1,
+    scorers: ["Ruiz 30' (Spain)", "De Ketelaere 41' (Belgium)", "Merino 88' (Spain)"],
+    actualNotes: "De Ketelaere ended Spain's 650-min clean-sheet record; Merino 88' winner with his 2nd touch — consecutive KO winners as a sub. Called Spain 2-0 — result CORRECT, scorer (Yamal) MISS.",
   },
 
   {
@@ -2344,6 +2352,11 @@ export const matches: Match[] = [
     confidence: 50,
     conditions: "Haaland 7 v Kane 6, Boot live. Quansah SUSPENDED — reshuffled back line vs Haaland in heat. Market ENG ~55%; held at coin-flip. Lineup-lock Sat ~21:00.",
     reasoning: "Haaland 7 v Kane 6, Boot live. Quansah SUSPENDED — reshuffled back line vs Haaland in heat. Market ENG ~55%; held at coin-flip. Lineup-lock Sat ~21:00.",
+    actualHome: 1,
+    actualAway: 2,
+    advancedTeam: 'away',
+    scorers: ["Schjelderup 36' (Norway)", "Bellingham 45+2' (England)", "Bellingham 93' (England)"],
+    actualNotes: "Bellingham brace; Haaland's 14-game streak ended; Kane 'goal' offside. First England semi since 2018. Called England 2-1 — result CORRECT, scorer (Kane) MISS.",
   },
 
   {
@@ -2364,6 +2377,11 @@ export const matches: Match[] = [
     confidence: 60,
     conditions: "Two Argentina escapes = warning; Manzambi (Swiss star) injured, missed Colombia tie — Swiss goalless in 120 without him. Messi 8 goals, 8 straight WC games scored.",
     reasoning: "Two Argentina escapes = warning; Manzambi (Swiss star) injured, missed Colombia tie — Swiss goalless in 120 without him. Messi 8 goals, 8 straight WC games scored.",
+    actualHome: 3,
+    actualAway: 1,
+    advancedTeam: 'home',
+    scorers: ["Mac Allister 10' (Argentina)", "Ndoye 61' (Switzerland)", "Álvarez 112' (Argentina)", "L. Martínez 120' (Argentina)"],
+    actualNotes: "Mac Allister headed a Messi corner (10th career WC assist); Embolo 2nd yellow 72'; third straight Argentina ET escape. Called Argentina 2-1 — result CORRECT, scorer (Messi) ASSIST.",
   },
 
   // ── SEMI-FINALS ────────────────────────────────────────────────────────────────
