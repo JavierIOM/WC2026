@@ -1750,6 +1750,8 @@ export const matches: Match[] = [
     possessionHome: 42,
     shotsOnTargetAway: 1,
     actualNotes: "Eustáquio stoppage-time winner; Canada reach R16 for the first time ever (face NED/MAR winner, Houston, 4 Jul). South Africa 58% possession but 0.13 xG / 9 box touches -- possession-without-product. Called Canada 2-0 -- result CORRECT, scorer (J. David) MISS. Alphonso Davies WC debut off the bench.",
+
+    archived: true,
   },
 
   {
@@ -1773,6 +1775,8 @@ export const matches: Match[] = [
     actualAway: 1,
     scorers: ["Sano 29' (Japan)", "Casemiro 46' (Brazil)", "Martinelli 90+ (Brazil)"],
     actualNotes: "Called Brazil 2-1 — CORRECT + EXACT, scorer (Vinícius Jr) MISS.",
+
+    archived: true,
   },
 
   {
@@ -1797,6 +1801,8 @@ export const matches: Match[] = [
     advancedTeam: 'away',
     scorers: ["Enciso (Paraguay)", "Havertz (Germany)"],
     actualNotes: "Biggest upset — Germany OUT. 1-1 after AET, Paraguay win 4-3 pens. Called Germany 2-0 — MISS, scorer (Wirtz) MISS.",
+
+    archived: true,
   },
 
   {
@@ -1821,6 +1827,8 @@ export const matches: Match[] = [
     advancedTeam: 'away',
     scorers: ["Gakpo (Netherlands)", "Diop 90+1' (Morocco)"],
     actualNotes: "1-1 after extra time (Gakpo 2nd-half goal; Diop 90+1' equaliser); Morocco win 3-2 on pens. Called Netherlands 2-1 -- result MISS, scorer (Gakpo) HIT (confirmed scorer). Morocco face Canada in R16.",
+
+    archived: true,
   },
 
   {
@@ -1844,6 +1852,8 @@ export const matches: Match[] = [
     actualAway: 2,
     scorers: ["Nusa (Norway)", "Ivory Coast (74')", "Haaland 86' (Norway)"],
     actualNotes: "Norway came from behind; Haaland 86' winner. Called Norway 2-1 -- result CORRECT + EXACT, scorer (Haaland) HIT. Norway face Brazil in R16.",
+
+    archived: true,
   },
 
   {
@@ -1867,6 +1877,8 @@ export const matches: Match[] = [
     actualAway: 0,
     scorers: ["Mbappé 45' (France)", "Barcola (France)", "Mbappé (France)"],
     actualNotes: "France cruised. Called France 3-1 -- result CORRECT, scorer (Mbappé) HIT (brace). Mbappé now 18 WC goals, 1 behind Messi; leads Golden Boot. France face Paraguay in R16.",
+
+    archived: true,
   },
 
   {
@@ -1890,6 +1902,8 @@ export const matches: Match[] = [
     actualAway: 0,
     scorers: ["Quiñones 22' (Mexico)", "Raúl Jiménez 31' (Mexico)"],
     actualNotes: "Called Mexico 1-0 — CORRECT, scorer (Raúl Jiménez) HIT.",
+
+    archived: true,
   },
 
   {
@@ -1913,6 +1927,8 @@ export const matches: Match[] = [
     actualAway: 1,
     scorers: ["Cipenga 7' (DR Congo)", "Kane 75' (England)", "Kane 86' (England)"],
     actualNotes: "Kane brace. Called England 2-0 — CORRECT, scorer (Kane) HIT.",
+
+    archived: true,
   },
 
   {
@@ -1936,6 +1952,8 @@ export const matches: Match[] = [
     actualAway: 2,
     scorers: ["Diarra 25' (Senegal)", "Sarr 51' (Senegal)", "Lukaku 86' (Belgium)", "Tielemans 89' (Belgium)", "Tielemans 120+5' pen (Belgium)"],
     actualNotes: "Called Belgium 2-1 — CORRECT (advanced), scorer (De Bruyne) MISS.",
+
+    archived: true,
   },
 
   {
@@ -1959,6 +1977,8 @@ export const matches: Match[] = [
     actualAway: 0,
     scorers: ["Balogun 45' (USA)", "Tillman 82' (USA)"],
     actualNotes: "Called USA 2-1 — CORRECT, scorer (Balogun) HIT.",
+
+    archived: true,
   },
 
   {
@@ -1982,6 +2002,8 @@ export const matches: Match[] = [
     actualAway: 0,
     scorers: ["Oyarzabal 36' (Spain)", "Porro 66' (Spain)", "Oyarzabal 89' (Spain)"],
     actualNotes: "Yamal MVP. First Spain WC knockout win since 2010. Called 3-1 — CORRECT, scorer (Oyarzabal) HIT.",
+
+    archived: true,
   },
 
   {
@@ -2005,6 +2027,8 @@ export const matches: Match[] = [
     actualAway: 1,
     scorers: ["Croatia (1, TBC)", "Ronaldo pen (Portugal)", "Ramos 90+4' (Portugal)"],
     actualNotes: "Ronaldo's first-ever WC knockout goal; Ramos 94' winner; late Croatia leveller disallowed. Called 2-1 — CORRECT + EXACT, scorer (Ronaldo) HIT.",
+
+    archived: true,
   },
 
   {
@@ -2028,6 +2052,8 @@ export const matches: Match[] = [
     actualAway: 0,
     scorers: ["Embolo 10' (Switzerland)", "Ndoye 46' (Switzerland)"],
     actualNotes: "First Swiss WC knockout win in 88 years. Called 2-1 — CORRECT, scorer (Embolo) HIT.",
+
+    archived: true,
   },
 
   {
@@ -2052,6 +2078,8 @@ export const matches: Match[] = [
     advancedTeam: 'away',
     scorers: ["Ashour 13' (Egypt)", "Hany 55' OG (counts for Australia)"],
     actualNotes: "1-1 after AET; Egypt advance 4-2 on pens. Egypt's first-ever WC knockout win. Called Egypt 1-0 — CORRECT (advanced), scorer (Salah) MISS.",
+
+    archived: true,
   },
 
   {
@@ -2075,6 +2103,8 @@ export const matches: Match[] = [
     actualAway: 2,
     scorers: ["Messi (1st-half opener, Argentina)", "Duarte (Cape Verde)", "L. Martínez 92' (Argentina)", "Lopes Cabral 103' (Cape Verde)", "Borges 111' OG (counts for Argentina)"],
     actualNotes: "1-1 after 90; 3-2 AET. Messi scored the opener (7th of tournament, 20th career) AND assisted the winner (corner). Called Argentina 2-0 — result CORRECT (advanced), scorer (Messi) HIT.",
+
+    archived: true,
   },
 
   {
@@ -2099,6 +2129,8 @@ export const matches: Match[] = [
     scorers: ["Arias 14' (Colombia)"],
     assisters: ["Suárez"],
     actualNotes: "Suárez assist after 8' sub. Colombia unbeaten in 7 at WCs. Called 2-0 — CORRECT, scorer (Luis Díaz) MISS.",
+
+    archived: true,
   },
 
   // ── ROUND OF 16 ────────────────────────────────────────────────────────────────
@@ -2124,6 +2156,8 @@ export const matches: Match[] = [
     actualAway: 0,
     scorers: ["Merino 90+1' (Spain)"],
     actualNotes: "Stoppage-time winner (Ferran Torres assist, both subs). Diogo Costa heroic for Portugal; Ronaldo's last World Cup ends. Spain: 5 wins, 0 conceded. Called Spain 2-1 — result CORRECT, scorer (Oyarzabal) MISS. QF: Spain vs Belgium/USA winner (SoFi, Fri).",
+
+    archived: true,
   },
 
   {
@@ -2147,6 +2181,8 @@ export const matches: Match[] = [
     actualAway: 3,
     scorers: ["Ibrahim 15' (Egypt)", "Zico 67' (Egypt)", "Romero 79' (Argentina)", "Messi 83' (Argentina)", "E. Fernández 90+ (Argentina)"],
     actualNotes: "2-0 down, Messi pen saved, then 3 in 15 mins. Messi's 8th — outright Boot lead. Called Argentina 2-1 — result CORRECT, scorer (Messi) HIT.",
+
+    archived: true,
   },
 
   {
@@ -2171,6 +2207,8 @@ export const matches: Match[] = [
     advancedTeam: 'home',
     scorers: [],
     actualNotes: "0-0 through 120; Vargas decisive kick. First Swiss QF in 72 years. Called Colombia 2-1 — result MISS, scorer (Luis Díaz) MISS.",
+
+    archived: true,
   },
 
   {
@@ -2193,6 +2231,8 @@ export const matches: Match[] = [
     actualAway: 3,
     scorers: ["Ounahi 50' (Morocco)", "Ounahi 82' (Morocco)", "Rahimi 90+ (Morocco)"],
     actualNotes: "Morocco unbeaten in 34; back-to-back WC QFs (African first); won with 5 shots. Called Canada 1-2 — CORRECT, scorer (Saibari) MISS (injured off 23').",
+
+    archived: true,
   },
 
   {
@@ -2215,6 +2255,8 @@ export const matches: Match[] = [
     actualAway: 0,
     scorers: ["Mbappé pen (France)"],
     actualNotes: "~100°F Philadelphia. Mbappé's 7th (level with Messi), 19th career, record 11th WC knockout goal. Called France 2-0 — CORRECT, scorer (Mbappé) HIT. QF: France-Morocco.",
+
+    archived: true,
   },
 
   {
@@ -2237,6 +2279,8 @@ export const matches: Match[] = [
     actualAway: 2,
     scorers: ["Haaland (Norway)", "Haaland (Norway)", "Brazil (1, TBC)"],
     actualNotes: "Haaland 2nd-half brace; five-time champions OUT. Called Brazil 2-1 — result MISS, scorer (Vinícius) MISS. QF: Norway-England.",
+
+    archived: true,
   },
 
   {
@@ -2259,6 +2303,8 @@ export const matches: Match[] = [
     actualAway: 3,
     scorers: ["Bellingham (England)", "Bellingham (England)", "Quiñones (Mexico)", "Kane pen (England)", "Jiménez pen (Mexico)"],
     actualNotes: "Bellingham brace in 98 secs; Quansah red 54'; 10-man England held 40+ mins; ~1hr lightning delay. First team ever to beat Mexico at the Azteca in a WC. Called Mexico 1-2 — CORRECT, scorer (Kane) HIT.",
+
+    archived: true,
   },
 
   {
@@ -2282,6 +2328,8 @@ export const matches: Match[] = [
     actualAway: 1,
     scorers: ["De Ketelaere 9' (Belgium)", "Tillman 31' (USA)", "De Ketelaere 33' (Belgium)", "Vanaken 57' (Belgium)", "Lukaku 90+3' (Belgium)"],
     actualNotes: "De Ketelaere MOTM. Called USA 2-1 — result MISS, scorer (Balogun) MISS (ironic: Tillman, the original pick, scored). Belgium face Spain in QF.",
+
+    archived: true,
   },
 
   // ── QUARTER-FINALS ──────────────────────────────────────────────────────────────
