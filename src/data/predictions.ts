@@ -2474,4 +2474,18 @@ export const matches: Match[] = [
     reasoning: "Argentina needed ET escapes vs Cape Verde/Egypt/10-man Swiss — England a tier above all three, fresh off ending Haaland's streak. Bellingham 4 in 2 (scorer over Kane, finisher-form rule). Messi + champion pedigree keep it at 50. ET live.",
   },
 
+  // ── FINAL ──────────────────────────────────────────────────────────────────
+
+  {
+    id: 'final',
+    matchday: 8,
+    round: 'F',
+    dateISO: '2026-07-19',
+    kickoffBST: '20:00',
+    group: '',
+    venue: 'MetLife Stadium, New Jersey',
+    home: 'TBD',
+    away: 'TBD',
+  },
+
 ];
