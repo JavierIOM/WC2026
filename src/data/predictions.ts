@@ -2366,4 +2366,46 @@ export const matches: Match[] = [
     reasoning: "Two Argentina escapes = warning; Manzambi (Swiss star) injured, missed Colombia tie — Swiss goalless in 120 without him. Messi 8 goals, 8 straight WC games scored.",
   },
 
+  // ── SEMI-FINALS ────────────────────────────────────────────────────────────────
+
+  {
+    id: 'spain-france',
+    matchday: 7,
+    round: 'SF',
+    dateISO: '2026-07-14',
+    kickoffBST: '20:00',
+    group: '',
+    venue: 'AT&T Stadium, Arlington',
+    home: 'Spain',
+    away: 'France',
+    predHome: 2,
+    predAway: 1,
+    predType: 'favourite-tight',
+    scorerCall: 'Oyarzabal',
+    scorerCallType: 'score-or-assist',
+    confidence: 50,
+    conditions: "Deliberate stand vs market (France ~57%): Spain's ball-hoarding style starves the counter (beat this France 2-1 at Euro 2024 semis); Mbappé at 90-95% (Grade 1 ankle); Merino late-winner knack. Tchouaméni doubt; Spain without N. Williams + Pino. ET live.",
+    reasoning: "Deliberate stand vs market (France ~57%): Spain's ball-hoarding style starves the counter (beat this France 2-1 at Euro 2024 semis); Mbappé at 90-95% (Grade 1 ankle); Merino late-winner knack. Tchouaméni doubt; Spain without N. Williams + Pino. ET live.",
+  },
+
+  {
+    id: 'england-argentina',
+    matchday: 7,
+    round: 'SF',
+    dateISO: '2026-07-15',
+    kickoffBST: '20:00',
+    group: '',
+    venue: 'Mercedes-Benz Stadium, Atlanta',
+    home: 'England',
+    away: 'Argentina',
+    predHome: 2,
+    predAway: 1,
+    predType: 'favourite-tight',
+    scorerCall: 'Bellingham',
+    scorerCallType: 'score-or-assist',
+    confidence: 50,
+    conditions: "Argentina needed ET escapes vs Cape Verde/Egypt/10-man Swiss — England a tier above all three, fresh off ending Haaland's streak. Bellingham 4 in 2 (scorer over Kane, finisher-form rule). Messi + champion pedigree keep it at 50. ET live.",
+    reasoning: "Argentina needed ET escapes vs Cape Verde/Egypt/10-man Swiss — England a tier above all three, fresh off ending Haaland's streak. Bellingham 4 in 2 (scorer over Kane, finisher-form rule). Messi + champion pedigree keep it at 50. ET live.",
+  },
+
 ];
