@@ -2472,20 +2472,39 @@ export const matches: Match[] = [
     confidence: 50,
     conditions: "Argentina needed ET escapes vs Cape Verde/Egypt/10-man Swiss — England a tier above all three, fresh off ending Haaland's streak. Bellingham 4 in 2 (scorer over Kane, finisher-form rule). Messi + champion pedigree keep it at 50. ET live.",
     reasoning: "Argentina needed ET escapes vs Cape Verde/Egypt/10-man Swiss — England a tier above all three, fresh off ending Haaland's streak. Bellingham 4 in 2 (scorer over Kane, finisher-form rule). Messi + champion pedigree keep it at 50. ET live.",
+    actualHome: 1,
+    actualAway: 2,
+    advancedTeam: 'away',
+    scorers: ["Gordon 55' (England)", "E. Fernández 85' (Argentina)", "L. Martínez 90+2' (Argentina)"],
+    actualNotes: "England led from Gordon's goal until the 85th; Enzo Fernández's thunderbolt and Lautaro's stoppage-time header (Messi cross, after Mac Allister hit the post) turned it — Argentina's 4th straight knockout game won late. Called England 2-1 — result MISS, scorer (Bellingham) MISS.",
+  },
+
+  // ── 3RD PLACE ──────────────────────────────────────────────────────────────────
+
+  {
+    id: 'england-france',
+    matchday: 8,
+    round: '3RD',
+    dateISO: '2026-07-18',
+    kickoffBST: '22:00',
+    group: '',
+    venue: 'Hard Rock Stadium, Miami',
+    home: 'England',
+    away: 'France',
   },
 
   // ── FINAL ──────────────────────────────────────────────────────────────────
 
   {
-    id: 'final',
+    id: 'spain-argentina',
     matchday: 8,
     round: 'F',
     dateISO: '2026-07-19',
     kickoffBST: '20:00',
     group: '',
     venue: 'MetLife Stadium, New Jersey',
-    home: 'TBD',
-    away: 'TBD',
+    home: 'Spain',
+    away: 'Argentina',
   },
 
 ];
