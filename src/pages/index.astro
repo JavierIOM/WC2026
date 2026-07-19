@@ -9,72 +9,60 @@ const stats = computeStats(matches);
 <Layout>
 
   <!-- ── HERO: SPAIN, WORLD CHAMPIONS ─────────────────────────────────────── -->
-  <section id="outright" style="margin-bottom:3rem;">
+  <section id="outright" style="margin-bottom:var(--space-7);">
 
-    <!-- Huge Spanish flag banner -->
+    <!-- Huge Spanish flag banner — pure graphic device, angled bottom edge -->
     <div
-      style="position:relative;width:calc(100% + 2.5rem);margin-left:-1.25rem;height:clamp(280px,45vw,520px);overflow:hidden;margin-bottom:2rem;display:flex;flex-direction:column;box-shadow:inset 0 -90px 90px -45px rgb(0 0 0/0.4);"
+      style="width:calc(100% + 2.5rem);margin-left:-1.25rem;height:clamp(240px,38vw,440px);display:flex;flex-direction:column;margin-bottom:var(--space-6);clip-path:polygon(0 0, 100% 0, 100% 90%, 0 100%);"
     >
       <div style="flex:1;background:#AA151B;"></div>
-      <div style="flex:2;background:#F1BF00;display:flex;align-items:center;justify-content:center;">
-        <div style="text-align:center;padding:0 1.5rem;">
-          <div
-            style="font-family:var(--font-display);font-weight:800;font-size:clamp(2.5rem,9vw,5.5rem);letter-spacing:0.03em;color:#AA151B;line-height:0.95;text-shadow:0 2px 0 rgb(255 255 255/0.35);"
-          >
-            SPAIN
-          </div>
-          <div
-            style="font-family:var(--font-display);font-weight:700;font-size:clamp(1rem,2.8vw,1.75rem);letter-spacing:0.16em;text-transform:uppercase;color:#7a0e12;margin-top:0.5rem;"
-          >
-            World Champions 2026
-          </div>
-        </div>
-      </div>
+      <div style="flex:2;background:#F1BF00;"></div>
       <div style="flex:1;background:#AA151B;"></div>
     </div>
 
-    <p class="section-label" style="margin-bottom:0.75rem;">Final result</p>
-
-    <div style="display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:2rem;margin-bottom:2rem;">
-      <div>
+    <!-- Asymmetric split: headline/call left-heavy, stat trio offset right -->
+    <div
+      style="display:grid;grid-template-columns:1.4fr 1fr;gap:var(--space-6);align-items:start;margin-bottom:var(--space-6);"
+      class="hero-split"
+    >
+      <div data-reveal>
         <h1
-          style="font-family:var(--font-display);font-size:clamp(2rem,5.5vw,3.2rem);font-weight:800;letter-spacing:0.01em;line-height:1.05;color:var(--color-text);margin-bottom:0.6rem;"
+          style="font-family:var(--font-display);font-size:var(--text-2xl);font-weight:800;letter-spacing:0.01em;line-height:1.05;color:var(--color-text);margin-bottom:var(--space-3);"
         >
-          Spain beat Argentina 1-0 (AET)
+          Spain beat Argentina <span style="white-space:nowrap;">1-0 (AET)</span>
         </h1>
         <div
-          style="display:inline-flex;flex-direction:column;gap:0.4rem;margin-top:0.5rem;background-color:rgb(34 197 94/0.08);border:1px solid rgb(34 197 94/0.35);border-radius:8px;padding:1rem 1.4rem;"
+          style="display:inline-flex;flex-direction:column;gap:0.4rem;background-color:rgb(34 197 94/0.08);border:1px solid rgb(34 197 94/0.35);border-radius:var(--radius-card);padding:1rem 1.4rem;"
         >
-          <span style="font-family:var(--font-display);font-size:clamp(1.2rem,2.4vw,1.6rem);font-weight:800;letter-spacing:0.02em;color:#22c55e;line-height:1.1;">
+          <span style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:800;letter-spacing:0.02em;color:#22c55e;line-height:1.1;">
             ✓ Outright call: CORRECT
           </span>
-          <span style="font-size:0.82rem;color:rgb(34 197 94/0.8);letter-spacing:0.04em;">
+          <span style="font-size:var(--text-xs);color:rgb(34 197 94/0.8);letter-spacing:0.04em;">
             Ferran Torres 106' · MetLife Stadium<br />
             Unbeaten in 38 · Golden Boot: Mbappé (10)
           </span>
         </div>
       </div>
 
-      <!-- Final tournament tally -->
       {stats.resultTotal > 0 && (
-        <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
+        <div class="hero-stats" data-reveal style="display:flex;gap:var(--space-5);flex-wrap:wrap;margin-top:var(--space-5);--reveal-delay:0.08s;">
           <div style="text-align:center;">
-            <div style="font-family:var(--font-display);font-size:2.75rem;font-weight:800;color:var(--color-correct);line-height:1;">
+            <div class="stat-number" style="font-size:2.75rem;font-weight:800;color:var(--color-correct);line-height:1;">
               {stats.resultCorrect}<span style="font-size:1.5rem;color:var(--color-muted);">/{stats.resultTotal}</span>
             </div>
-            <div style="font-size:0.7rem;color:var(--color-muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:2px;">Results</div>
+            <div style="font-size:var(--text-2xs);color:var(--color-muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:2px;">Results</div>
           </div>
           <div style="text-align:center;">
-            <div style="font-family:var(--font-display);font-size:2.75rem;font-weight:800;color:var(--color-exact);line-height:1;">
+            <div class="stat-number" style="font-size:2.75rem;font-weight:800;color:var(--color-exact);line-height:1;">
               {stats.resultExact}
             </div>
-            <div style="font-size:0.7rem;color:var(--color-muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:2px;">Exact</div>
+            <div style="font-size:var(--text-2xs);color:var(--color-muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:2px;">Exact</div>
           </div>
           <div style="text-align:center;">
-            <div style="font-family:var(--font-display);font-size:2.75rem;font-weight:800;color:var(--color-accent);line-height:1;">
+            <div class="stat-number" style="font-size:2.75rem;font-weight:800;color:var(--color-accent);line-height:1;">
               {stats.scorerPositive}<span style="font-size:1.5rem;color:var(--color-muted);">/{stats.scorerTotal}</span>
             </div>
-            <div style="font-size:0.7rem;color:var(--color-muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:2px;">Scorers</div>
+            <div style="font-size:var(--text-2xs);color:var(--color-muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:2px;">Scorers</div>
           </div>
         </div>
       )}
@@ -82,9 +70,9 @@ const stats = computeStats(matches);
 
     <!-- Recap -->
     <div
-      style="background-color:var(--color-surface);border:1px solid var(--color-border);border-radius:8px;padding:1.1rem 1.25rem;font-size:0.85rem;line-height:1.7;color:var(--color-text);opacity:0.85;"
+      data-reveal
+      style="--reveal-delay:0.14s;background-color:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-card);padding:1.1rem 1.25rem;font-size:var(--text-sm);line-height:1.7;color:var(--color-text);opacity:0.85;max-width:65ch;"
     >
-      <p class="section-label" style="margin-bottom:0.6rem;">The call</p>
       <p style="margin:0;">
         Spain were backed to win the tournament before a ball was kicked, at ~+450. European
         champions, best midfield in the field, a possession game built for the North American
@@ -99,25 +87,38 @@ const stats = computeStats(matches);
   </section>
 
   <!-- ── METHOD ────────────────────────────────────────────────────────────── -->
-  <section id="method" style="margin-bottom:3rem;" aria-labelledby="method-h">
+  <section id="method" data-reveal style="--reveal-delay:0.06s;margin-bottom:var(--space-7);" aria-labelledby="method-h">
     <h2 id="method-h" class="section-label" style="margin:0 0 0.75rem;">Prediction method</h2>
     <MethodPanel />
   </section>
 
   <!-- ── FULL RECORD ───────────────────────────────────────────────────────── -->
-  <section style="text-align:center;padding:1.5rem 0;">
+  <section style="text-align:center;padding:var(--space-5) 0;">
     <a
       href="/archive"
-      style="display:inline-block;margin:0 0.75rem 0.75rem;font-size:0.9rem;font-weight:600;color:var(--color-accent);text-decoration:none;letter-spacing:0.02em;"
+      style="display:inline-block;margin:0 0.75rem 0.75rem;font-size:var(--text-base);font-weight:600;color:var(--color-accent);text-decoration:none;letter-spacing:0.02em;"
     >
       View full match archive ({matches.filter(m => !m.informalOnly).length} matches) &rsaquo;
     </a>
     <a
       href="/dashboard"
-      style="display:inline-block;margin:0 0.75rem 0.75rem;font-size:0.9rem;font-weight:600;color:var(--color-accent);text-decoration:none;letter-spacing:0.02em;"
+      style="display:inline-block;margin:0 0.75rem 0.75rem;font-size:var(--text-base);font-weight:600;color:var(--color-accent);text-decoration:none;letter-spacing:0.02em;"
     >
       Accuracy dashboard &rsaquo;
     </a>
   </section>
+
+  <style>
+    /* Asymmetric split collapses to a single column on narrow viewports */
+    @media (max-width: 768px) {
+      .hero-split {
+        grid-template-columns: 1fr !important;
+      }
+      .hero-stats {
+        margin-top: 0 !important;
+        justify-content: flex-start;
+      }
+    }
+  </style>
 
 </Layout>
