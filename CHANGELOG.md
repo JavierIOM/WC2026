@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.0] — 2026-07-20
+
+### Changed
+- TOURNAMENT COMPLETE: Spain beat Argentina 1-0 AET (Ferran Torres 106') in the Final at MetLife.
+- Spain's unbeaten run: 38 matches. 7th clean sheet. Mbappé golden boot (10 goals).
+- Pre-tournament outright call (Spain 2-1) CORRECT — the call landed.
+- Scorer call (Oyarzabal) MISS (Torres scored).
+- Final tally: RESULT 66/97 (17 EXACT, 49 CORRECT, 31 MISS), SCORER 35 HIT / 2 ASSIST / 58 MISS.
+- All 104 formal fixtures now played. Homepage hero updated to show tournament victory in green.
+
 ## [0.9.3] — 2026-07-08
 
 ### Changed

@@ -2527,6 +2527,10 @@ export const matches: Match[] = [
     confidence: 55,
     conditions: "The best team vs the best survival mechanism. Spain: 1 conceded in 7, strangle then strike late; do NOT sit on leads (the antidote to Argentina's 4 late escapes, which all needed possession handed back). Argentina: 1st in xG + xG efficiency, 87 fouls (rhythm-breakers), everything through Messi — who needs 2 for the Boot + career record. Oyarzabal: 5 goals, pen taker, scored the winner in Spain's last final (Euro 2024). ET live (4 of last 5 finals). H2H 6-6-2.",
     reasoning: "The best team vs the best survival mechanism. Spain: 1 conceded in 7, strangle then strike late; do NOT sit on leads (the antidote to Argentina's 4 late escapes, which all needed possession handed back). Argentina: 1st in xG + xG efficiency, 87 fouls (rhythm-breakers), everything through Messi — who needs 2 for the Boot + career record. Oyarzabal: 5 goals, pen taker, scored the winner in Spain's last final (Euro 2024). ET live (4 of last 5 finals). H2H 6-6-2.",
+    actualHome: 1,
+    actualAway: 0,
+    scorers: ["Ferran Torres 106' (Spain)"],
+    actualNotes: "SPAIN ARE WORLD CHAMPIONS. Nico Williams' header across the box, Torres first-time — a minute into the second period of ET. Spain 19 shots/11 on target vs Argentina's near-zero; Emi Martínez a WC-final-record 10 saves; N. Williams goal disallowed in ET; Enzo Fernández red 90+3. Spain's 7th clean sheet; unbeaten run to 38; second star won 1-0 AET exactly like 2010. Golden Boot: Mbappé (10). Called Spain 2-1 (ET live, conf 55) — result CORRECT. THE PRE-TOURNAMENT OUTRIGHT LANDED. Scorer (Oyarzabal) MISS.",
   },
 
 ];
