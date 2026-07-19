@@ -37,12 +37,15 @@ const scorerBadgeClass: Record<string, string> = {
   MISS:    'badge badge-miss',
   PENDING: 'badge badge-pending',
 };
-const predTypeBadgeClass: Record<string, string> = {
-  'mismatch':        'badge predtype-mismatch',
-  'favourite':       'badge predtype-favourite',
-  'favourite-tight': 'badge predtype-favourite-tight',
-  'draw':            'badge predtype-draw',
-  'rule-bend':       'badge predtype-rule-bend',
+// Pred-type now renders as coloured inline text next to the score (not a
+// third header pill) — same hues as the .predtype-* badge classes, just
+// without the chip chrome, to thin out the card's top badge row.
+const predTypeTextColor: Record<string, string> = {
+  'mismatch':        '#a78bfa',
+  'favourite':       '#38bdf8',
+  'favourite-tight': '#4f8ef7',
+  'draw':            '#e879f9',
+  'rule-bend':       '#fb923c',
 };
 
 const borderClass = verdictBorderClass[rv] ?? 'verdict-border-pending';
@@ -67,11 +70,6 @@ const borderClass = verdictBorderClass[rv] ?? 'verdict-border-pending';
           {m.round}
         </span>
       ) : null}
-      {m.predType && (
-        <span class={predTypeBadgeClass[m.predType] ?? 'badge badge-pending'}>
-          {predTypeLabel(m.predType)}
-        </span>
-      )}
       {m.informalOnly && (
         <span class="badge" style="background:rgb(251 191 36/0.1);color:#fbbf24;border:1px solid rgb(251 191 36/0.25);">
           Informal
@@ -100,6 +98,11 @@ const borderClass = verdictBorderClass[rv] ?? 'verdict-border-pending';
       {hasPrediction ? (
         <div style="font-size:0.7rem;color:var(--color-muted);margin-top:2px;">
           pred {m.predHome}–{m.predAway}
+          {m.predType && (
+            <span style={`color:${predTypeTextColor[m.predType] ?? 'var(--color-muted)'};font-weight:600;`}>
+              {' '}· {predTypeLabel(m.predType)}
+            </span>
+          )}
         </div>
       ) : !played && (
         <div class="prediction-placeholder" style="font-size:0.6rem;color:var(--color-muted);margin-top:3px;line-height:1.4;">
