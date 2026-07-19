@@ -2505,6 +2505,14 @@ export const matches: Match[] = [
     venue: 'MetLife Stadium, New Jersey',
     home: 'Spain',
     away: 'Argentina',
+    predHome: 2,
+    predAway: 1,
+    predType: 'favourite-tight',
+    scorerCall: 'Oyarzabal',
+    scorerCallType: 'score-or-assist',
+    confidence: 55,
+    conditions: "The best team vs the best survival mechanism. Spain: 1 conceded in 7, strangle then strike late; do NOT sit on leads (the antidote to Argentina's 4 late escapes, which all needed possession handed back). Argentina: 1st in xG + xG efficiency, 87 fouls (rhythm-breakers), everything through Messi — who needs 2 for the Boot + career record. Oyarzabal: 5 goals, pen taker, scored the winner in Spain's last final (Euro 2024). ET live (4 of last 5 finals). H2H 6-6-2.",
+    reasoning: "The best team vs the best survival mechanism. Spain: 1 conceded in 7, strangle then strike late; do NOT sit on leads (the antidote to Argentina's 4 late escapes, which all needed possession handed back). Argentina: 1st in xG + xG efficiency, 87 fouls (rhythm-breakers), everything through Messi — who needs 2 for the Boot + career record. Oyarzabal: 5 goals, pen taker, scored the winner in Spain's last final (Euro 2024). ET live (4 of last 5 finals). H2H 6-6-2.",
   },
 
 ];
