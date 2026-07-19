@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.0] — 2026-07-20
+
+### Changed
+- Homepage rebuilt as a post-tournament victory page: full-width Spanish flag banner (red/yellow/red) with "SPAIN — WORLD CHAMPIONS 2026" overlay, final score recap, and the final accuracy tally. Removed the now-defunct Live/Awaiting, Recent Results, and Upcoming sections (nothing left pending or live).
+- `isArchived()` simplified to always return true — the tournament is over, so every match now lives in the archive rather than on the main page.
+- `/archive` expanded from group-stage-only to the full match history: all knockout rounds (R32 → Final) followed by the group stage, in bracket order.
+- Removed the header "Upcoming matches" ticker (`UpcomingMatchesTicker.astro`) and its nav link — there will never be another upcoming match to show. Nav trimmed to Home / Method / Archive / Dashboard / About / Disclaimer.
+
 ## [1.0.0] — 2026-07-20
 
 ### Changed

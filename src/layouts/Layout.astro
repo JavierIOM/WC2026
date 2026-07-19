@@ -1,7 +1,6 @@
 ---
 import '../styles/global.css';
 import pkg from '../../package.json';
-import UpcomingMatchesTicker from '../components/UpcomingMatchesTicker.astro';
 
 interface Props {
   title?: string;
@@ -80,10 +79,8 @@ const onAbout = path.startsWith('/about');
         <nav class="site-nav" aria-label="Primary">
           <a href="/#outright"  class="nav-link">Home</a>
           <a href="/#method"    class="nav-link">Method</a>
-          <a href="/#matchdays" class="nav-link">Matches</a>
           <a href="/archive" class={`nav-link${path.startsWith('/archive') ? ' nav-link-active' : ''}`}>Archive</a>
           <a href="/dashboard" class={`nav-link${path.startsWith('/dashboard') ? ' nav-link-active' : ''}`}>Dashboard</a>
-          <a href="/#upcoming"  class="nav-link">Upcoming</a>
           <a href="/about" class={`nav-link${onAbout ? ' nav-link-active' : ''}`} aria-current={onAbout ? 'page' : undefined}>About</a>
           <a href="/disclaimer" class={`nav-link${path.startsWith('/disclaimer') ? ' nav-link-active' : ''}`} aria-current={path.startsWith('/disclaimer') ? 'page' : undefined}>Disclaimer</a>
         </nav>
@@ -93,8 +90,6 @@ const onAbout = path.startsWith('/about');
         </button>
       </div>
     </header>
-
-    <UpcomingMatchesTicker />
 
     <script>
       const root = document.documentElement;

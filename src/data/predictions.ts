@@ -39,10 +39,10 @@ export function isPlayed(m: Match): boolean {
   return m.actualHome !== undefined && m.actualAway !== undefined;
 }
 
-// Group stage played matches are automatically archived (matchday 1-3 + played).
-// The archived?: boolean flag on the Match is available for manual overrides.
-export function isArchived(m: Match): boolean {
-  return m.archived === true || (isPlayed(m) && m.matchday <= 3);
+// Tournament complete (Spain won the Final, 2026-07-19) — every match is now archived.
+// The per-match archived?: boolean flag is left in place as historical record.
+export function isArchived(_m: Match): boolean {
+  return true;
 }
 
 export function getResultVerdict(m: Match): ResultVerdict {

@@ -1,122 +1,62 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import MatchCard from '../components/MatchCard.astro';
 import MethodPanel from '../components/MethodPanel.astro';
-import { matches, computeStats, isPlayed, isArchived, formatDate } from '../data/predictions';
+import { matches, computeStats } from '../data/predictions';
 
 const stats = computeStats(matches);
-
-// Show all completed knockout matches (R32, R16, QF, SF, F) plus recent group stage results
-const today = new Date();
-today.setHours(0, 0, 0, 0);
-const yesterday = new Date(today);
-yesterday.setDate(today.getDate() - 1);
-
-const isRecent = (m: typeof matches[0]) =>
-  isPlayed(m) && new Date(m.dateISO) >= yesterday;
-
-const formalMatches = matches.filter(m => !m.informalOnly);
-const knockoutRounds = new Set(['R32', 'R16', 'QF', 'SF', 'F']);
-const recentPlayed  = formalMatches.filter(m => {
-  if (isArchived(m)) return false;
-  if (!isPlayed(m)) return false;
-  // Show all knockout matches + recent group stage matches
-  return m.round && knockoutRounds.has(m.round) ? true : isRecent(m);
-});
-const groupArchiveCount = formalMatches.filter(m => isArchived(m)).length;
-
-// Group recent played matches by calendar date (not matchday number — MD2 spans many days)
-const recentDates = [...new Set(recentPlayed.map(m => m.dateISO))].sort();
-const matchdayGroups = recentDates.map(date => ({
-  date,
-  matches: recentPlayed
-    .filter(m => m.dateISO === date)
-    .sort((a, b) => a.kickoffBST.localeCompare(b.kickoffBST)),
-}));
-
-// All pending (unplayed, non-archived) matches — client-side JS buckets into upcoming vs live/awaiting
-const pendingMatches = formalMatches
-  .filter(m => !isPlayed(m) && !isArchived(m))
-  .sort((a, b) => {
-    const dc = a.dateISO.localeCompare(b.dateISO);
-    return dc !== 0 ? dc : a.kickoffBST.localeCompare(b.kickoffBST);
-  });
-
-// Group pending by knockout round (group stage matches have no round field)
-const ROUND_ORDER = ['R32', 'QF', 'SF', 'F'];
-const ROUND_NAMES: Record<string, string> = { R32: 'Round of 32', QF: 'Quarter-finals', SF: 'Semi-finals', F: 'Final' };
-const pendingRoundMap = new Map<string, typeof pendingMatches>();
-for (const m of pendingMatches) {
-  const key = m.round ?? '__group__';
-  if (!pendingRoundMap.has(key)) pendingRoundMap.set(key, []);
-  pendingRoundMap.get(key)!.push(m);
-}
-const pendingGroups = [...pendingRoundMap.keys()]
-  .sort((a, b) => {
-    if (a === '__group__') return -1;
-    if (b === '__group__') return 1;
-    return ROUND_ORDER.indexOf(a) - ROUND_ORDER.indexOf(b);
-  })
-  .map(key => ({ key, matches: pendingRoundMap.get(key)! }));
-
-// Returns kickoff as UTC milliseconds for embedding in data attribute
-const kickoffUTCms = (m: typeof matches[0]): number => {
-  const [y, mo, d] = m.dateISO.split('-').map(Number);
-  const [h, mi] = m.kickoffBST.split(':').map(Number);
-  return Date.UTC(y, mo - 1, d, h - 1, mi); // BST = UTC+1
-};
 ---
 
 <Layout>
 
-  <!-- ── HERO ─────────────────────────────────────────────────────────────── -->
+  <!-- ── HERO: SPAIN, WORLD CHAMPIONS ─────────────────────────────────────── -->
   <section id="outright" style="margin-bottom:3rem;">
 
-    <!-- Banner image -->
+    <!-- Huge Spanish flag banner -->
     <div
-      style="position:relative;width:calc(100% + 2.5rem);margin-left:-1.25rem;height:clamp(280px,50vw,480px);overflow:hidden;margin-bottom:2rem;"
+      style="position:relative;width:calc(100% + 2.5rem);margin-left:-1.25rem;height:clamp(280px,45vw,520px);overflow:hidden;margin-bottom:2rem;display:flex;flex-direction:column;box-shadow:inset 0 -90px 90px -45px rgb(0 0 0/0.4);"
     >
-      <img
-        src="/hero.png"
-        alt="World Cup 2026 official branding"
-        width="1600"
-        height="640"
-        fetchpriority="high"
-        decoding="async"
-        style="width:100%;height:100%;object-fit:cover;object-position:center center;display:block;"
-      />
-      <!-- Gradient overlay so text below is readable if we ever overlap -->
-      <div
-        style="position:absolute;inset:0;background:linear-gradient(to top,rgb(5 5 15/0.7) 0%,transparent 50%);"
-      ></div>
+      <div style="flex:1;background:#AA151B;"></div>
+      <div style="flex:2;background:#F1BF00;display:flex;align-items:center;justify-content:center;">
+        <div style="text-align:center;padding:0 1.5rem;">
+          <div
+            style="font-family:var(--font-display);font-weight:800;font-size:clamp(2.5rem,9vw,5.5rem);letter-spacing:0.03em;color:#AA151B;line-height:0.95;text-shadow:0 2px 0 rgb(255 255 255/0.35);"
+          >
+            SPAIN
+          </div>
+          <div
+            style="font-family:var(--font-display);font-weight:700;font-size:clamp(1rem,2.8vw,1.75rem);letter-spacing:0.16em;text-transform:uppercase;color:#7a0e12;margin-top:0.5rem;"
+          >
+            World Champions 2026
+          </div>
+        </div>
+      </div>
+      <div style="flex:1;background:#AA151B;"></div>
     </div>
 
-    <p class="section-label" style="margin-bottom:0.75rem;">Outright call</p>
+    <p class="section-label" style="margin-bottom:0.75rem;">Final result</p>
 
     <div style="display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:2rem;margin-bottom:2rem;">
       <div>
         <h1
-          style="font-family:var(--font-display);font-size:clamp(3rem,8vw,5rem);font-weight:800;letter-spacing:0.01em;line-height:0.95;color:var(--color-text);margin-bottom:0.6rem;"
+          style="font-family:var(--font-display);font-size:clamp(2rem,5.5vw,3.2rem);font-weight:800;letter-spacing:0.01em;line-height:1.05;color:var(--color-text);margin-bottom:0.6rem;"
         >
-          Fifa World Cup 2026 Prediction Engine
+          Spain beat Argentina 1-0 (AET)
         </h1>
         <div
-          style="display:inline-flex;flex-direction:column;gap:0.4rem;margin-top:0.75rem;background-color:rgb(34 197 94/0.08);border:1px solid rgb(34 197 94/0.35);border-radius:8px;padding:1rem 1.4rem;"
+          style="display:inline-flex;flex-direction:column;gap:0.4rem;margin-top:0.5rem;background-color:rgb(34 197 94/0.08);border:1px solid rgb(34 197 94/0.35);border-radius:8px;padding:1rem 1.4rem;"
         >
-          <span style="font-family:var(--font-display);font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;letter-spacing:0.02em;color:#22c55e;line-height:1.1;">
-            ✓ SPAIN WON — WORLD CHAMPIONS
+          <span style="font-family:var(--font-display);font-size:clamp(1.2rem,2.4vw,1.6rem);font-weight:800;letter-spacing:0.02em;color:#22c55e;line-height:1.1;">
+            ✓ Outright call: CORRECT
           </span>
           <span style="font-size:0.82rem;color:rgb(34 197 94/0.8);letter-spacing:0.04em;">
-            Beat Argentina 1-0 AET (Ferran Torres 106') · Unbeaten run: 38 matches
+            Ferran Torres 106' · MetLife Stadium · Unbeaten in 38 · Golden Boot: Mbappé (10)
           </span>
         </div>
       </div>
 
-      <!-- Live accuracy block -->
+      <!-- Final tournament tally -->
       {stats.resultTotal > 0 && (
-        <div
-          style="display:flex;gap:1.5rem;flex-wrap:wrap;"
-        >
+        <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
           <div style="text-align:center;">
             <div style="font-family:var(--font-display);font-size:2.75rem;font-weight:800;color:var(--color-correct);line-height:1;">
               {stats.resultCorrect}<span style="font-size:1.5rem;color:var(--color-muted);">/{stats.resultTotal}</span>
@@ -139,22 +79,21 @@ const kickoffUTCms = (m: typeof matches[0]): number => {
       )}
     </div>
 
-    <!-- Outright reasoning -->
+    <!-- Recap -->
     <div
       style="background-color:var(--color-surface);border:1px solid var(--color-border);border-radius:8px;padding:1.1rem 1.25rem;font-size:0.85rem;line-height:1.7;color:var(--color-text);opacity:0.85;"
     >
-      <p class="section-label" style="margin-bottom:0.6rem;">Why?</p>
-      <p style="margin-bottom:0.6rem;">
-        European champions with the best midfield in the tournament. Possession game suits the
-        North American summer heat and the 104-match slog of the expanded format.
-        ~+450 favourite at the outset.
+      <p class="section-label" style="margin-bottom:0.6rem;">The call</p>
+      <p style="margin:0;">
+        Spain were backed to win the tournament before a ball was kicked, at ~+450. European
+        champions, best midfield in the field, a possession game built for the North American
+        summer heat and the 104-match slog of the expanded format. They went unbeaten across
+        38 matches, kept 7 clean sheets, and won the Final 1-0 after extra time — Ferran
+        Torres converting a Nico Williams cutback in the second period of ET, a minute after
+        Williams himself had a goal ruled out. Emi Martínez made a World-Cup-final-record 10
+        saves for Argentina, who finished with 10 men after Enzo Fernández's 90+3' red card.
+        Second star, exactly like 2010.
       </p>
-      <p style="margin-bottom:0.4rem;"><strong style="color:var(--color-text);">Threats:</strong></p>
-      <ul style="margin:0 0 0.6rem 0;padding-left:1.1rem;display:flex;flex-direction:column;gap:0.25rem;">
-        <li>France, with Mbappe chasing the all-time World Cup scoring record.</li>
-        <li>England for squad depth.</li>
-        <li>Dark horse: Portugal. Back them to top Group K and reach the quarter-final, but do not back them further until they win something ugly.</li>
-      </ul>
     </div>
   </section>
 
@@ -164,223 +103,20 @@ const kickoffUTCms = (m: typeof matches[0]): number => {
     <MethodPanel />
   </section>
 
-  <!-- ── LIVE / AWAITING ───────────────────────────────────────────────────── -->
-  <section id="live-awaiting-section" style="margin-bottom:3rem;display:none;" aria-labelledby="live-awaiting-h">
-    <h2 id="live-awaiting-h" class="section-label" style="margin:0 0 0.35rem;">Live / Awaiting result</h2>
-    <p style="font-size:0.75rem;color:var(--color-muted);margin:0 0 0.75rem;">
-      These matches have started or finished but results have not yet been logged.
-    </p>
-    <div id="live-awaiting-list" style="display:flex;flex-direction:column;gap:0.75rem;"></div>
+  <!-- ── FULL RECORD ───────────────────────────────────────────────────────── -->
+  <section style="text-align:center;padding:1.5rem 0;">
+    <a
+      href="/archive"
+      style="display:inline-block;margin:0 0.75rem 0.75rem;font-size:0.9rem;font-weight:600;color:var(--color-accent);text-decoration:none;letter-spacing:0.02em;"
+    >
+      View full match archive ({matches.filter(m => !m.informalOnly).length} matches) &rsaquo;
+    </a>
+    <a
+      href="/dashboard"
+      style="display:inline-block;margin:0 0.75rem 0.75rem;font-size:0.9rem;font-weight:600;color:var(--color-accent);text-decoration:none;letter-spacing:0.02em;"
+    >
+      Accuracy dashboard &rsaquo;
+    </a>
   </section>
-
-  <!-- ── MATCHDAYS ─────────────────────────────────────────────────────────── -->
-  <section id="matchdays" style="margin-bottom:3rem;" aria-labelledby="matchdays-h">
-    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:1.25rem;">
-      <h2 id="matchdays-h" class="section-label" style="margin:0;">Recent results</h2>
-      {groupArchiveCount > 0 && (
-        <a
-          href="/archive"
-          style="font-size:0.75rem;font-weight:600;color:var(--color-accent);text-decoration:none;letter-spacing:0.04em;white-space:nowrap;"
-        >
-          Group stage archive ({groupArchiveCount}) &rsaquo;
-        </a>
-      )}
-    </div>
-
-    {matchdayGroups.length === 0 ? (
-      <p style="font-size:0.85rem;color:var(--color-muted);">
-        No knockout results yet.{' '}
-        {groupArchiveCount > 0 && (
-          <a href="/archive" style="color:var(--color-accent);text-decoration:none;">View group stage archive ({groupArchiveCount} matches) &rsaquo;</a>
-        )}
-      </p>
-    ) : (
-      <div style="display:flex;flex-direction:column;gap:2.5rem;">
-        {matchdayGroups.map(({ date, matches: dateMatches }) => (
-          <div>
-            <h3
-              style="font-family:var(--font-display);font-size:1.05rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-muted);margin:0 0 0.75rem;padding-bottom:0.5rem;border-bottom:1px solid var(--color-border);"
-            >
-              {formatDate(date)}
-            </h3>
-            <div style="display:flex;flex-direction:column;gap:0.75rem;">
-              {dateMatches.map(match => (
-                <MatchCard match={match} />
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    )}
-  </section>
-
-  <!-- ── UPCOMING / LIVE AWAITING ─────────────────────────────────────────── -->
-  <section id="upcoming" aria-labelledby="upcoming-h">
-    <h2 id="upcoming-h" class="section-label" style="margin:0 0 0.35rem;">Upcoming calls</h2>
-    <p style="font-size:0.75rem;color:var(--color-muted);margin:0 0 0.75rem;line-height:1.5;">
-      Predictions are added 2-3 days before kickoff. Fixtures further out are listed as scheduled only and will be predicted closer to the time.
-    </p>
-    <p id="predictions-due-count" style="font-size:0.75rem;font-weight:600;color:#f59e0b;margin:0 0 0.75rem;display:none;"></p>
-    <div id="upcoming-list" style="display:flex;flex-direction:column;gap:2rem;">
-      {pendingGroups.map(({ key, matches: roundMatches }) => {
-        const isFinal = key === 'F';
-        const isSemi = key === 'SF';
-        const isQF = key === 'QF';
-        let wrapperStyle = "display:flex;flex-direction:column;gap:1.5rem;";
-        let containerStyle = "display:flex;flex-direction:column;gap:0.75rem;";
-        let headingStyle = "font-family:var(--font-display);font-size:1.05rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-muted);margin:0 0 0.75rem;padding-bottom:0.5rem;border-bottom:1px solid var(--color-border);";
-        let headingClass = "";
-        let label = ROUND_NAMES[key] ?? key;
-
-        if (isFinal) {
-          wrapperStyle = "position:relative;border-radius:20px;padding:3rem 2rem;background:radial-gradient(ellipse at top, rgb(255 205 0/0.22), rgb(255 215 0/0.05) 70%), var(--color-surface);border:2.5px solid rgb(255 205 0/0.6);box-shadow:0 0 70px rgb(255 190 0/0.35), inset 0 0 46px rgb(255 215 0/0.08);display:flex;flex-direction:column;gap:1.5rem;";
-          containerStyle = "display:flex;flex-direction:column;gap:1rem;";
-          headingStyle = "font-family:var(--font-display);font-size:clamp(2.4rem,7vw,3.6rem);font-weight:800;letter-spacing:0.12em;text-transform:uppercase;text-align:center;margin:0;text-shadow:0 0 36px rgb(255 190 0/0.6);";
-          headingClass = "metal-text metal-final";
-          label = "★ FINAL ★";
-        } else if (isSemi) {
-          wrapperStyle = "border-radius:14px;padding:1.7rem 1.4rem;background:linear-gradient(160deg, rgb(224 228 240/0.2), rgb(150 158 180/0.05)), var(--color-surface);border:1.5px solid rgb(214 220 235/0.6);box-shadow:0 0 34px rgb(200 208 230/0.22);display:flex;flex-direction:column;gap:0.9rem;";
-          containerStyle = "display:flex;flex-direction:column;gap:0.75rem;";
-          headingStyle = "font-family:var(--font-display);font-size:2rem;font-weight:800;letter-spacing:0.09em;text-transform:uppercase;margin:0;text-shadow:0 0 22px rgb(220 226 245/0.5);";
-          headingClass = "metal-text metal-sf";
-        } else if (isQF) {
-          wrapperStyle = "border-radius:12px;padding:1.4rem 1.25rem;background:linear-gradient(160deg, rgb(216 132 50/0.2), rgb(130 80 38/0.05)), var(--color-surface);border:1.5px solid rgb(214 138 60/0.6);box-shadow:0 0 28px rgb(210 130 50/0.22);display:flex;flex-direction:column;gap:0.9rem;";
-          containerStyle = "display:flex;flex-direction:column;gap:0.75rem;";
-          headingStyle = "font-family:var(--font-display);font-size:1.65rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;margin:0;text-shadow:0 0 18px rgb(214 130 50/0.5);";
-          headingClass = "metal-text metal-qf";
-        }
-
-        return (
-          <div style={wrapperStyle}>
-            {key !== '__group__' && (
-              <h3 class={headingClass} style={headingStyle}>{label}</h3>
-            )}
-            <div style={containerStyle}>
-              {roundMatches.map(m => (
-                <div data-pending-match="" data-kickoff-utc={kickoffUTCms(m).toString()}>
-                  <MatchCard match={m} />
-                </div>
-              ))}
-            </div>
-          </div>
-        );
-      })}
-    </div>
-    <p id="no-upcoming-msg" style="font-size:0.85rem;color:var(--color-muted);display:none;">No upcoming matches.</p>
-  </section>
-
-  <script>
-    (function () {
-      const BADGE_DUE  = '<span style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:0.65rem;font-weight:700;letter-spacing:0.06em;background:rgb(245 158 11/0.15);color:#f59e0b;border:1px solid rgb(245 158 11/0.35);">PREDICTION DUE</span>';
-      const BADGE_MISS = '<span style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:0.65rem;font-weight:700;letter-spacing:0.06em;background:rgb(239 68 68/0.15);color:#ef4444;border:1px solid rgb(239 68 68/0.35);">NO CALL LOGGED</span>';
-      const LIVE_DOT   = '<span class="live-dot"></span>';
-
-      function applyLiveCard(wrapper: HTMLElement) {
-        const article = wrapper.querySelector<HTMLElement>('article');
-        if (!article) return;
-
-        // Red left border (overrides verdict-border-pending via inline style)
-        article.style.borderLeftColor = '#e5342a';
-
-        // Pulsing dot to left of home team name
-        const homeTeam = article.querySelector<HTMLElement>('.team-name');
-        if (homeTeam) {
-          homeTeam.style.display = 'flex';
-          homeTeam.style.alignItems = 'center';
-          homeTeam.style.gap = '6px';
-          homeTeam.insertAdjacentHTML('afterbegin', LIVE_DOT);
-        }
-
-        // Change PENDING verdict badge to ● LIVE
-        const pendingBadge = article.querySelector<HTMLElement>('.badge-pending');
-        if (pendingBadge) {
-          pendingBadge.textContent = '● LIVE';
-          pendingBadge.style.background = 'rgb(229 52 42/0.15)';
-          pendingBadge.style.color = '#e5342a';
-          pendingBadge.style.borderColor = 'rgb(229 52 42/0.35)';
-        }
-
-        // NO CALL LOGGED for unpredicted
-        const ph = wrapper.querySelector<HTMLElement>('.prediction-placeholder');
-        if (ph) ph.innerHTML = BADGE_MISS;
-      }
-
-      function bucketMatches() {
-        const now = Date.now();
-        const upcomingList  = document.getElementById('upcoming-list');
-        const liveSection   = document.getElementById('live-awaiting-section');
-        const liveList      = document.getElementById('live-awaiting-list');
-        const noUpcomingMsg = document.getElementById('no-upcoming-msg');
-        const dueCountEl    = document.getElementById('predictions-due-count');
-        if (!upcomingList || !liveSection || !liveList) return;
-
-        // Collect past-kickoff cards
-        const liveCards = Array.from(upcomingList.querySelectorAll<HTMLElement>('[data-pending-match]')).filter(card => {
-          const kickoff = parseInt(card.getAttribute('data-kickoff-utc') || '0', 10);
-          return kickoff > 0 && kickoff <= now;
-        });
-
-        // Move to live section (most recent first); apply live styling
-        for (let i = liveCards.length - 1; i >= 0; i--) {
-          applyLiveCard(liveCards[i]);
-          liveList.appendChild(liveCards[i]);
-        }
-
-        if (liveCards.length > 0) liveSection.style.display = '';
-
-        if (upcomingList.querySelectorAll('[data-pending-match]').length === 0 && noUpcomingMsg) {
-          upcomingList.style.display = 'none';
-          noUpcomingMsg.style.display = '';
-        }
-
-        // Flag upcoming unpredicted matches within 72h
-        let dueCount = 0;
-        Array.from(upcomingList.querySelectorAll<HTMLElement>('[data-pending-match]')).forEach(wrapper => {
-          const kickoff = parseInt(wrapper.getAttribute('data-kickoff-utc') || '0', 10);
-          const ph = wrapper.querySelector('.prediction-placeholder');
-          if (!ph || !kickoff) return;
-          if ((kickoff - now) / 3_600_000 <= 72) {
-            ph.innerHTML = BADGE_DUE;
-            dueCount++;
-          }
-        });
-
-        if (dueCountEl) {
-          if (dueCount > 0) {
-            dueCountEl.textContent = `${dueCount} prediction${dueCount === 1 ? '' : 's'} due in next 72h`;
-            dueCountEl.style.display = '';
-          } else {
-            dueCountEl.style.display = 'none';
-          }
-        }
-      }
-
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', bucketMatches);
-      } else {
-        bucketMatches();
-      }
-    })();
-  </script>
-
-  <style is:global>
-    @keyframes livePulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.3; transform: scale(0.7); }
-    }
-    .live-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #e5342a;
-      display: inline-block;
-      flex-shrink: 0;
-      animation: livePulse 1s ease-in-out infinite;
-      box-shadow: 0 0 6px 1px rgba(229, 52, 42, 0.6);
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .live-dot { animation: none; }
-    }
-  </style>
 
 </Layout>
