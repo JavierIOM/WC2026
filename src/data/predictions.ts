@@ -2452,6 +2452,10 @@ export const matches: Match[] = [
     confidence: 50,
     conditions: "Deliberate stand vs market (France ~57%): Spain's ball-hoarding style starves the counter (beat this France 2-1 at Euro 2024 semis); Mbappé at 90-95% (Grade 1 ankle); Merino late-winner knack. Tchouaméni doubt; Spain without N. Williams + Pino. ET live.",
     reasoning: "Deliberate stand vs market (France ~57%): Spain's ball-hoarding style starves the counter (beat this France 2-1 at Euro 2024 semis); Mbappé at 90-95% (Grade 1 ankle); Merino late-winner knack. Tchouaméni doubt; Spain without N. Williams + Pino. ET live.",
+    actualHome: 2,
+    actualAway: 0,
+    scorers: ["Oyarzabal 22' pen (Spain)", "Porro 58' (Spain)"],
+    actualNotes: "Yamal drew the pen and had a goal ruled offside; France held to 0.26 xG — Mbappé suffocated. Spain unbeaten 37, into their 2nd-ever final. Called Spain 2-1 (conf 50 vs market ~57% France) — result CORRECT, scorer (Oyarzabal) HIT.",
   },
 
   {
@@ -2491,6 +2495,16 @@ export const matches: Match[] = [
     venue: 'Hard Rock Stadium, Miami',
     home: 'England',
     away: 'France',
+    predHome: 1,
+    predAway: 2,
+    predType: 'favourite-tight',
+    scorerCall: 'Mbappé',
+    scorerCallType: 'score-or-assist',
+    confidence: 52,
+    actualHome: 6,
+    actualAway: 4,
+    scorers: ["Rice 3' (England)", "Konsa (England)", "Saka (England)", "Saka (England)", "Mbappé 48' (France)", "Barcola (France)", "Mbappé (France)", "Saka 87' pen (England)", "Dembélé 90+ (France)", "Bellingham (England)"],
+    actualNotes: "Prediction (France 2-1, conf 52, Mbappé) was issued pre-kickoff Sat ~15:00 — site sync was late, values match the Craft record. Instant classic: 4-0 HT, Saka hat-trick, Mbappé brace = all-time WC top scorer (22) + Boot 10; Kane didn't play. Result MISS, scorer (Mbappé) HIT. England's best finish since 1966.",
   },
 
   // ── FINAL ──────────────────────────────────────────────────────────────────
