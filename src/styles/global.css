@@ -17,6 +17,36 @@
 
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-display: 'Barlow Condensed', 'Arial Narrow', system-ui, sans-serif;
+
+  /* Fluid type scale — clamp(min, preferred, max). Use these for new/rewritten
+     markup rather than hand-picking a font-size per element. */
+  --text-2xs: clamp(0.68rem, 0.66rem + 0.1vw, 0.72rem);
+  --text-xs: clamp(0.78rem, 0.76rem + 0.1vw, 0.82rem);
+  --text-sm: clamp(0.84rem, 0.82rem + 0.1vw, 0.88rem);
+  --text-base: clamp(0.95rem, 0.9rem + 0.25vw, 1.05rem);
+  --text-lg: clamp(1.2rem, 1.1rem + 0.5vw, 1.5rem);
+  --text-xl: clamp(1.6rem, 1.3rem + 1.5vw, 2.2rem);
+  --text-2xl: clamp(2rem, 1.5rem + 2.5vw, 3.2rem);
+  --text-hero: clamp(2.5rem, 1.8rem + 4vw, 5.5rem);
+
+  /* Spacing scale for section rhythm */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+
+  /* Shape lock: badges/pills stay small and functional, cards get a softer
+     radius, hero/section wrappers get the biggest radius. One scale, used
+     everywhere — do not introduce a fourth radius. */
+  --radius-badge: 4px;
+  --radius-card: 12px;
+  --radius-section: 20px;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 *,
@@ -131,12 +161,48 @@ body {
 .match-card {
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: 8px;
+  border-radius: var(--radius-card);
   overflow: hidden;
   transition: border-color 0.15s;
 }
 .match-card:hover {
   border-color: var(--color-border-2);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .match-card {
+    transition: border-color 0.15s, transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+  }
+  .match-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.28);
+  }
+  [data-theme="light"] .match-card:hover {
+    box-shadow: 0 8px 24px rgb(34 34 34 / 0.08);
+  }
+}
+
+/* Scroll-reveal: fade + rise, hardware-accelerated (opacity/transform only).
+   Gated behind an html.js flag (set by Layout.astro) so content stays fully
+   visible with JS disabled or before the observer script runs. */
+html.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+}
+@media (prefers-reduced-motion: no-preference) {
+  html.js [data-reveal] {
+    transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+    transition-delay: var(--reveal-delay, 0s);
+  }
+}
+html.js [data-reveal].is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Tabular numerals for every stat/score number site-wide, not just score-display */
+.stat-number,
+.score-display {
+  font-variant-numeric: tabular-nums;
 }
 
 /* Sticky header */

@@ -31,6 +31,7 @@ const onAbout = path.startsWith('/about');
 <!doctype html>
 <html lang="en">
   <head>
+    <script is:inline>document.documentElement.classList.add('js');</script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
@@ -118,6 +119,30 @@ const onAbout = path.startsWith('/about');
         localStorage.setItem('theme', next);
         applyTheme(next);
       });
+    </script>
+
+    <script>
+      // Scroll-reveal: adds .is-in to [data-reveal] elements as they enter the
+      // viewport. Reduced motion or no IntersectionObserver support: reveal
+      // everything immediately instead of animating.
+      const revealEls = document.querySelectorAll<HTMLElement>('[data-reveal]');
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (revealEls.length) {
+        if (reduceMotion || !('IntersectionObserver' in window)) {
+          revealEls.forEach(el => el.classList.add('is-in'));
+        } else {
+          const io = new IntersectionObserver((entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-in');
+                io.unobserve(entry.target);
+              }
+            }
+          }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+          revealEls.forEach(el => io.observe(el));
+        }
+      }
     </script>
 
     <main style="max-width:860px;margin:0 auto;padding:2.5rem 1.25rem 5rem;">
