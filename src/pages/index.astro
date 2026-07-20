@@ -11,13 +11,29 @@ const stats = computeStats(matches);
   <!-- ── HERO: SPAIN, WORLD CHAMPIONS ─────────────────────────────────────── -->
   <section id="outright" style="margin-bottom:var(--space-7);">
 
-    <!-- Huge Spanish flag banner — pure graphic device, angled bottom edge -->
+    <!-- Huge Spanish flag banner with angled bottom edge, headline overlaid -->
     <div
-      style="width:calc(100% + 2.5rem);margin-left:-1.25rem;height:clamp(240px,38vw,440px);display:flex;flex-direction:column;margin-bottom:var(--space-6);clip-path:polygon(0 0, 100% 0, 100% 90%, 0 100%);"
+      style="position:relative;width:calc(100% + 2.5rem);margin-left:-1.25rem;height:clamp(280px,45vw,520px);margin-bottom:var(--space-6);clip-path:polygon(0 0, 100% 0, 100% 90%, 0 100%);"
     >
-      <div style="flex:1;background:#AA151B;"></div>
-      <div style="flex:2;background:#F1BF00;"></div>
-      <div style="flex:1;background:#AA151B;"></div>
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;">
+        <div style="flex:1;background:#AA151B;"></div>
+        <div style="flex:2;background:#F1BF00;"></div>
+        <div style="flex:1;background:#AA151B;"></div>
+      </div>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:0 1.5rem;">
+        <div style="text-align:center;">
+          <div
+            style="font-family:var(--font-display);font-weight:800;font-size:clamp(2.5rem,9vw,5.5rem);letter-spacing:0.03em;color:#AA151B;line-height:0.95;text-shadow:0 2px 0 rgb(255 255 255/0.35);"
+          >
+            SPAIN
+          </div>
+          <div
+            style="font-family:var(--font-display);font-weight:700;font-size:clamp(1rem,2.8vw,1.75rem);letter-spacing:0.16em;text-transform:uppercase;color:#7a0e12;margin-top:0.5rem;"
+          >
+            World Champions 2026
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Asymmetric split: headline/call left-heavy, stat trio offset right -->
