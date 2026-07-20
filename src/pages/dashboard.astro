@@ -102,39 +102,55 @@ const scorerPct = stats.scorerTotal > 0
     >
 
       <!-- Results -->
-      <div style="background-color:var(--color-surface);border:1px solid var(--color-border);border-radius:8px;padding:1.25rem 1.5rem;display:flex;flex-direction:column;gap:0.25rem;">
+      <div class="dash-stat-card" style="background-color:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-card);padding:1.25rem 1.5rem;display:flex;flex-direction:column;gap:0.25rem;">
         <p class="section-label">Results</p>
         <div style="display:flex;align-items:baseline;gap:0.35rem;margin-top:0.25rem;">
-          <span style="font-family:var(--font-display);font-size:3.5rem;font-weight:800;line-height:1;color:var(--color-correct);">{stats.resultCorrect}</span>
+          <span class="stat-number" style="font-family:var(--font-display);font-size:3.5rem;font-weight:800;line-height:1;color:var(--color-correct);">{stats.resultCorrect}</span>
           <span style="font-family:var(--font-display);font-size:1.75rem;font-weight:700;color:var(--color-muted);">/ {stats.resultTotal}</span>
         </div>
-        <p style="font-size:0.72rem;color:var(--color-muted);margin-top:0.1rem;">{resultPct}% correct</p>
+        <p style="font-size:var(--text-2xs);color:var(--color-muted);margin-top:0.1rem;">{resultPct}% correct</p>
       </div>
 
       <!-- Exact scorelines -->
-      <div style="background-color:var(--color-surface);border:1px solid var(--color-border);border-radius:8px;padding:1.25rem 1.5rem;display:flex;flex-direction:column;gap:0.25rem;">
+      <div class="dash-stat-card" style="background-color:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-card);padding:1.25rem 1.5rem;display:flex;flex-direction:column;gap:0.25rem;">
         <p class="section-label">Exact scorelines</p>
         <div style="display:flex;align-items:baseline;gap:0.35rem;margin-top:0.25rem;">
-          <span style="font-family:var(--font-display);font-size:3.5rem;font-weight:800;line-height:1;color:var(--color-exact);">{stats.resultExact}</span>
+          <span class="stat-number" style="font-family:var(--font-display);font-size:3.5rem;font-weight:800;line-height:1;color:var(--color-exact);">{stats.resultExact}</span>
           <span style="font-family:var(--font-display);font-size:1.75rem;font-weight:700;color:var(--color-muted);">/ {stats.resultTotal}</span>
         </div>
-        <p style="font-size:0.72rem;color:var(--color-muted);margin-top:0.1rem;">Bang on the scoreline</p>
+        <p style="font-size:var(--text-2xs);color:var(--color-muted);margin-top:0.1rem;">Bang on the scoreline</p>
       </div>
 
       <!-- Scorer calls -->
-      <div style="background-color:var(--color-surface);border:1px solid var(--color-border);border-radius:8px;padding:1.25rem 1.5rem;display:flex;flex-direction:column;gap:0.25rem;">
+      <div class="dash-stat-card" style="background-color:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-card);padding:1.25rem 1.5rem;display:flex;flex-direction:column;gap:0.25rem;">
         <p class="section-label">Scorer calls</p>
         <div style="display:flex;align-items:baseline;gap:0.35rem;margin-top:0.25rem;">
-          <span style="font-family:var(--font-display);font-size:3.5rem;font-weight:800;line-height:1;color:var(--color-accent);">{stats.scorerPositive}</span>
+          <span class="stat-number" style="font-family:var(--font-display);font-size:3.5rem;font-weight:800;line-height:1;color:var(--color-accent);">{stats.scorerPositive}</span>
           <span style="font-family:var(--font-display);font-size:1.75rem;font-weight:700;color:var(--color-muted);">/ {stats.scorerTotal}</span>
         </div>
-        <p style="font-size:0.72rem;color:var(--color-muted);margin-top:0.1rem;">{scorerPct}% hit or assist</p>
+        <p style="font-size:var(--text-2xs);color:var(--color-muted);margin-top:0.1rem;">{scorerPct}% hit or assist</p>
       </div>
 
     </div>
 
+    <style>
+      @media (prefers-reduced-motion: no-preference) {
+        .dash-stat-card {
+          transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), border-color 0.15s;
+        }
+        .dash-stat-card:hover {
+          transform: translateY(-2px);
+          border-color: var(--color-border-2);
+          box-shadow: 0 8px 24px rgb(0 0 0 / 0.28);
+        }
+        [data-theme="light"] .dash-stat-card:hover {
+          box-shadow: 0 8px 24px rgb(34 34 34 / 0.08);
+        }
+      }
+    </style>
+
     <!-- Bar chart -->
-    <div style="background-color:var(--color-surface);border:1px solid var(--color-border);border-radius:8px;padding:1.25rem 1.5rem;">
+    <div style="background-color:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-card);padding:1.25rem 1.5rem;">
       <p class="section-label" style="margin-bottom:1rem;">Result accuracy by matchday</p>
 
       {barData.every(d => d.pct === null) ? (
@@ -209,7 +225,7 @@ const scorerPct = stats.scorerTotal > 0
     </div>
 
     <!-- Calibration -->
-    <div style="background-color:var(--color-surface);border:1px solid var(--color-border);border-radius:8px;padding:1.25rem 1.5rem;margin-top:1.5rem;">
+    <div style="background-color:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-card);padding:1.25rem 1.5rem;margin-top:1.5rem;">
       <p class="section-label" style="margin-bottom:0.25rem;">Confidence calibration</p>
       <p style="font-size:0.75rem;color:var(--color-muted);margin-bottom:1.25rem;">Predicted confidence vs actual hit rate. Dots above the diagonal = overconfident; below = underconfident.</p>
 

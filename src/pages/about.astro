@@ -42,7 +42,7 @@ import Layout from '../layouts/Layout.astro';
       How the scoring works
     </h2>
 
-    <div style="display:flex;flex-direction:column;gap:0.6rem;margin-bottom:1.5rem;">
+    <div class="legend-grid" style="margin-bottom:1.5rem;">
       {[
         { badge: 'badge-exact',   label: 'EXACT',   desc: 'Predicted the correct scoreline: the right result and the right goals.' },
         { badge: 'badge-correct', label: 'CORRECT', desc: 'Got the right outcome (win/draw/loss) but the scoreline was off.' },
@@ -50,7 +50,7 @@ import Layout from '../layouts/Layout.astro';
         { badge: 'badge-pending', label: 'PENDING', desc: "Match hasn't been played yet. Prediction is locked in, result is not." },
       ].map(({ badge, label, desc }) => (
         <div
-          style="display:flex;align-items:flex-start;gap:0.875rem;background-color:var(--color-surface);border:1px solid var(--color-border);border-radius:6px;padding:0.75rem 1rem;"
+          style="display:flex;align-items:flex-start;gap:0.875rem;background-color:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-card);padding:0.75rem 1rem;"
         >
           <span class={`badge ${badge}`} style="margin-top:2px;flex-shrink:0;">{label}</span>
           <span style="font-size:0.84rem;color:var(--color-text);opacity:0.8;line-height:1.6;">{desc}</span>
@@ -74,7 +74,7 @@ import Layout from '../layouts/Layout.astro';
       Prediction types
     </h2>
 
-    <div style="display:flex;flex-direction:column;gap:0.6rem;margin-bottom:1.5rem;">
+    <div class="legend-grid" style="margin-bottom:1.5rem;">
       {[
         { badge: 'predtype-mismatch',        label: 'Mismatch',      desc: 'Clear quality gap. A multi-goal margin is on the table.' },
         { badge: 'predtype-favourite',       label: 'Favourite',     desc: 'Confident favourite call. Expecting a comfortable win, but not a mismatch.' },
@@ -83,7 +83,7 @@ import Layout from '../layouts/Layout.astro';
         { badge: 'predtype-rule-bend',       label: 'Rule bend',     desc: 'Going against the method slightly. Noted explicitly and explained.' },
       ].map(({ badge, label, desc }) => (
         <div
-          style="display:flex;align-items:flex-start;gap:0.875rem;background-color:var(--color-surface);border:1px solid var(--color-border);border-radius:6px;padding:0.75rem 1rem;"
+          style="display:flex;align-items:flex-start;gap:0.875rem;background-color:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-card);padding:0.75rem 1rem;"
         >
           <span class={`badge ${badge}`} style="margin-top:2px;flex-shrink:0;">{label}</span>
           <span style="font-size:0.84rem;color:var(--color-text);opacity:0.8;line-height:1.6;">{desc}</span>
@@ -131,5 +131,18 @@ import Layout from '../layouts/Layout.astro';
     </a>
 
   </section>
+
+  <style>
+    .legend-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.6rem;
+    }
+    @media (max-width: 620px) {
+      .legend-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 
 </Layout>
