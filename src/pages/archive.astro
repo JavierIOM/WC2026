@@ -46,47 +46,57 @@ const stats = computeStats(matches);
 
     <p class="section-label" style="margin-bottom:0.75rem;">Archive</p>
     <h1
-      style="font-family:var(--font-display);font-size:clamp(2.2rem,6vw,3.5rem);font-weight:800;letter-spacing:0.01em;text-transform:uppercase;line-height:0.95;color:var(--color-text);margin-bottom:0.5rem;"
+      style="font-family:var(--font-display);font-size:var(--text-2xl);font-weight:800;letter-spacing:0.01em;text-transform:uppercase;line-height:0.95;color:var(--color-text);margin-bottom:0.5rem;"
     >
       Full Match Archive
     </h1>
-    <p style="font-size:0.85rem;color:var(--color-muted);margin-bottom:1.25rem;">
+    <p style="font-size:var(--text-sm);color:var(--color-muted);margin-bottom:1.25rem;">
       All {formalMatches.length} predictions and results, from Group A to the Final.
       Tournament summary on the <a href="/" style="color:var(--color-accent);text-decoration:none;">main page</a>.
     </p>
 
     <!-- Full tournament tally -->
     {stats.resultTotal > 0 && (
-      <div style="display:flex;gap:1.5rem;flex-wrap:wrap;margin-bottom:2.5rem;padding:1rem 1.25rem;background:var(--color-surface);border:1px solid var(--color-border);border-radius:8px;">
+      <div style="display:flex;gap:1.5rem;flex-wrap:wrap;margin-bottom:1.5rem;padding:1rem 1.25rem;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-card);">
         <div style="text-align:center;">
-          <div style="font-family:var(--font-display);font-size:2rem;font-weight:800;color:var(--color-correct);line-height:1;">
+          <div class="stat-number" style="font-family:var(--font-display);font-size:2rem;font-weight:800;color:var(--color-correct);line-height:1;">
             {stats.resultCorrect}<span style="font-size:1.1rem;color:var(--color-muted);">/{stats.resultTotal}</span>
           </div>
-          <div style="font-size:0.7rem;color:var(--color-muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:2px;">Results</div>
+          <div style="font-size:var(--text-2xs);color:var(--color-muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:2px;">Results</div>
         </div>
         <div style="text-align:center;">
-          <div style="font-family:var(--font-display);font-size:2rem;font-weight:800;color:var(--color-exact);line-height:1;">
+          <div class="stat-number" style="font-family:var(--font-display);font-size:2rem;font-weight:800;color:var(--color-exact);line-height:1;">
             {stats.resultExact}
           </div>
-          <div style="font-size:0.7rem;color:var(--color-muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:2px;">Exact</div>
+          <div style="font-size:var(--text-2xs);color:var(--color-muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:2px;">Exact</div>
         </div>
         <div style="text-align:center;">
-          <div style="font-family:var(--font-display);font-size:2rem;font-weight:800;color:var(--color-accent);line-height:1;">
+          <div class="stat-number" style="font-family:var(--font-display);font-size:2rem;font-weight:800;color:var(--color-accent);line-height:1;">
             {stats.scorerPositive}<span style="font-size:1.1rem;color:var(--color-muted);">/{stats.scorerTotal}</span>
           </div>
-          <div style="font-size:0.7rem;color:var(--color-muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:2px;">Scorers</div>
+          <div style="font-size:var(--text-2xs);color:var(--color-muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:2px;">Scorers</div>
         </div>
       </div>
     )}
+
+    <!-- Quick-jump strip — sticky under the header, genuinely useful for a 97-match index -->
+    <nav
+      aria-label="Jump to round"
+      class="quick-jump"
+      style="display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:2rem;padding:0.6rem 0;border-bottom:1px solid var(--color-border);"
+    >
+      {knockoutRounds.map(({ round }) => (
+        <a href={`#round-${round}`} class="quick-jump-link">{round}</a>
+      ))}
+      {groupData.length > 0 && <a href="#groups" class="quick-jump-link">Groups</a>}
+    </nav>
 
     <!-- Knockout rounds -->
     {knockoutRounds.length > 0 && (
       <div style="display:flex;flex-direction:column;gap:2.5rem;margin-bottom:3rem;">
         {knockoutRounds.map(({ round, matches: roundMatches }) => (
-          <div>
-            <h2
-              style="font-family:var(--font-display);font-size:1.05rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-muted);margin:0 0 0.75rem;padding-bottom:0.5rem;border-bottom:1px solid var(--color-border);"
-            >
+          <div id={`round-${round}`} class="anchor-target">
+            <h2 class="archive-heading">
               {ROUND_NAMES[round] ?? round}
             </h2>
             <div style="display:flex;flex-direction:column;gap:0.75rem;">
@@ -100,19 +110,17 @@ const stats = computeStats(matches);
     )}
 
     <!-- Group stage -->
-    <h2 class="section-label" style="margin:0 0 1rem;">Group stage</h2>
+    <h2 id="groups" class="archive-heading anchor-target">Group stage</h2>
     {groupData.length === 0 ? (
-      <p style="font-size:0.85rem;color:var(--color-muted);">No group stage matches logged.</p>
+      <p style="font-size:var(--text-sm);color:var(--color-muted);">No group stage matches logged.</p>
     ) : (
       <div style="display:flex;flex-direction:column;gap:2.5rem;">
         {groupData.map(({ grp, matches: grpMatches }) => (
           <div>
-            <h3
-              style="font-family:var(--font-display);font-size:1.05rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-muted);margin:0 0 0.75rem;padding-bottom:0.5rem;border-bottom:1px solid var(--color-border);"
-            >
+            <h3 class="archive-heading" style="font-size:var(--text-base);">
               Group {grp}
             </h3>
-            <div style="display:flex;flex-direction:column;gap:0.75rem;">
+            <div class="group-matches-grid">
               {grpMatches.map(match => (
                 <MatchCard match={match} />
               ))}
@@ -123,5 +131,72 @@ const stats = computeStats(matches);
     )}
 
   </section>
+
+  <style>
+    .quick-jump {
+      position: sticky;
+      top: 45px;
+      z-index: 40;
+      background-color: var(--color-bg);
+    }
+    .quick-jump-link {
+      font-family: var(--font-display);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      text-decoration: none;
+      padding: 0.3rem 0.7rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-badge);
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .quick-jump-link:hover {
+      color: var(--color-text);
+      border-color: var(--color-border-2);
+    }
+    /* Clearance for anchor jumps so headings land below the sticky header +
+       quick-jump strip instead of underneath them. */
+    .anchor-target {
+      scroll-margin-top: 7rem;
+    }
+    /* Below 460px the site header wraps to multiple stacked lines (see
+       Layout.astro's own @media max-width:460px rule), so the sticky
+       quick-jump strip needs a taller top offset to clear it, and anchor
+       jumps need matching extra clearance. */
+    @media (max-width: 460px) {
+      .quick-jump {
+        top: 132px;
+      }
+      .anchor-target {
+        scroll-margin-top: 13rem;
+      }
+    }
+
+    .archive-heading {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--color-text);
+      margin: 0 0 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--color-accent);
+      display: inline-block;
+    }
+
+    .group-matches-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+    }
+    @media (max-width: 768px) {
+      .group-matches-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 
 </Layout>
