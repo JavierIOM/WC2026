@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.0] — 2026-07-20
+
+### Changed
+Full visual overhaul, directed by a taste-skill design pass (dial reading before: variance 2,
+motion 1, density 4 — "predictable, static, single-column everywhere"). Six phases:
+- **Design system foundation**: fluid type scale, spacing scale, and shape-lock radius tokens in
+  `global.css` (badges 4px, cards 12px, sections 20px). Scroll-reveal primitive (`[data-reveal]`
+  + a small IntersectionObserver script in `Layout.astro`), progressive-enhancement safe and
+  gated behind `prefers-reduced-motion`.
+- **Homepage hero**: replaced the centered banner-then-stacked-content hero with an asymmetric
+  split (angled-edge flag as a pure graphic device, headline/stats offset below) and dropped two
+  of three eyebrow labels that were violating the skill's own eyebrow-restraint rule.
+- **MatchCard**: 12px radius + hover lift everywhere it's used; thinned the header badge row by
+  moving pred-type out of a fourth pill into small coloured text next to the prediction score.
+- **Archive**: sticky quick-jump strip (R32 · R16 · QF · SF · 3RD · F · Groups), group-stage
+  matches in a 2-column grid, bolder underlined headings instead of muted eyebrows.
+- **Dashboard/About light-touch pass**: card radius + hover consistency on Dashboard's stat
+  cards; About's two badge-legend lists became a 2-column grid. Copy and chart logic untouched.
+- Caught and fixed two em-dashes introduced during the pass, a headline line-wrap bug, and a
+  mobile sticky-nav clipping bug (inline `scroll-margin-top` was silently beating a later
+  stylesheet media-query override — moved both values onto a shared class).
+
+Verified throughout via headless Puppeteer screenshots (dark + light theme, desktop + 390px
+mobile, plus a DOM-measurement diagnostic for the sticky-nav bug) rather than just reading markup.
+
 ## [1.1.0] — 2026-07-20
 
 ### Changed
