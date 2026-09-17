@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.1] - 2026-09-17
+
+### Changed
+- Auto-Update Match Results no longer runs on a schedule. The tournament finished on 19 July 2026, but the workflow kept firing every 3 hours, roughly 480 runs with no matches left to find. `workflow_dispatch` is kept, so it can still be triggered by hand, and the cron line is commented in place for the next tournament.
+
 ## [1.2.0] — 2026-07-20
 
 ### Changed

@@ -1,8 +1,15 @@
 name: Auto-Update Match Results
 
 on:
-  schedule:
-    - cron: '0 */3 * * *'
+  # Scheduled run removed 17 Sep 2026. The tournament finished on 19 July 2026,
+  # so this had been firing every 3 hours, 8 times a day, for two months with no
+  # matches left to find: roughly 480 pointless runs. It also holds an Anthropic
+  # key, and an unattended job nobody watches is not worth keeping alive for a
+  # feed that will never change again.
+  #
+  # To bring it back for the next tournament, restore:
+  #   schedule:
+  #     - cron: '0 */3 * * *'
   workflow_dispatch:
 
 jobs:
